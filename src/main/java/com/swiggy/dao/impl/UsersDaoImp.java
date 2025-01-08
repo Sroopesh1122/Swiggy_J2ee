@@ -1,4 +1,4 @@
-package com.swiggy.dao;
+package com.swiggy.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import com.swiggy.dao.UsersDao;
 import com.swiggy.db.DBConnection;
 import com.swiggy.dto.Users;
 
@@ -17,7 +18,7 @@ public class UsersDaoImp implements UsersDao{
 	}
 	@Override
 	public Users insertUsers(Users u) {
-   String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,?)";
+     String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,?)";
 		int res = 0;
 		
 		PreparedStatement preparedStatement=null;
