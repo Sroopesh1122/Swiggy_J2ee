@@ -74,17 +74,14 @@
   
   .form-group{
       width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap:5px;
-      border: 1px solid #efefef;
-      padding: 2px 9px;
-      border-radius: 15px;
+     
+     
    }
    
    .form-group input{
-    border: none !important;
+    border: 1px solid #efefef;
+      padding: 2px 9px;
+      border-radius: 15px;
    }
   
     .form-footer{
@@ -178,7 +175,11 @@
 	 padding: 5px;
 	}
 } 
-
+.error{
+	font-size: 0.8rem;
+	color: red;
+	margin-left: 0.5rem;
+}
 
 </style>
  
@@ -213,38 +214,38 @@
     </div>
     
     
-      <form action="" class="signin-form-wrapper">
+      <form action="" class="signin-form-wrapper" id="signup">
     
        <h4 class="text-center">Sign Up</h4>
 
         <div class="form-group">
-            <i class="fa-solid fa-user"></i><input type="text" class="form-control" placeholder="Name" name="Name" id="fname">
+            <input type="text" class="form-control" placeholder="Name" name="name" id="fname">
         </div>
 
 
         <div class="form-group">
-            <i class="fa-solid fa-envelope"></i>
+            
             <input type="email" class="form-control" placeholder="email" name="email" id="email">
         </div>
 
         <div class="form-group">
-            <i class="fa-solid fa-phone"></i>
-            <input type="password" class="form-control" name="phone" placeholder="phone" id="password">
+            
+            <input type="number" class="form-control" name="phone" placeholder="phone" id="phone">
         </div>
 
         <div class="form-group">
-            <i class="fa-solid fa-location-pin"></i>
-            <input type="password" class="form-control" placeholder="Address">
+           
+            <input type="text" class="form-control" name="address" placeholder="Address">
         </div>
 
         <div class="form-group">
-            <i class="fa-solid fa-key"></i>
-            <input type="text" class="form-control" name="passsword" id="password" placeholder="Password">
+            
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
         <div class="form-group">
-            <i class="fa-solid fa-key"></i>
-            <input type="text" class="form-control" name="passsword" id="password" placeholder="Confirm password">
+            
+            <input type="password" class="form-control" name="confirmPassword" id="password" placeholder="Confirm password">
         </div>
 
         
@@ -261,7 +262,78 @@
      
     
     </form>
-
  </div>
+ <script >
+ 	$(document).ready(function () {
+            $("#signup").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3
+                    },
+                    
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    confirmPassword: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#password"
+                    },
+                    phone: {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    address: {
+                        required: true
+                    }
+                },
+                messages: {
+                    name:{
+                    	required: "Please enter a valid name",
+                    	minlength:"Name must be at least 3 characters long"
+                    },
+                    email: {
+                    	required: "Please enter email",
+                   	 	email: "Please enter a valid email address"
+                    },
+                    password:{
+                    	required:"Please enter your password",
+                    	minlength:"Password must be at least 6 characters long"
+                    } ,
+                    confirmPassword: {
+                        required: "Please confirm your password",
+                        equalTo: "Passwords do not match",
+                        minlength:"Password must be at least 6 characters long"
+                    },
+                    phone:{
+                    	required: "Please enetr your mobile number",
+                    	maxlength: "Please enter a valid 10-digit mobile number",
+                    	 minlength:"Please enter a valid 10-digit mobile number",
+                    } ,
+                    address: {
+                    	required:"Please enter your address"
+                    }
+                },
+                errorElement: "div",
+                errorPlacement: function (error, element) {
+                    error.addClass("error");
+                    error.insertAfter(element);
+                },
+                highlight: function (element) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
