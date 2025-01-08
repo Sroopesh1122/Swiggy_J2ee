@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuItems {
+public class MenuItem {
 
 	private Integer  itemId;
 	private  Integer  restaurantId;

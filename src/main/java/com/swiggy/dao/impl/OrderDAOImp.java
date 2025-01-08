@@ -23,7 +23,7 @@ private Connection connection;
 		int result =0;
 		String insertQuery="INSERT INTO orders (user_id, restaurant_id, total_amount, status, created_at) VALUES (?, ?, ?, ?, now())";
 		try {
-			
+			connection.setAutoCommit(false);
 			preparedStatement=connection.prepareStatement(insertQuery);
 			preparedStatement.setInt(1, orders.getUserId());
 			preparedStatement.setInt(2, orders.getRestaurantId());
@@ -32,14 +32,20 @@ private Connection connection;
 
 			result=preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		if(result >0) {
+			try {
+				connection.commit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			return orders;
 		}
 		return null;
+		
 	}
 	@Override
 	public Orders getOrderById(int orderId) {
@@ -153,6 +159,60 @@ if(resultSet.next()) {
 				return true;
 			}
 		return false;
+	}
+	@Override
+	public Orders getOrderByuserId(int userId) {
+		String selectQuery="select * from where  order_id=?";
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet =null;
+		Orders order=null;
+
+		try {
+			preparedStatement=connection.prepareStatement(selectQuery);
+			preparedStatement.setInt(1, userId);
+			resultSet=preparedStatement.executeQuery();
+		if(resultSet.next()) {
+			order= new Orders();
+			order.setOrderId(resultSet.getInt(1));
+			order.setUserId(resultSet.getInt(2));
+			order.setRestaurantId(resultSet.getInt(3));
+			order.setTotalAmount(resultSet.getDouble(4));
+			order.setStatus(resultSet.getString(5));
+			order.setCreatedAt(resultSet.getTimestamp(6));
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+				return order;
+	}
+	@Override
+	public Orders getOrderByRestaurantId(int restaurantId) {
+		String selectQuery="select * from where  order_id=?";
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet =null;
+		Orders order=null;
+
+		try {
+			preparedStatement=connection.prepareStatement(selectQuery);
+			preparedStatement.setInt(1, restaurantId);
+			resultSet=preparedStatement.executeQuery();
+		if(resultSet.next()) {
+			order= new Orders();
+			order.setOrderId(resultSet.getInt(1));
+			order.setUserId(resultSet.getInt(2));
+			order.setRestaurantId(resultSet.getInt(3));
+			order.setTotalAmount(resultSet.getDouble(4));
+			order.setStatus(resultSet.getString(5));
+			order.setCreatedAt(resultSet.getTimestamp(6));
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+				return order;
 	}
 	
 	

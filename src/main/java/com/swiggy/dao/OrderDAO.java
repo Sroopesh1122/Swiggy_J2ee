@@ -7,9 +7,11 @@ import com.swiggy.dto.Orders;
 
 
 public interface OrderDAO {
-   public Orders insertOrder(Orders orders);
+  public Orders insertOrder(Orders orders);
   public  Orders getOrderById(int orderId);
   public  List<Orders> getAllOrders();
   public Orders updateOrder(Orders order);
   public boolean deleteOrder(int orderId);
+  public Orders getOrderByuserId(int userId);
+  public Orders getOrderByRestaurantId(int restaurantId);
 }
