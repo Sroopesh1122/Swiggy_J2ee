@@ -4,20 +4,17 @@ import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Restaurants {
+public class DeliveryPartners {
 
-	private Integer restaurantsId;
+	private Integer partnerId;
 	private String name;
-	private String address;
 	private String phoneNumber;
-	private Double  rating;
-	private Timestamp  createdAt;
+	private  String vehicleDetails;
+	private Timestamp createdAt;
 	
 
 }
