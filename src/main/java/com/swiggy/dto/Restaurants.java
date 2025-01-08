@@ -18,6 +18,8 @@ public class Restaurants {
 	private String phoneNumber;
 	private Double  rating;
 	private Timestamp  createdAt;
+	private String password;
+	private String email;
 	
 
 }
