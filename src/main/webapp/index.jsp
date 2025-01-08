@@ -120,7 +120,7 @@ body {
           </article>
           <article class="home-info-footer">
                <a class="home-btn" href="<%=request.getContextPath()+"/customer/SignIn.jsp"%>"><i class="fa-solid fa-users"></i> Customer Login</a>
-               <a class="home-btn"><i class="fa-solid fa-building"></i> Restaurant Login</a>
+               <a class="home-btn" href="<%=request.getContextPath()+"/restaurant/SignIn.jsp"%>"><i class="fa-solid fa-building"></i> Restaurant Login</a>
           </article>
        </section>
    </div>

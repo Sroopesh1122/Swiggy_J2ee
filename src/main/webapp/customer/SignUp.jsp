@@ -181,6 +181,11 @@
 	margin-left: 0.5rem;
 }
 
+	input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+  }
 </style>
  
  
@@ -225,12 +230,12 @@
 
         <div class="form-group">
             
-            <input type="email" class="form-control" placeholder="email" name="email" id="email">
+            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         <div class="form-group">
             
-            <input type="number" class="form-control" name="phone" placeholder="phone" id="phone">
+            <input type="number" class="form-control" name="phone" placeholder="Phone" id="phone" min="0">
         </div>
 
         <div class="form-group">
@@ -288,7 +293,8 @@
                     phone: {
                         required: true,
                         minlength: 10,
-                        maxlength: 10
+                        maxlength: 10,
+                        matches:"[0-9]+" 
                     },
                     address: {
                         required: true

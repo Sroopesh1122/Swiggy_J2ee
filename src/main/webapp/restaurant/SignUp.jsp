@@ -184,6 +184,11 @@
 .welcome-card-footer{
  text-align: center;
 }
+input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+  }
 
 </style>
  
@@ -218,29 +223,38 @@
     </div>
     
     
-      <form action="" class="signin-form-wrapper" id="signup">
+      <form action="" class="signin-form-wrapper" id="restarentSignup">
       
     
        <h4 class="text-center">Sign Up</h4>
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" name="name" id="fname">
+            <input type="text" class="form-control" placeholder="Restarent name" name="name" id="fname">
         </div>
 
 
         <div class="form-group">
             
-            <input type="email" class="form-control" placeholder="email" name="email" id="email">
+            <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         <div class="form-group">
             
-            <input type="number" class="form-control" name="phone" placeholder="phone" id="phone">
+            <input type="number" class="form-control" name="phone" placeholder="Phone" id="phone" min="0">
         </div>
 
         <div class="form-group">
            
-            <input type="text" class="form-control" name="address" placeholder="Address">
+            <input type="text" class="form-control" name="address" placeholder="Restarent address">
+        </div>
+   	   <!--     
+    	<div class="form-group">
+            <input type="number" class="form-control" name="rating" placeholder="Rating" min="0" max="5">
+        </div>
+        -->  
+         <div class="form-group">
+           
+            <input type="number" class="form-control" name="startedSince" placeholder="Started since"  min="1900" max="2025" >
         </div>
 
         <div class="form-group">
@@ -270,7 +284,7 @@
  </div>
  <script >
  	$(document).ready(function () {
-            $("#signup").validate({
+            $("#restarentSignup").validate({
                 rules: {
                     name: {
                         required: true,
@@ -294,6 +308,14 @@
                         required: true,
                         minlength: 10,
                         maxlength: 10
+                    },
+                    rating:{
+                    	required: true
+                    },
+                    startedSince:{
+                    	required: true,
+                    	minlength: 4,
+                        maxlength: 4
                     },
                     address: {
                         required: true
@@ -322,6 +344,14 @@
                     	maxlength: "Please enter a valid 10-digit mobile number",
                     	 minlength:"Please enter a valid 10-digit mobile number",
                     } ,
+                    rating:{
+                    	required:"Please enter your Rating"
+                    },
+                    startedSince:{
+                    	required:"Please enter your Restaurant strat year",
+                    	maxlength: "Please enter a valid year",
+                       	minlength:"Please enter a valid year"
+                    },
                     address: {
                     	required:"Please enter your address"
                     }
