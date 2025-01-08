@@ -7,5 +7,6 @@ public interface UsersDao {
 	public boolean deleteUsers(Users u);
 	public Users updateUsers(Users u);
 	public Users getUsers(int id);
+
 	public List<Users> getUsers();
 }

@@ -1,4 +1,4 @@
-package com.swiggy.dao;
+package com.swiggy.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.swiggy.dao.OrderDAO;
 import com.swiggy.db.DBConnection;
 import com.swiggy.dto.Orders;
 
@@ -22,6 +23,7 @@ private Connection connection;
 		int result =0;
 		String insertQuery="INSERT INTO orders (user_id, restaurant_id, total_amount, status, created_at) VALUES (?, ?, ?, ?, now())";
 		try {
+			
 			preparedStatement=connection.prepareStatement(insertQuery);
 			preparedStatement.setInt(1, orders.getUserId());
 			preparedStatement.setInt(2, orders.getRestaurantId());
@@ -34,9 +36,10 @@ private Connection connection;
 			e.printStackTrace();
 		}
 		if(result >0) {
-			return null;
+			
+			return orders;
 		}
-		return orders;
+		return null;
 	}
 	@Override
 	public Orders getOrderById(int orderId) {
@@ -93,13 +96,20 @@ if(resultSet.next()) {
 		return orders;
 	}
 	@Override
-	public boolean updateOrder(Orders order) {
-		 String updateSql = "UPDATE orders SET user_id = ?, restaurant_id = ?, total_amount = ?, status = ?, created_at = ? WHERE order_id = ?";
+	public Orders updateOrder(Orders order) {
+		 String updateSql = "UPDATE orders SET user_id = ?, restaurant_id = ?, total_amount = ?, status = ? WHERE order_id = ?";
+		 
 		PreparedStatement preparedStatement=null;
+	
 		int resultSet=0;
 		try {
+			connection.setAutoCommit(false);
 			preparedStatement =connection.prepareStatement(updateSql);
-			preparedStatement.setInt(1, order.getOrderId());
+			preparedStatement.setInt(1, order.getUserId());
+			preparedStatement.setInt(2, order.getRestaurantId());
+			preparedStatement.setDouble(3, order.getTotalAmount());
+			preparedStatement.setString(4, order.getStatus());
+			preparedStatement.setInt(5, order.getOrderId());
 			resultSet=preparedStatement.executeUpdate();
 					
 		} catch (SQLException e) {
@@ -107,15 +117,41 @@ if(resultSet.next()) {
 			e.printStackTrace();
 		}
 		if(resultSet>0) {
-			return true;
+			try {
+				connection.commit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return order;
 		}
-		 return false;
+		else {
+			try {
+				connection.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 return null;
+		}
+		
 	}
 	@Override
 	public boolean deleteOrder(int orderId) {
-		String sql = "DELETE FROM orders WHERE order_id = ?";
+		String deleteQuery = "DELETE FROM orders WHERE order_id = ?";
 			PreparedStatement preparedStatement=null;
 			int resultSet=0;
+			try {
+				preparedStatement=connection.prepareStatement(deleteQuery);
+				preparedStatement.setInt(1, orderId);
+				resultSet=preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(resultSet>0) {
+				return true;
+			}
 		return false;
 	}
 	
