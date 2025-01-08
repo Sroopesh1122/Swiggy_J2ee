@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.swiggy.dao.UsersDao;
@@ -18,7 +19,7 @@ public class UsersDaoImp implements UsersDao{
 	}
 	@Override
 	public Users insertUsers(Users u) {
-     String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,?)";
+   String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,?)";
 		int res = 0;
 		
 		PreparedStatement preparedStatement=null;
@@ -128,14 +129,94 @@ public class UsersDaoImp implements UsersDao{
 		}
 	}
 	@Override
-	public Users getUsers(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Users getUser(int userId) {
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		Users u=null;
+		
+		String selectQuery="SELECT * FROM USERS WHERE USER_ID=?";
+
+	
+		try {
+			preparedStatement=con.prepareStatement(selectQuery);
+			preparedStatement.setInt(1, userId);
+			resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				u=new Users();
+				u.setUserId(resultSet.getInt(1));
+				u.setName(resultSet.getString(2));
+				u.setEmail(resultSet.getString(3));
+				u.setPassword(resultSet.getString(4));
+				u.setPhoneNumber(resultSet.getString(5));
+				u.setAddress(resultSet.getString(6));
+				u.setCreatedAt(resultSet.getTimestamp(7));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 	@Override
 	public List<Users> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		Users u=null;
+ArrayList<Users> al=new ArrayList<Users>();
+		
+		String  selectQuery="SELECT * FROM USERS ";
+	
+		try {
+			preparedStatement=con.prepareStatement(selectQuery);
+			
+			resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				u=new Users();
+				u.setUserId(resultSet.getInt(1));
+				u.setName(resultSet.getString(2));
+				u.setEmail(resultSet.getString(3));
+				u.setPassword(resultSet.getString(4));
+				u.setPhoneNumber(resultSet.getString(5));
+				u.setAddress(resultSet.getString(6));
+				u.setCreatedAt(resultSet.getTimestamp(7));
+				al.add(u);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return al;	
+	}
+	public Users getUser(String email) {
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		Users u=null;
+		
+		String selectQuery="SELECT * FROM USERS WHERE EMAIL=?";
+
+	
+		try {
+			preparedStatement=con.prepareStatement(selectQuery);
+			preparedStatement.setString(1, email);
+			resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				u=new Users();
+				u.setUserId(resultSet.getInt(1));
+				u.setName(resultSet.getString(2));
+				u.setEmail(resultSet.getString(3));
+				u.setPassword(resultSet.getString(4));
+				u.setPhoneNumber(resultSet.getString(5));
+				u.setAddress(resultSet.getString(6));
+				u.setCreatedAt(resultSet.getTimestamp(7));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 	
 	

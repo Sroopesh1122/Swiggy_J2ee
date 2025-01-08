@@ -6,6 +6,7 @@ public interface UsersDao {
 	public Users insertUsers(Users u);
 	public boolean deleteUsers(Users u);
 	public Users updateUsers(Users u);
-	public Users getUsers(int id);
+	public Users getUser(int userId);
 	public List<Users> getUsers();
+	public Users getUser(String email);
 }
