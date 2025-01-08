@@ -176,6 +176,10 @@
 	margin-left: 0.5rem;
 }
 
+.welcome-card-footer{
+ text-align: center;
+}
+
 
 </style>
  
@@ -203,8 +207,8 @@
          <img alt="" src="<%=request.getContextPath()+"/imgs/burger.png"%>" class="plate">
       </div>
       
-      <div>
-         Footer
+      <div class="welcome-card-footer">
+         Hello Food Creator! Ready to Serve Something Delicious?
       </div>
     
     </div>
@@ -233,7 +237,7 @@
         
         <div class="form-nav-footer">
            <p class="mb-0">
-                Don't have an account? <a href="<%=request.getContextPath()+"/customer/SignUp.jsp"%>">Sign Up</a>
+                Don't have an account? <a href="<%=request.getContextPath()+"/restaurant/SignUp.jsp"%>">Sign Up</a>
             </p>
         </div>
      
