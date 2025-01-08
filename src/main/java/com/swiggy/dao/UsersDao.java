@@ -8,4 +8,5 @@ public interface UsersDao {
 	public Users updateUsers(Users u);
 	public Users getUser(int userId);
 	public List<Users> getUsers();
+	public Users getUser(String email);
 }

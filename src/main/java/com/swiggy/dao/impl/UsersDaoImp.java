@@ -1,4 +1,4 @@
-package com.swiggy.dao;
+package com.swiggy.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.swiggy.dao.UsersDao;
 import com.swiggy.db.DBConnection;
 import com.swiggy.dto.Users;
 
@@ -216,5 +218,7 @@ ArrayList<Users> al=new ArrayList<Users>();
 		}
 		return u;
 	}
+	
+	
 
 }
