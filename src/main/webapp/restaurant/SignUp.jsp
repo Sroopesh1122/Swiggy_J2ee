@@ -251,12 +251,12 @@ input[type="number"]::-webkit-inner-spin-button,
     	<div class="form-group">
             <input type="number" class="form-control" name="rating" placeholder="Rating" min="0" max="5">
         </div>
-        -->  
+        
          <div class="form-group">
            
             <input type="number" class="form-control" name="startedSince" placeholder="Started since"  min="1900" max="2025" >
         </div>
-
+		-->  
         <div class="form-group">
             
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
