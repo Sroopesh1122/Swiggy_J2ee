@@ -16,6 +16,8 @@
    body{
     width: 100%;
     min-height: 100vh;
+    max-width: 1800px;
+    margin: 0 auto;
     
    }
  
@@ -73,12 +75,24 @@
   }
   .form-group{
       width: 100%;
+      padding-left: 20px;
+     position: relative;
+     border: 1px solid #efefef;
+      border-radius: 15px;
+      margin-bottom: 20px;
+   }
+   
+   .form-icon{
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform:translateY(-50%);
+    
    }
    
    .form-group input{
-   border: 1px solid #efefef;
+      border:none;
       padding: 2px 9px;
-      border-radius: 15px;
    }
   
     .form-footer{
@@ -174,6 +188,8 @@
 	font-size: 0.7rem;
 	color: red;
 	margin-left: 0.5rem;
+	position: absolute;
+	top:100%;
 }
 
 
@@ -217,13 +233,13 @@
 
 
         <div class="form-group" >
-                     <input type="email" class="form-control" placeholder="email" name="email" id="email">
+        <i class="ri-mail-line form-icon"></i> <input type="email" class="form-control" placeholder="email" name="email" id="email">
         </div>
 
         
 
         <div class="form-group">
-            <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+         <i class="ri-lock-line form-icon"></i> <input type="text" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
 
