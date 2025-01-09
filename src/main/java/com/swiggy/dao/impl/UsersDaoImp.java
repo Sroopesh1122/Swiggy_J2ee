@@ -19,7 +19,7 @@ public class UsersDaoImp implements UsersDao{
 	}
 	@Override
 	public Users insertUsers(Users u) {
-   String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,?)";
+   String insertQuery = "INSERT INTO USERS(NAME,EMAIL,PASSWORD,PHONE_NUMBER,ADDRESS,CREATED_AT)VALUES(?,?,?,?,?,sysdate())";
 		int res = 0;
 		
 		PreparedStatement preparedStatement=null;
@@ -30,7 +30,6 @@ public class UsersDaoImp implements UsersDao{
 			preparedStatement.setString(3, u.getPassword());
 			preparedStatement.setString(4, u.getPhoneNumber());
 			preparedStatement.setString(5, u.getAddress());
-			preparedStatement.setTimestamp(6, u.getCreatedAt());
 			res = preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -43,6 +42,7 @@ public class UsersDaoImp implements UsersDao{
 				ResultSet resultSet = preparedStatement.getGeneratedKeys();
 				if (resultSet.next()) { 
 					u.setUserId(resultSet.getInt(1));
+					
 	            }
 				
 			} catch (SQLException e) {

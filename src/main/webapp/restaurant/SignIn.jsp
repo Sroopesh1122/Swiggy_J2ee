@@ -214,25 +214,25 @@
     </div>
     
     
-    <form action="" class="signin-form-wrapper" id="signin">
+    <form action="<%=request.getContextPath()+"/restaurant/signin"%>" class="signin-form-wrapper" method="post" id="signin">
     
        <h4 class="text-center">Sign In</h4>
 
 
 
         <div class="form-group" >
-                     <input type="email" class="form-control" placeholder="email" name="email" id="email">
+                     <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         
 
         <div class="form-group">
-            <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
 
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary mb-3">Sign Up</button>
+            <button type="submit" class="btn btn-primary mb-3">Sign In</button>
         </div>
         
         <div class="form-nav-footer">

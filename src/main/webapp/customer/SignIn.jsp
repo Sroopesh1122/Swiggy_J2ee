@@ -226,25 +226,27 @@
     </div>
     
     
-    <form action="" class="signin-form-wrapper" id="signin">
+    <form method="post" action="<%=request.getContextPath()+"/customer/signin"%>" class="signin-form-wrapper" id="signin">
     
        <h4 class="text-center">Sign In</h4>
 
 
 
         <div class="form-group" >
-        <i class="ri-mail-line form-icon"></i> <input type="email" class="form-control" placeholder="email" name="email" id="email">
+
+        <i class="ri-mail-line form-icon"></i> <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+
         </div>
 
         
 
         <div class="form-group">
-         <i class="ri-lock-line form-icon"></i> <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+         <i class="ri-lock-line form-icon"></i> <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
 
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary mb-3">Sign Up</button>
+            <button type="submit" class="btn btn-primary mb-3">Sign In</button>
         </div>
         
         <div class="form-nav-footer">

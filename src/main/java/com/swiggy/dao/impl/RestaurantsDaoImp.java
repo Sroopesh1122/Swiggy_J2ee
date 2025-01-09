@@ -20,7 +20,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 	}
 	@Override
 	public Restaurants insertRestaurant(Restaurants r) {
-		String insertQuery="INSERT INTO RESTAURANTS(NAME,ADDRESS,PHONE_NUMBER,RATING,CREATED_AT,PASSWORD,EMAIL)VALUES(?,?,?,?,?,?,?)";
+		String insertQuery="INSERT INTO RESTAURANTS(NAME,ADDRESS,PHONE_NUMBER,RATING,CREATED_AT,PASSWORD,EMAIL)VALUES(?,?,?,?,sysdate(),?,?)";
 		
            int res = 0;
 		
@@ -31,9 +31,8 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			preparedStatement.setString(2, r.getAddress());
 			preparedStatement.setString(3, r.getPhoneNumber());
 			preparedStatement.setDouble(4, r.getRating());
-		    preparedStatement.setTimestamp(5, r.getCreatedAt());
-		    preparedStatement.setString(6, r.getPassword());
-		    preparedStatement.setString(7, r.getEmail());
+		    preparedStatement.setString(5, r.getPassword());
+		    preparedStatement.setString(6, r.getEmail());
 			res = preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -214,10 +213,11 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r=new Restaurants();
 				r.setRestaurantsId(resultSet.getInt(1));
 				r.setName(resultSet.getString(2));
-				r.setPhoneNumber(resultSet.getString(3));
-				r.setRating(resultSet.getDouble(4));
-				r.setCreatedAt(resultSet.getTimestamp(5));
-				r.setEmail(resultSet.getString(6));
+				r.setPhoneNumber(resultSet.getString(4));
+				r.setAddress(resultSet.getString(3));
+				r.setRating(resultSet.getDouble(5));
+				r.setCreatedAt(resultSet.getTimestamp(6));
+				r.setEmail(resultSet.getString(8));
 				r.setPassword(resultSet.getString(7));
 			}
 			

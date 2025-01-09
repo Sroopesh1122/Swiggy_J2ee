@@ -194,6 +194,11 @@
 	top:100%;
 }
 
+	input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+  }
 </style>
  
  
@@ -227,7 +232,7 @@
     </div>
     
     
-      <form action="" class="signin-form-wrapper" id="signup">
+      <form method="post" action="<%=request.getContextPath()+"/customer/signup"%>" class="signin-form-wrapper" id="signup">
     
        <h4 class="text-center">Sign Up</h4>
 
@@ -238,12 +243,15 @@
 
         <div class="form-group">
             
-         <i class="ri-mail-line form-icon"></i>   <input type="email" class="form-control" placeholder="email" name="email" id="email">
+
+         <i class="ri-mail-line form-icon"></i>   <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+
         </div>
 
         <div class="form-group">
             
-         <i class="ri-phone-line form-icon"></i>   <input type="number" class="form-control" name="phone" placeholder="phone" id="phone">
+
+         <i class="ri-phone-line form-icon"></i>   <input type="number" class="form-control" name="phone" placeholder="Phone" id="phone">
         </div>
 
         <div class="form-group">
@@ -301,7 +309,8 @@
                     phone: {
                         required: true,
                         minlength: 10,
-                        maxlength: 10
+                        maxlength: 10,
+                        matches:"[0-9]+" 
                     },
                     address: {
                         required: true
