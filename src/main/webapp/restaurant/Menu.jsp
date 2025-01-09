@@ -1,9 +1,33 @@
+<%@page import="com.swiggy.dao.impl.MenuItemsImp"%>
+<%@page import="com.swiggy.dao.MenuItemDAO"%>
+<%@page import="com.swiggy.dto.MenuItems"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<%@include file="/restaurant/RestaurantSession.jsp" %> 
+   
    <%
+    if(restaurants == null)
+    {
+    	response.sendRedirect( request.getContextPath()+"/restaurant/SignIn.jsp");
+    	return;
+    }
     request.setAttribute("menu", "Menu");
    %>
+   
+   
+   
+   <%
+    int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
+    int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;
+   
+    MenuItemDAO menuItemDAO =  new MenuItemsImp();
+    List<MenuItems> menuItems = menuItemDAO.getAllItems(restaurants.getRestaurantsId(),limit,currentPage);
+    int totalCount = menuItemDAO.getMenuItemsCount(restaurants.getRestaurantsId());
+   %>
+   
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +35,7 @@
 <title>Menu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
-
+<link rel="stylesheet" href="<%=request.getContextPath() + "/Pagination.css"%>"></link>
 <style type="text/css">
  body {
 	min-height: 100vh;
@@ -139,6 +163,19 @@
 }
 
 
+.not-found{
+ width: 100%;
+ height: 60vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.not-found p {
+ font-size: 1.5rem;
+}
+
+
 
 </style>
 
@@ -152,7 +189,7 @@
      
      <form action="">
        <input type="text" placeholder="Search">
-       <button>Search</button>
+       <button><i class="ri-search-line"></i></button>
      </form>
      
   </article>
@@ -162,6 +199,24 @@
     <button class="add-btn" onclick="handleAddFoodBtnClick('<%=request.getContextPath()+"/restaurant/AddFood.jsp"%>')">Add Food</button>
   
   </article>
+  
+  
+  <%
+    if(menuItems.size() == 0)
+    {
+    	%>
+    	 
+    	 <section class="not-found">
+    	    
+    	     <p>&#128532; Your  Menu is Empty </p> 
+    	 
+    	 </section>
+    	
+    	<%
+    	return;
+    }
+  
+  %>
   
   
   <section class="menu-item-list-wrapper">
@@ -182,11 +237,48 @@
        </div>
      </article> 
      
-     
-     
-  
-  
   </section>
+  
+  <%
+		int noOfPages = (int) Math.ceil((double) totalCount / limit);
+		int startPage = Math.max(1, currentPage - 2);
+		int endPage = Math.min(noOfPages, currentPage + 2);
+	%>
+  <div class="pagination center my-4">
+
+			<%
+			if (currentPage > 1) {
+			%>
+			<a class="pagination-btn center" href="#">Prev</a>
+			
+			<%
+			}
+			%>
+			<%
+			for (int i = startPage; i <=endPage; i++) {
+				
+				if(i== currentPage)
+				{
+					%>
+					   <a class="pagination-btn center active "  ><%=i%></a>
+					<% 
+				}else{
+				  %>
+			           <a class="pagination-btn center" href="#"  ><%=i%></a>
+			    <%
+				}
+				
+
+			}
+			%>
+			<%
+			if (currentPage < noOfPages) {
+			%>
+			<a class="pagination-btn center" href="#">Next</a>
+			<%
+			}
+			%>
+		</div>
   
 </section>
 

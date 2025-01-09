@@ -175,6 +175,73 @@ public boolean deleteItem(int itemId) {
 	
 	return false;
 }
+
+
+@Override
+	public List<MenuItems> getAllItems(int restaurant_id ,int limit,int page) {
+	
+	int skip = (page -1)* limit;
+	
+	
+	
+	PreparedStatement preparedStatement =null;
+	List<MenuItems> items = new ArrayList();
+	ResultSet resultSet =null;
+	String selectQuery="SELECT * FROM menu_items where restaurant_id = ? order by created_At desc limit ? offset ?";
+	
+	try {
+		
+		preparedStatement=connection.prepareStatement(selectQuery);
+		preparedStatement.setInt(1, restaurant_id);
+		preparedStatement.setInt(2, limit);
+		preparedStatement.setInt(3, skip);
+		resultSet=preparedStatement.executeQuery();
+		while(resultSet.next()) {
+			MenuItems item = new MenuItems();
+			item.setItemId(resultSet.getInt("item_id"));
+			 item.setRestaurantId(resultSet.getInt("restaurant_id"));
+			 item.setName(resultSet.getString("name")); 
+			 item.setDescription(resultSet.getString("description"));
+			 item.setPrice(resultSet.getDouble("price")); 
+			 item.setAvailable(resultSet.getInt("available"));
+			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
+			 item.setCategory(resultSet.getString("category"));
+			 item.setImg(resultSet.getString("img"));
+			 items.add(item);
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return items;
+	}
+
+
+    @Override
+    	public int getMenuItemsCount(int restaurant_id) {
+    	PreparedStatement preparedStatement =null;
+    	int count=0;
+    	ResultSet resultSet =null;
+    	String selectQuery="SELECT count(*) FROM menu_items where restaurant_id = ?";
+    	
+    	try {
+    		
+    		preparedStatement=connection.prepareStatement(selectQuery);
+    		preparedStatement.setInt(1, restaurant_id);
+    		resultSet=preparedStatement.executeQuery();
+    		if(resultSet.next()) {
+    			count = resultSet.getInt(1);
+    			
+    		}
+    	} catch (SQLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	return count;
+    	}
+
+
 //	public static void main(String[] args) {
 //		MenuItems items =new MenuItems();
 //		items.setRestaurantId(1);
