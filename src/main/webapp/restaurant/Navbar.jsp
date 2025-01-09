@@ -1,3 +1,9 @@
+
+<%
+ 
+String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getAttribute("menu")  : "none";
+
+%>
 <style type="text/css">
 
  .desktop-navbar{
@@ -113,9 +119,9 @@
   
   <ul class="menu">
      
-     <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
-     <li><a href="#"><i class="ri-restaurant-line"></i> Your Menu</a></li>
-     <li><a href="#"><i class="ri-shopping-bag-line"></i> Orders</a></li>
+     <li><a href="<%= request.getContextPath()+"/restaurant/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+     <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
+     <li><a href="#" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
      <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
   
   </ul>
@@ -127,9 +133,9 @@
      <span id="menu-close-btn" onclick="handleMenuCloseClick()"> <i class="ri-close-line"></i></span>
      
      <ul class="menu">
-     <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
-      <li><a href="#"><i class="ri-restaurant-line"></i> Your Menu</a></li>
-     <li><a href="#"><i class="ri-shopping-bag-line"></i> Orders</a></li>
+     <li><a href="<%= request.getContextPath()+"/restaurant/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+     <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
+     <li><a href="#" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
      <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
   
     </ul> 

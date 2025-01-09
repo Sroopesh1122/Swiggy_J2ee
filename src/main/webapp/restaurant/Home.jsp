@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+ request.setAttribute("menu", "Home");
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +34,7 @@ body {
 	overflow: hidden;
 	position: relative;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -55,6 +59,107 @@ body {
  height: 500px;
 }
 
+.info-1{
+ font-size: 3.5rem;
+ color: #feb80a;
+ font-weight: 800;
+}
+.info-2{
+ font-size: 1.5rem;
+ 
+}
+
+.info-3 {
+	font-size: .98rem;
+}
+
+.arrow-btn {
+	background: black;
+	color: white;
+	padding: 8px;
+	border-radius: 50%;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.home-info-section{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 10vh;
+ background: #feb80a;
+}
+
+.add-btn{
+  background: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+@media (width < 1240px) {
+	
+	.home_cheif{
+        width: 600px;
+        height: 400px;
+     }
+     
+     .hero-section-img-wrapper  .large-cicle {
+        width: 300px;
+        height: 300px;
+      }
+	
+}
+
+@media (width < 900px) {
+	
+	.home_cheif{
+        width: 500px;
+        height: 300px;
+     }
+     
+     .hero-section-img-wrapper  .large-cicle {
+        width: 3000px;
+        height: 3000px;
+        filter:blur(0);
+        top:-300%;
+        left:0;
+      }
+      
+      .info-wrapper{
+       padding-left: 10px;
+      }
+	
+}
+
+@media (width < 750px) {
+	
+	.home_cheif{
+        width: 700px;
+        height: 400px;
+        transform:scale(0.8)
+     }
+     .hero-section{
+        background: #feb80a;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 5vh;
+     }
+     
+     .hero-section-img-wrapper  .large-cicle {
+        display: none;
+      }
+      
+      .info-wrapper{
+       padding-left: 10px;
+      }
+      .info-1{
+       color: white;
+      }
+	
+}
+
+
 </style>
 
 </head>
@@ -66,13 +171,10 @@ body {
 		
 
 		<div class="info-wrapper">
-			<h1 class="info-1">
-				<span class="text-yellow">Bringing</span> You the Best of Food,
-			</h1>
-			<h3 class="info-2">Straight from the Kitchen to Your Door</h3>
+			<h1 class="info-1">Hey, Chef! </h1>
+			<h2 class="info-2">The Kitchen Awaits Your Magic Touch!</h2>
 			<h2 class="info-3">
-				Fresh, Fast, and Full of Love! <span class="arrow-btn"><i
-					class="ri-arrow-right-fill"></i></span>
+				Fresh, Fast, and Full of Love! <span class="arrow-btn"><i class="ri-arrow-right-fill"></i></span>
 			</h2>
 		</div>
 
@@ -82,10 +184,15 @@ body {
 		</article>
 
 	</section>
-
-
-
 	
+	
+	<section  class="home-info-section">
+	 
+	  
+	   <button class="add-btn">Add Food </button>
+	
+	
+	</section>
 	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
