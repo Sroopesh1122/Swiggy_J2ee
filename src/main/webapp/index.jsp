@@ -16,6 +16,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-family: "outfit",sans-serif;
+	max-width: 1800px;
 }
 .home-bg-wrapper{
   padding: 20px;
@@ -101,11 +102,6 @@ body {
  }
 	
 }
-
-
-
- 
- 
 
 </style>
 </head>

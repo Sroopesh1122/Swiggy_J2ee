@@ -247,16 +247,6 @@ input[type="number"]::-webkit-inner-spin-button,
            
             <input type="text" class="form-control" name="address" placeholder="Restarent address">
         </div>
-   	   <!--     
-    	<div class="form-group">
-            <input type="number" class="form-control" name="rating" placeholder="Rating" min="0" max="5">
-        </div>
-        
-         <div class="form-group">
-           
-            <input type="number" class="form-control" name="startedSince" placeholder="Started since"  min="1900" max="2025" >
-        </div>
-		-->  
         <div class="form-group">
             
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
@@ -309,14 +299,7 @@ input[type="number"]::-webkit-inner-spin-button,
                         minlength: 10,
                         maxlength: 10
                     },
-                    rating:{
-                    	required: true
-                    },
-                    startedSince:{
-                    	required: true,
-                    	minlength: 4,
-                        maxlength: 4
-                    },
+                    
                     address: {
                         required: true
                     }
@@ -344,14 +327,7 @@ input[type="number"]::-webkit-inner-spin-button,
                     	maxlength: "Please enter a valid 10-digit mobile number",
                     	 minlength:"Please enter a valid 10-digit mobile number",
                     } ,
-                    rating:{
-                    	required:"Please enter your Rating"
-                    },
-                    startedSince:{
-                    	required:"Please enter your Restaurant strat year",
-                    	maxlength: "Please enter a valid year",
-                       	minlength:"Please enter a valid year"
-                    },
+                    
                     address: {
                     	required:"Please enter your address"
                     }
