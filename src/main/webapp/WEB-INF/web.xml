@@ -1,7 +1,44 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <description></description>
+    <display-name>RestaurantSingup</display-name>
+    <servlet-name>RestaurantSingup</servlet-name>
+    <servlet-class>com.swiggy.controller.RestaurantSingup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurantSingup</servlet-name>
+    <url-pattern>/RestaurantSingup</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RestaurentLogin</display-name>
+    <servlet-name>RestaurentLogin</servlet-name>
+    <servlet-class>com.swiggy.controller.RestaurentLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurentLogin</servlet-name>
+    <url-pattern>/RestaurentLogin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserRegister</display-name>
+    <servlet-name>UserRegister</servlet-name>
+    <servlet-class>com.swiggy.userServlet.UserRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserRegister</servlet-name>
+    <url-pattern>/UserRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserLogin</display-name>
+    <servlet-name>UserLogin</servlet-name>
+    <servlet-class>com.swiggy.userServlet.UserLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserLogin</servlet-name>
+    <url-pattern>/UserLogin</url-pattern>
+  </servlet-mapping>
 </web-app>

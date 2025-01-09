@@ -223,7 +223,7 @@ input[type="number"]::-webkit-inner-spin-button,
     </div>
     
     
-      <form action="" class="signin-form-wrapper" id="restarentSignup">
+      <form method="post" action="<%=request.getContextPath()+"/restaurant/signup"%>" class="signin-form-wrapper" id="restarentSignup">
       
     
        <h4 class="text-center">Sign Up</h4>

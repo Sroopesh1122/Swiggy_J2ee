@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 public class Restaurants {
 
 	private Integer restaurantsId;

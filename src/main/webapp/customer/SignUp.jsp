@@ -232,7 +232,7 @@
     </div>
     
     
-      <form action="" class="signin-form-wrapper" id="signup">
+      <form method="post" action="<%=request.getContextPath()+"/customer/signup"%>" class="signin-form-wrapper" id="signup">
     
        <h4 class="text-center">Sign Up</h4>
 
