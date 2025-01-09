@@ -24,7 +24,7 @@ public MenuItemsImp() {
 public MenuItems addItem(MenuItems item) {
 	PreparedStatement preparedStatement=null;
 	int result=0;
-	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at) VALUES (?, ?, ?, ?, ?,now())";
+	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,?,?now())";
 	try {
 		connection.setAutoCommit(false);
 		preparedStatement=connection.prepareStatement(insertQuery);
@@ -33,6 +33,8 @@ public MenuItems addItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
+preparedStatement.setString(6, item.getCategory());
+preparedStatement.setString(7, item.getImg());
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -74,6 +76,8 @@ public MenuItems getItemById(int itemId) {
 			 item.setPrice(resultSet.getDouble("price")); 
 			 item.setAvailable(resultSet.getInt("available"));
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
+			 item.setCategory(resultSet.getString("category"));
+			 item.setImg(resultSet.getString("img"));
 			
 		}
 	} catch (SQLException e) {
@@ -102,6 +106,8 @@ public List<MenuItems> getAllItems() {
 			 item.setPrice(resultSet.getDouble("price")); 
 			 item.setAvailable(resultSet.getInt("available"));
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
+			 item.setCategory(resultSet.getString("category"));
+			 item.setImg(resultSet.getString("img"));
 			 items.add(item);
 			
 		}
@@ -124,6 +130,8 @@ public MenuItems updateItem(MenuItems item) {
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
 		preparedStatement.setInt(6, item.getItemId()); 
+		preparedStatement.setString(6, item.getCategory());
+		preparedStatement.setString(7, item.getImg());
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		

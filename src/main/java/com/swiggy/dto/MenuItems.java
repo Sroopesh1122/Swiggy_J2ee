@@ -17,6 +17,7 @@ public class MenuItems {
 	private Double price;
 	private Integer available;
 	private Timestamp createdAt;
-	
+	private String category;
+	private String  img;
 
 }
