@@ -23,9 +23,24 @@
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
    }
- #alert-msg{
+ #alert-msg , #alert-sucess-alert{
   font-size: 0.8rem;
  }
+ 
+ #custom-success-alert
+   {
+            display:none;
+            position: fixed;
+            top: 20px;
+            left:50%;
+            transform:translateX(-50%);
+            background-color: white; 
+            color:green !important;
+            padding: 2px 5px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+   }
+ 
  /* golden yellow : #feb80a*/
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -60,4 +75,17 @@ function showAlert(message) {
         alertBox.style.display = 'none';
     }, 2000); // 2000ms = 2 seconds
 }
+
+function showSucessAlert(message) {
+    const alertBox = document.getElementById('custom-success-alert');
+    $("#alert-success-msg").text(message)
+    alertBox.style.display = 'block';
+
+    // Hide the alert after 2 seconds
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 2000); // 2000ms = 2 seconds
+}
+
+
 </script>
