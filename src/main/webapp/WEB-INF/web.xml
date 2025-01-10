@@ -43,22 +43,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>AddFood</display-name>
-    <servlet-name>AddFood</servlet-name>
-    <servlet-class>com.swiggy.restaurantServlet.AddFood</servlet-class>
+    <display-name>CartServlet</display-name>
+    <servlet-name>CartServlet</servlet-name>
+    <servlet-class>com.swiggy.cartServlet.CartServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddFood</servlet-name>
-    <url-pattern>/AddFood</url-pattern>
+    <servlet-name>CartServlet</servlet-name>
+    <url-pattern>/CartServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UpdateFood</display-name>
-    <servlet-name>UpdateFood</servlet-name>
-    <servlet-class>com.swiggy.restaurantServlet.UpdateFood</servlet-class>
+    <display-name>DeleteServlet</display-name>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>com.swiggy.cartServlet.DeleteServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UpdateFood</servlet-name>
-    <url-pattern>/UpdateFood</url-pattern>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/DeleteServlet</url-pattern>
   </servlet-mapping>
 </web-app>
