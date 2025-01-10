@@ -210,7 +210,7 @@
     </div>
     
     
-    <form action="" class="signin-form-wrapper" id="signin">
+    <form action="UserLogin" class="signin-form-wrapper" id="signin">
     
        <h4 class="text-center">Sign In</h4>
 
@@ -242,6 +242,7 @@
 
  </div>
  <script>
+ 
 
  $(document).ready(function () {
      $("#signin").validate({
