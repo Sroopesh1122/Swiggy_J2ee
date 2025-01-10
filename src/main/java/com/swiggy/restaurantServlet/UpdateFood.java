@@ -36,7 +36,7 @@ public class UpdateFood extends HttpServlet {
 		mItems.setCategory(category);
 		mItems.setPrice(price);
 		mItems.setImg(img);
-		mItems.setAvailable(1);
+		mItems.setAvailable(Integer.parseInt(req.getParameter("available")));
 		
 		HttpSession session=req.getSession();
 		Restaurants restaurants = (Restaurants) session.getAttribute("restaurants");
@@ -53,7 +53,7 @@ public class UpdateFood extends HttpServlet {
 		
 			if(menuItems!=null) {
 				req.setAttribute("success", "Food Updated successfully");
-				RequestDispatcher requestDispatcher=req.getRequestDispatcher("/restaurant/AddFood.jsp");
+				RequestDispatcher requestDispatcher=req.getRequestDispatcher("/restaurant/UpdateFood.jsp?menu_id="+itemId);
 				requestDispatcher.forward(req, resp);
 			}
 			else{

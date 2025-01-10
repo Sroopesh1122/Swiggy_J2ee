@@ -225,7 +225,9 @@
     
     </div>
     
+
     <form method="post" action="<%=request.getContextPath()+"/customer/signin"%>" class="signin-form-wrapper" id="signin">
+
     
        <h4 class="text-center">Sign In</h4>
 
@@ -258,7 +260,25 @@
     </form>
 
  </div>
+ <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
  <script>
+ 
+
+ <%
+ if(request.getAttribute("failure")!=null)
+ {
+	 %>
+	  showAlert('<%=request.getAttribute("failure")%>');
+	 <%
+ }
+%>
+ 
+
 
  $(document).ready(function () {
      $("#signin").validate({

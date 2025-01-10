@@ -31,6 +31,27 @@
 	padding: 20px 0px;
 }
 
+select {
+      appearance: none; /* Remove default styles */
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Style the hover effect */
+    select:hover {
+      background-color: #f0f0f0; /* Change hover background color */
+      border-color: #888; /* Optional: change border color on hover */
+    }
+
+    /* Optional: Style the options (works on some browsers) */
+    option:hover {
+      background-color: #d1e7dd; /* Change the hover color for options */
+    }
+
 .wrapper-section{
   width: 100%;
   display: flex;
@@ -86,6 +107,13 @@
  border-radius: 15px;
 }
 
+
+.custom-select{
+ width: 100%;
+ border: 1px solid #efefef;
+ border-radius: 10px;
+}
+
 @media (width < 400px) {
 	.add-food-form{
 	 padding: 5px;
@@ -126,12 +154,12 @@ input[type="number"]::-webkit-inner-spin-button,
         
         
         <div class="update-img-wrapper">
-            <img alt="" src="https://img.freepik.com/premium-photo/plate-food-with-different-foods-it-few-other-items-table_187678-1.jpg">       
+            <img alt="" src="<%=menuItem.getImg()%>">       
         </div>
    
    
    
-        <form action="<%=request.getContextPath()+"/restaurant/updateFood"%>" class="add-food-form" id="updatefood">
+        <form action="<%=request.getContextPath()+"/restaurant/updateFood"%>" method="POST" class="add-food-form" id="updatefood">
     
            <h4 class="text-center">Update Your Food</h4>
 
@@ -150,13 +178,23 @@ input[type="number"]::-webkit-inner-spin-button,
          <input type="text" class="form-control" placeholder="Category" name="category" id="category" value="<%=menuItem.getCategory()%>">
         </div>
         
-  		 </div>
-         <div class="form-group" >
+        <div class="form-group" >
          <input type="hidden" class="form-control" name="img" id="img" value="<%=menuItem.getImg()%>">
          <input type="hidden" class="form-control" name="itemId" id="itemId" value="<%=menuItem.getItemId()%>">
         </div>
         
-        <div class="form-footer">
+        <div class="form-group" >
+          <span>Availability : </span>
+          <select class="custom-select" name="available">
+             <option value="0" <%=menuItem.getAvailable() == 0  ? "selected='selected'" : "" %> >Not Available</option>
+          
+            <option value="1" <%=menuItem.getAvailable() == 1  ? "selected='selected'" : "" %>  >Available</option>
+          </select>
+        </div>
+        
+        
+        
+        <div class="form-footer mt-4">
             <button type="submit" class="btn btn-primary mb-3">Update</button>
         </div>
         
@@ -168,7 +206,46 @@ input[type="number"]::-webkit-inner-spin-button,
    
    
    </section>
+   
+    <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
+ 
+  <div id="custom-success-alert">
+  <i class="ri-checkbox-circle-fill"></i>
+  <span id="alert-success-msg"></span>
+ 
+ </div>
+   
+   
+   
    <script>
+   
+   
+   <%
+   if(request.getAttribute("failure")!=null)
+   {
+  	   %>
+  	   showAlert('<%=request.getAttribute("failure")%>');
+  	   <%
+   }
+  %>
+  
+  <%
+  if(request.getAttribute("success")!=null)
+  {
+ 	   %>
+ 	     showSucessAlert('<%=request.getAttribute("success")%>');
+ 	   <%
+  }
+ %>
+   
+   
+   
+   
    $(document).ready(function () {
 	    $("#updatefood").validate({
 	        rules: {

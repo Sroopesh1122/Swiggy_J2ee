@@ -116,11 +116,23 @@ if(resultSet.next()) {
 	}
 	@Override
 	public boolean deleteOrder(int orderId) {
-		String sql = "DELETE FROM orders WHERE order_id = ?";
+		String deleteQuery = "DELETE FROM orders WHERE order_id = ?";
 			PreparedStatement preparedStatement=null;
-			int resultSet=0;
-		return false;
-	}
+			int result=0;
+			try {
+				preparedStatement  =connection.prepareStatement(deleteQuery);
+				preparedStatement.setInt(1, orderId);
+				result = preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(result>0) {
+				return true;
+			}
+			return false;
+		}
+
 	
 	
 	

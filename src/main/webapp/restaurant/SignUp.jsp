@@ -17,6 +17,7 @@
     width: 100%;
     min-height: 100vh;
     
+    
    }
  
   .signin-wrapper{
@@ -41,7 +42,7 @@
   
   .welcome-card{
    width: 370px;
-   height: 600px;
+   height: 450px;
    border: 1px solid #efefef;
    box-shadow: 0px 2px 4px #efefef !important;
    border-radius: 20px;
@@ -313,7 +314,12 @@ input[type="number"]::-webkit-inner-spin-button,
     </form>
  </div>
  
- <div id="custom-alert">This is a custom alert message!</div>
+ <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
  
  
  

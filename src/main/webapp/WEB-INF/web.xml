@@ -3,6 +3,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <description></description>
+
     <display-name>RestaurantSingup</display-name>
     <servlet-name>RestaurantSingup</servlet-name>
     <servlet-class>com.swiggy.controller.RestaurantSingup</servlet-class>
@@ -36,6 +37,7 @@
     <display-name>UserLogin</display-name>
     <servlet-name>UserLogin</servlet-name>
     <servlet-class>com.swiggy.userServlet.UserLogin</servlet-class>
+
   </servlet>
   <servlet-mapping>
     <servlet-name>UserLogin</servlet-name>
