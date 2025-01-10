@@ -1,3 +1,9 @@
+<%
+ 
+String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getAttribute("menu")  : "none";
+
+%>
+
 <style type="text/css">
 
  .desktop-navbar{
@@ -114,10 +120,25 @@
   <ul class="menu">
      
      <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
-     <li><a href="#"><i class="ri-restaurant-line"></i> Menu</a></li>
-     <li><a href="#"><i class="ri-shopping-cart-line"></i> Cart</a></li>
-     <li><a href="#"><i class="ri-shopping-bag-line"></i> Orders</a></li>
-     <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
+     <li><a href="<%=request.getContextPath()+"/customer/Menu.jsp"%>"><i class="ri-restaurant-line"></i> Menu</a></li>
+     
+     <%
+      if(session.getAttribute("users")!=null)
+      {
+    	  %>
+    	     <li><a href="<%= request.getContextPath()+"/customer/Cart.jsp"%>" class="<%= selectedMenu.equals("Cart") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Cart</a></li>
+          <li><a href="#" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
+          <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
+    	  <%
+    	  
+      }else{
+    	  %>
+    	    <li><a href="<%= request.getContextPath()+"/customer/SignIn.jsp"%>" class=""><i class="ri-login-box-line"></i>Sign In</a></li>
+    	  <% 
+      }
+     
+     %>
+     
   
   </ul>
   <span id="menu-btn" onclick="handleMenuBarClick()"><i class="ri-menu-line"></i></span>

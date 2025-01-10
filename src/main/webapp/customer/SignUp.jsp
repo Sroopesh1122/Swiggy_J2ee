@@ -283,8 +283,26 @@
      
     
     </form>
+    
+ <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
+ 
  </div>
  <script >
+ 
+ <%
+ if(request.getAttribute("failure")!=null)
+ {
+	   %>
+	   showAlert('<%=request.getAttribute("failure")%>');
+	   <%
+ }
+%>
+ 
  	$(document).ready(function () {
             $("#signup").validate({
                 rules: {
@@ -310,7 +328,7 @@
                         required: true,
                         minlength: 10,
                         maxlength: 10,
-                        matches:"[0-9]+" 
+                       
                     },
                     address: {
                         required: true

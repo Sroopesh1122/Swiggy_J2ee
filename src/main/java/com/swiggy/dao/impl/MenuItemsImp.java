@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public MenuItemsImp() {
 public MenuItems addItem(MenuItems item) {
 	PreparedStatement preparedStatement=null;
 	int result=0;
-	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,?,?now())";
+	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,now(),?,?)";
 	try {
 		connection.setAutoCommit(false);
 		preparedStatement=connection.prepareStatement(insertQuery);
@@ -33,8 +34,8 @@ public MenuItems addItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
-preparedStatement.setString(6, item.getCategory());
-preparedStatement.setString(7, item.getImg());
+		preparedStatement.setString(6, item.getCategory());
+		preparedStatement.setString(7, item.getImg());
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -121,7 +122,7 @@ public List<MenuItems> getAllItems() {
 public MenuItems updateItem(MenuItems item) {
 	PreparedStatement preparedStatement =null;
 	int result=0;
-	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ? WHERE item_id = ?";
+	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ?,category = ?  WHERE item_id = ?";
 	try {
 		preparedStatement =connection.prepareStatement(updateQuery);
 		preparedStatement.setInt(1, item.getRestaurantId()); 
@@ -129,9 +130,10 @@ public MenuItems updateItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
-		preparedStatement.setInt(6, item.getItemId()); 
 		preparedStatement.setString(6, item.getCategory());
-		preparedStatement.setString(7, item.getImg());
+		preparedStatement.setInt(7, item.getItemId()); 
+		
+	
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		
@@ -139,6 +141,7 @@ public MenuItems updateItem(MenuItems item) {
 		e.printStackTrace();
 	}
 	if(result >0) {
+		
 		return item;
 	}
 	return null;
@@ -178,23 +181,32 @@ public boolean deleteItem(int itemId) {
 
 
 @Override
-	public List<MenuItems> getAllItems(int restaurant_id ,int limit,int page) {
+	public List<MenuItems> getAllItems(int restaurant_id ,String search_text,int limit,int page) {
+	
 	
 	int skip = (page -1)* limit;
-	
-	
 	
 	PreparedStatement preparedStatement =null;
 	List<MenuItems> items = new ArrayList();
 	ResultSet resultSet =null;
-	String selectQuery="SELECT * FROM menu_items where restaurant_id = ? order by created_At desc limit ? offset ?";
+	String selectQuery=search_text ==null ? "SELECT * FROM menu_items where restaurant_id = ? order by created_At desc limit ? offset ?"
+			: "SELECT * FROM menu_items where restaurant_id = ? and (name like ? or category like ? ) order by created_At desc limit ? offset ?";
 	
 	try {
 		
 		preparedStatement=connection.prepareStatement(selectQuery);
-		preparedStatement.setInt(1, restaurant_id);
-		preparedStatement.setInt(2, limit);
-		preparedStatement.setInt(3, skip);
+		if(search_text ==null)
+		{
+			preparedStatement.setInt(1, restaurant_id);
+			preparedStatement.setInt(2, limit);
+			preparedStatement.setInt(3, skip);
+		}else {
+			preparedStatement.setInt(1, restaurant_id);
+			preparedStatement.setString(2, "%"+search_text+"%");
+			preparedStatement.setString(3, "%"+search_text+"%");
+			preparedStatement.setInt(4, limit);
+			preparedStatement.setInt(5, skip);
+		}
 		resultSet=preparedStatement.executeQuery();
 		while(resultSet.next()) {
 			MenuItems item = new MenuItems();
@@ -219,16 +231,23 @@ public boolean deleteItem(int itemId) {
 
 
     @Override
-    	public int getMenuItemsCount(int restaurant_id) {
+    	public int getMenuItemsCount(int restaurant_id,String search_text) {
     	PreparedStatement preparedStatement =null;
     	int count=0;
     	ResultSet resultSet =null;
-    	String selectQuery="SELECT count(*) FROM menu_items where restaurant_id = ?";
+    	String selectQuery=search_text ==null ? "SELECT count(*) FROM menu_items where restaurant_id = ?" : "SELECT count(*) FROM menu_items where restaurant_id = ? and (name like ? or category like ?)";
     	
     	try {
     		
     		preparedStatement=connection.prepareStatement(selectQuery);
-    		preparedStatement.setInt(1, restaurant_id);
+    		if(search_text ==null)
+    		{
+    			preparedStatement.setInt(1, restaurant_id);
+    		}else {
+    			preparedStatement.setInt(1, restaurant_id);
+    			preparedStatement.setString(2, "%"+search_text+"%");
+    			preparedStatement.setString(3, "%"+search_text+"%");
+    		}
     		resultSet=preparedStatement.executeQuery();
     		if(resultSet.next()) {
     			count = resultSet.getInt(1);
@@ -240,7 +259,80 @@ public boolean deleteItem(int itemId) {
     	}
     	return count;
     	}
+    
+    
+        @Override
+    	public List<MenuItems> getAllItems(String search_text, int limit, int page) {
+        	int skip = (page -1)* limit;
+        	
+        	PreparedStatement preparedStatement =null;
+        	List<MenuItems> items = new ArrayList();
+        	ResultSet resultSet =null;
+        	String selectQuery=search_text == null ? "select menu.* from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id  order by menu.rating desc ,menu.created_at desc limit ? offset ?"
+        			: "select menu.* from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id where menu.name like ? or menu.category like ? order by menu.rating desc ,menu.created_at desc limit ? offset ?";
+        	
+        	try {
+        		
+        		preparedStatement=connection.prepareStatement(selectQuery);
+        		if(search_text ==null)
+        		{
+        			preparedStatement.setInt(1, limit);
+        			preparedStatement.setInt(2, skip);
+        		}else {
+        			preparedStatement.setString(1, "%"+search_text+"%");
+        			preparedStatement.setString(2, "%"+search_text+"%");
+        			preparedStatement.setInt(3, limit);
+        			preparedStatement.setInt(4, skip);
+        		}
+        		resultSet=preparedStatement.executeQuery();
+        		while(resultSet.next()) {
+        			MenuItems item = new MenuItems();
+        			item.setItemId(resultSet.getInt("item_id"));
+        			 item.setRestaurantId(resultSet.getInt("restaurant_id"));
+        			 item.setName(resultSet.getString("name")); 
+        			 item.setDescription(resultSet.getString("description"));
+        			 item.setPrice(resultSet.getDouble("price")); 
+        			 item.setAvailable(resultSet.getInt("available"));
+        			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
+        			 item.setCategory(resultSet.getString("category"));
+        			 item.setImg(resultSet.getString("img"));
+        			 items.add(item);
+        			
+        		}
+        	} catch (SQLException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+        	return items;
+    	}
 
+    
+       @Override
+    	public int getMenuItemsCount(String search_text) {
+    	   PreparedStatement preparedStatement =null;
+       	int count=0;
+       	ResultSet resultSet =null;
+       	String selectQuery=search_text ==null ? "select count(*) from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id  order by menu.rating desc ,menu.created_at desc" : "select count(*) from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id where menu.name like ? or menu.category like ? order by menu.rating desc ,menu.created_at desc ";
+       	
+       	try {
+       		
+       		preparedStatement=connection.prepareStatement(selectQuery);
+       		if(search_text !=null)
+       		{
+       			preparedStatement.setString(1, "%"+search_text+"%");
+       			preparedStatement.setString(2, "%"+search_text+"%");
+       		}
+       		resultSet=preparedStatement.executeQuery();
+       		if(resultSet.next()) {
+       			count = resultSet.getInt(1);
+       			
+       		}
+       	} catch (SQLException e) {
+       		// TODO Auto-generated catch block
+       		e.printStackTrace();
+       	}
+       	return count;
+    	}
 
 //	public static void main(String[] args) {
 //		MenuItems items =new MenuItems();

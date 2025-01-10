@@ -5,17 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@include file="/restaurant/RestaurantSession.jsp" %> 
-   
-   <%
-    if(restaurants == null)
-    {
-    	response.sendRedirect( request.getContextPath()+"/restaurant/SignIn.jsp");
-    	return;
-    }
-    request.setAttribute("menu", "Menu");
-   %>
-   
+<%@include file="/customer/CustomerSession.jsp" %> 
    
    
    <%
@@ -24,8 +14,8 @@
     String q = (String) request.getParameter("q");
    
     MenuItemDAO menuItemDAO =  new MenuItemsImp();
-    List<MenuItems> menuItems = menuItemDAO.getAllItems(restaurants.getRestaurantsId(),q,limit,currentPage);
-    int totalCount = menuItemDAO.getMenuItemsCount(restaurants.getRestaurantsId(),q);
+    List<MenuItems> menuItems = menuItemDAO.getAllItems(q,limit,currentPage);
+    int totalCount = menuItemDAO.getMenuItemsCount(q);
    %>
    
    
@@ -82,20 +72,7 @@
 	background: white;
 
 }
-.section-2{
- padding: 10px 20px;
- display: flex;
- justify-content: flex-end;
- align-items: center;
-}
 
-.add-btn{
- border: none;
- background: #feb80a;
- color: black;
- padding: 5px 8px;
- border-radius: 15px;
-}
 
 .add-btn:hover{
  color: black;
@@ -195,30 +172,40 @@
  font-size: 1.2rem;
 }
 
+.section-2{
+ padding: 10px 20px;
+ display: flex;
+ justify-content: flex-end;
+ align-items: center;
+}
+
+.total-Count{
+ border: none;
+ background: #feb80a;
+ color: black;
+ padding: 5px 8px;
+ border-radius: 15px;
+}
+
 
 
 </style>
 
 </head>
 <body>
-<%@include file="/restaurant/Navbar.jsp"%>
+<%@include file="/customer/Navbar.jsp"%>
 
 <section class="section-wrapper">
   
   <article class="search-section">
      
-     <form action="<%=request.getContextPath()+"/restaurant/Menu.jsp"%>">
+     <form action="<%=request.getContextPath()+"/customer/Menu.jsp"%>">
        <input type="text" placeholder="Search" name="q">
        <button type="submit"><i class="ri-search-line"></i></button>
      </form>
      
   </article>
   
-  <article class="section-2">
-    
-    <a class="add-btn" href="<%=request.getContextPath()+"/restaurant/AddFood.jsp"%>">Add Food</a>
-  
-  </article>
   
   
   <%
@@ -238,6 +225,9 @@
   
   %>
   
+  <section class="section-2">
+    <span class="total-Count">Result Count : <%=totalCount %></span>  
+  </section>
   
   <section class="menu-item-list-wrapper">
      
