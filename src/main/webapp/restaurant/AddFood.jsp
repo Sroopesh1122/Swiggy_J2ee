@@ -65,6 +65,16 @@
 	 width: 300px;
 	}
 }
+input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+  }
+  .error{
+	font-size: 0.7rem;
+	color: red;
+	margin-left: 0.5rem;
+}
 
 
 </style>
@@ -75,49 +85,92 @@
   
    <section class="wrapper-section">
    
-        <form action="" class="add-food-form" id="signin">
-    
+        <form method="post" action="<%=request.getContextPath()+"/restaurant/addfood"%>" class="add-food-form" id="addfood" enctype="multipart/form-data">    
            <h4 class="text-center">Add Your Delicious Food</h4>
 
-
-
         <div class="form-group" >
-                     <input type="text" class="form-control" placeholder="Name" name="email" id="email">
+                     <input type="text" class="form-control" placeholder="Name" name="name" id="name">
+                     
         </div>
         
          <div class="form-group" >
-                     <input type="email" class="form-control" placeholder="email" name="email" id="email">
+                     <input type="text" class="form-control" placeholder="Description" name="description" >
         </div>
          <div class="form-group" >
-                     <input type="email" class="form-control" placeholder="email" name="email" id="email">
+                     <input type="number" class="form-control" placeholder="Price" name="price" id="price" min="1">
         </div>
          <div class="form-group" >
-         <input type="email" class="form-control" placeholder="email" name="email" id="email">
-        </div>
-
-
-        <div class="form-group">
-            <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+         <input type="text" class="form-control" placeholder="Category" name="category" id="category">
         </div>
         
         <div class="form-group">
-            <input type="file" >
+            <input type="file" name="img">
         </div>
-        
-             
+            
 
         <div class="form-footer">
             <button type="submit" class="btn btn-primary mb-3">Add To Menu</button>
         </div>
-        
-     
-    
     </form>
-       
-   
-   
-   
    </section>
-   
+   <script>
+$(document).ready(function () {
+    $("#addfood").validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3
+            },
+            description: {
+                required: true,
+                minlength: 5
+            } ,
+            price:{
+            	required: true
+            },
+            category:{
+            	required: true
+            },
+            img:{
+            	required: true
+            }
+            
+        },
+        messages: {
+        	 name: {
+                 required: "Please enter food name",
+                 minlength: "Name must be at least 3 characters long"
+             },
+             description: {
+            	 required: "Please enter description",
+                 minlength: "Description must be at least 5 characters long"
+             } ,
+             price:{
+            	 required: "Please enter price",
+             },
+             category:{
+            	 required: "Please enter category",
+             },
+             img:{
+            	 required: "Please add image",
+             }
+            },
+       
+        errorElement: "div",
+        
+        errorPlacement: function (error, element) {
+            error.addClass("error");
+            error.insertAfter(element);
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+});
+</script>
 </body>
+
 </html>

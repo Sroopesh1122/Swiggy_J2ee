@@ -328,7 +328,7 @@
                         required: true,
                         minlength: 10,
                         maxlength: 10,
-                        matches:"[0-9]+" 
+                       
                     },
                     address: {
                         required: true

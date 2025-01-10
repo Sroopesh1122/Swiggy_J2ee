@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public MenuItemsImp() {
 public MenuItems addItem(MenuItems item) {
 	PreparedStatement preparedStatement=null;
 	int result=0;
-	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,?,?now())";
+	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,now(),?,?)";
 	try {
 		connection.setAutoCommit(false);
 		preparedStatement=connection.prepareStatement(insertQuery);
@@ -33,8 +34,8 @@ public MenuItems addItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
-preparedStatement.setString(6, item.getCategory());
-preparedStatement.setString(7, item.getImg());
+		preparedStatement.setString(6, item.getCategory());
+		preparedStatement.setString(7, item.getImg());
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -121,7 +122,7 @@ public List<MenuItems> getAllItems() {
 public MenuItems updateItem(MenuItems item) {
 	PreparedStatement preparedStatement =null;
 	int result=0;
-	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ? WHERE item_id = ?";
+	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ?,category = ?  WHERE item_id = ?";
 	try {
 		preparedStatement =connection.prepareStatement(updateQuery);
 		preparedStatement.setInt(1, item.getRestaurantId()); 
@@ -129,9 +130,10 @@ public MenuItems updateItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
-		preparedStatement.setInt(6, item.getItemId()); 
 		preparedStatement.setString(6, item.getCategory());
-		preparedStatement.setString(7, item.getImg());
+		preparedStatement.setInt(7, item.getItemId()); 
+		
+	
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		
@@ -139,6 +141,7 @@ public MenuItems updateItem(MenuItems item) {
 		e.printStackTrace();
 	}
 	if(result >0) {
+		
 		return item;
 	}
 	return null;
