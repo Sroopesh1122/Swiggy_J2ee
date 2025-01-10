@@ -19,6 +19,7 @@
     max-width: 1800px;
     margin: 0 auto;
     
+    
    }
  
   .signin-wrapper{
@@ -29,6 +30,7 @@
    align-items: center;
    position: relative;
    font-family:"outfit",serif;
+  
   }
   
   .wrapper-1{
@@ -43,7 +45,7 @@
   
   .welcome-card{
    width: 370px;
-   height: 600px;
+   height: 450px;
    border: 1px solid #efefef;
    box-shadow: 0px 2px 4px #efefef !important;
    border-radius: 20px;
