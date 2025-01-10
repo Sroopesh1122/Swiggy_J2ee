@@ -152,11 +152,12 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r=new Restaurants();
 				r.setRestaurantsId(resultSet.getInt(1));
 				r.setName(resultSet.getString(2));
-				r.setPhoneNumber(resultSet.getString(3));
-				r.setRating(resultSet.getDouble(4));
-				r.setCreatedAt(resultSet.getTimestamp(5));
-				r.setPassword(resultSet.getString(6));
-				r.setEmail(resultSet.getString(7));
+				r.setAddress(resultSet.getString(3));
+				r.setPhoneNumber(resultSet.getString(4));
+				r.setRating(resultSet.getDouble(5));
+				r.setCreatedAt(resultSet.getTimestamp(6));
+				r.setPassword(resultSet.getString(7));
+				r.setEmail(resultSet.getString(8));
 				
 			}
 			
@@ -183,11 +184,12 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r=new Restaurants();
 				r.setRestaurantsId(resultSet.getInt(1));
 				r.setName(resultSet.getString(2));
-				r.setPhoneNumber(resultSet.getString(3));
-				r.setRating(resultSet.getDouble(4));
-				r.setCreatedAt(resultSet.getTimestamp(5));
-				r.setEmail(resultSet.getString(6));
+				r.setAddress(resultSet.getString(3));
+				r.setPhoneNumber(resultSet.getString(4));
+				r.setRating(resultSet.getDouble(5));
+				r.setCreatedAt(resultSet.getTimestamp(6));
 				r.setPassword(resultSet.getString(7));
+				r.setEmail(resultSet.getString(8));
 				al.add(r);
 			}
 			
@@ -212,14 +214,15 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			resultSet=preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				r=new Restaurants();
+				r=new Restaurants();
 				r.setRestaurantsId(resultSet.getInt(1));
 				r.setName(resultSet.getString(2));
-				r.setPhoneNumber(resultSet.getString(4));
 				r.setAddress(resultSet.getString(3));
+				r.setPhoneNumber(resultSet.getString(4));
 				r.setRating(resultSet.getDouble(5));
 				r.setCreatedAt(resultSet.getTimestamp(6));
-				r.setEmail(resultSet.getString(8));
 				r.setPassword(resultSet.getString(7));
+				r.setEmail(resultSet.getString(8));
 			}
 			
 			

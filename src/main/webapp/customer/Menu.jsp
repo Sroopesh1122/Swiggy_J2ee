@@ -1,3 +1,6 @@
+<%@page import="com.swiggy.dto.Restaurants"%>
+<%@page import="com.swiggy.dao.impl.RestaurantsDaoImp"%>
+<%@page import="com.swiggy.dao.RestaurantsDao"%>
 <%@page import="com.swiggy.dao.impl.MenuItemsImp"%>
 <%@page import="com.swiggy.dao.MenuItemDAO"%>
 <%@page import="com.swiggy.dto.MenuItems"%>
@@ -7,6 +10,9 @@
 
 <%@include file="/customer/CustomerSession.jsp" %> 
    
+   <%
+   request.setAttribute("menu", "Menu");
+   %>
    
    <%
     int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
@@ -92,6 +98,11 @@
  cursor: pointer;
 }
 
+.food-item-card:hover
+{
+ box-shadow: 0px 2px 4px graytext !important;
+}
+
 .food-item-card .food-img{
  width: 100%;
  height: 250px;
@@ -124,8 +135,11 @@
 .food-info{
  padding: 5px;
 }
-.food-info h2 {
- font-size: 1.2rem;
+.food-title {
+ font-size: 1.01rem;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
 }
 .food-card-footer{
  display: flex;
@@ -187,6 +201,32 @@
  border-radius: 15px;
 }
 
+.food-desc {
+  font-size: 0.8rem;
+  color: graytext;
+  display: -webkit-box; 
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+.food-rating{
+ font-size: 0.95rem;
+}
+.food-rating i{
+ color: #feb80a;
+ font-size: 1.1rem;
+}
+
+.food-hotel-info{
+ font-size: 0.7rem;
+ color: #14213d;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+}
+
+
 
 
 </style>
@@ -200,7 +240,7 @@
   <article class="search-section">
      
      <form action="<%=request.getContextPath()+"/customer/Menu.jsp"%>">
-       <input type="text" placeholder="Search" name="q">
+       <input type="text" placeholder="Search" name="q" value="<%=request.getParameter("q")!=null ? request.getParameter("q")  : ""%>">
        <button type="submit"><i class="ri-search-line"></i></button>
      </form>
      
@@ -234,9 +274,10 @@
      
      
      <%
-      
+     RestaurantsDao restaurantsDao = new RestaurantsDaoImp();
      for(MenuItems menuItem : menuItems)
      {
+    	 Restaurants restaurant = restaurantsDao.getRestaurant(menuItem.getRestaurantId());
     	 %>
     	  
       <article class="food-item-card" onclick="handleMenuItemClick('<%=request.getContextPath()+"/restaurant/UpdateFood.jsp?menu_id="+menuItem.getItemId()%>')">
@@ -255,7 +296,9 @@
        <span class="cart-btn"><i class="ri-bookmark-line"></i></span>
         <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
-          <h2><%=menuItem.getName() %></h2>
+          <h2 class="food-title"><%=menuItem.getName() %> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating() %></span> </h2>
+          <p class="mb-1 food-desc"><%=menuItem.getDescription() %></p>
+          <p class="food-hotel-info" class="mb-1">Restaurant : <%=restaurant.getName() %></p>
           <div class="mt-1 food-card-footer">
               <span class="price-tag"><i class="ri-money-rupee-circle-fill"></i> <%=menuItem.getPrice() %></span>   
           </div>

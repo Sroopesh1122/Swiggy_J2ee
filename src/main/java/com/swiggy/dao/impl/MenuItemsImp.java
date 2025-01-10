@@ -79,6 +79,7 @@ public MenuItems getItemById(int itemId) {
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
 			 item.setCategory(resultSet.getString("category"));
 			 item.setImg(resultSet.getString("img"));
+			 item.setRating(resultSet.getFloat("rating"));
 			
 		}
 	} catch (SQLException e) {
@@ -109,6 +110,7 @@ public List<MenuItems> getAllItems() {
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
 			 item.setCategory(resultSet.getString("category"));
 			 item.setImg(resultSet.getString("img"));
+			 item.setRating(resultSet.getFloat("rating"));
 			 items.add(item);
 			
 		}
@@ -219,6 +221,7 @@ public boolean deleteItem(int itemId) {
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
 			 item.setCategory(resultSet.getString("category"));
 			 item.setImg(resultSet.getString("img"));
+			 item.setRating(resultSet.getFloat("rating"));
 			 items.add(item);
 			
 		}
@@ -296,6 +299,7 @@ public boolean deleteItem(int itemId) {
         			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
         			 item.setCategory(resultSet.getString("category"));
         			 item.setImg(resultSet.getString("img"));
+        			 item.setRating(resultSet.getFloat("rating"));
         			 items.add(item);
         			
         		}

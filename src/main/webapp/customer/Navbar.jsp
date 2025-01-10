@@ -119,8 +119,8 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
   
   <ul class="menu">
      
-     <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
-     <li><a href="<%=request.getContextPath()+"/customer/Menu.jsp"%>"><i class="ri-restaurant-line"></i> Menu</a></li>
+     <li><a href="<%=request.getContextPath()+"/customer/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+     <li><a href="<%=request.getContextPath()+"/customer/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Menu</a></li>
      
      <%
       if(session.getAttribute("users")!=null)
