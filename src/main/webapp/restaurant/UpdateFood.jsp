@@ -1,3 +1,5 @@
+<%@page import="com.swiggy.dao.impl.MenuItemsImp"%>
+<%@page import="com.swiggy.dto.MenuItems"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +9,17 @@
 <title>Food Name</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
+
+<%
+  Integer menu_id = request.getParameter("menu_id")!=null ?    Integer.parseInt(request.getParameter("menu_id")) : -1;
+  if(menu_id ==-1)
+  {
+	  response.sendRedirect(request.getContextPath()+"/restaurant/Menu.jsp");
+	  return;
+  }
+  
+  MenuItems menuItem = new MenuItemsImp().getItemById(menu_id);
+%>
 
 <style type="text/css">
  body {
@@ -118,28 +131,31 @@ input[type="number"]::-webkit-inner-spin-button,
    
    
    
-        <form action="" class="add-food-form" id="updatefood">
+        <form action="<%=request.getContextPath()+"/restaurant/updateFood"%>" class="add-food-form" id="updatefood">
     
            <h4 class="text-center">Update Your Food</h4>
 
 		<div class="form-group" >
-                     <input type="text" class="form-control" placeholder="Name" name="name" id="name">
+                     <input type="text" class="form-control" placeholder="Name" name="name"  id="name" value="<%=menuItem.getName()%>" >
         </div>
         
          <div class="form-group" >
-                     <input type="text" class="form-control" placeholder="Description" name="description" >
-        </div>
-         <div class="form-group" >
-                     <input type="number" class="form-control" placeholder="Price" name="price" id="price" min="1">
-        </div>
-         <div class="form-group" >
-         <input type="text" class="form-control" placeholder="Category" name="category" id="category">
+                     <input type="text" class="form-control" placeholder="Description" name="description" value="<%=menuItem.getDescription()%>">
         </div>
         
-        <div class="form-group">
-            <input type="file" >
-        </div>   
-
+         <div class="form-group" >
+                     <input type="number" class="form-control" placeholder="Price" name="price" id="price" min="1" value="<%=menuItem.getPrice()%>">
+        </div>
+         <div class="form-group" >
+         <input type="text" class="form-control" placeholder="Category" name="category" id="category" value="<%=menuItem.getCategory()%>">
+        </div>
+        
+  		 </div>
+         <div class="form-group" >
+         <input type="hidden" class="form-control" name="img" id="img" value="<%=menuItem.getImg()%>">
+         <input type="hidden" class="form-control" name="itemId" id="itemId" value="<%=menuItem.getItemId()%>">
+        </div>
+        
         <div class="form-footer">
             <button type="submit" class="btn btn-primary mb-3">Update</button>
         </div>

@@ -51,4 +51,14 @@
     <servlet-name>AddFood</servlet-name>
     <url-pattern>/AddFood</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateFood</display-name>
+    <servlet-name>UpdateFood</servlet-name>
+    <servlet-class>com.swiggy.restaurantServlet.UpdateFood</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateFood</servlet-name>
+    <url-pattern>/UpdateFood</url-pattern>
+  </servlet-mapping>
 </web-app>
