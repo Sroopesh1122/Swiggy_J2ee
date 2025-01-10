@@ -71,12 +71,25 @@
    border-radius: 20px;
    background: white;
   }
-  .form-group{
+   .form-group{
       width: 100%;
+      padding-left: 20px;
+     position: relative;
+     border: 1px solid #efefef;
+      border-radius: 15px;
+      margin-bottom: 20px;
+   }
+   
+   .form-icon{
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform:translateY(-50%);
+    
    }
    
    .form-group input{
-   border: 1px solid #efefef;
+      border:none;
       padding: 2px 9px;
       border-radius: 15px;
    }
@@ -131,6 +144,10 @@
    font-family: "Playwrite AU SA", serif;
    font-style: italic;
    font-weight: 600;
+  }
+  
+   #custom-alert{
+   font-family: "outfit",sans-serif;
   }
   
   @media (max-width:1270px) {
@@ -214,25 +231,25 @@
     </div>
     
     
-    <form action="" class="signin-form-wrapper" id="signin">
+    <form action="<%=request.getContextPath()+"/restaurant/signin"%>" class="signin-form-wrapper" method="post" id="signin">
     
        <h4 class="text-center">Sign In</h4>
 
 
 
         <div class="form-group" >
-                     <input type="email" class="form-control" placeholder="email" name="email" id="email">
+          <i class="ri-mail-line form-icon"></i>           <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         
 
         <div class="form-group">
-            <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+         <i class="ri-lock-line form-icon"></i>     <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
 
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary mb-3">Sign Up</button>
+            <button type="submit" class="btn btn-primary mb-3">Sign In</button>
         </div>
         
         <div class="form-nav-footer">
@@ -245,7 +262,19 @@
     </form>
 
  </div>
+ <div id="custom-alert">This is a custom alert message!</div>
+ 
  <script>
+ 
+ 
+ <%
+ if(request.getAttribute("failure")!=null)
+ {
+	   %>
+	   showAlert('<%=request.getAttribute("failure")%>');
+	   <%
+ }
+%>
 
  $(document).ready(function () {
      $("#signin").validate({
@@ -284,6 +313,9 @@
          }
      });
  });
+ 
+	
+ 
  </script>
 </body>
 </html>

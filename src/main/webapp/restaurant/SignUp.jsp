@@ -72,18 +72,29 @@
    background: white;
   }
   
-  .form-group{
-      width: 100%;
-     
-     
+    .form-group{
+     width: 100%;
+     padding-left: 20px;
+     position: relative;
+     border: 1px solid #efefef;
+     border-radius: 15px;
+     margin-bottom: 20px;
+   }
+   
+   .form-icon{
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform:translateY(-50%);
+    
    }
    
    .form-group input{
-    border: 1px solid #efefef;
+      border:none;
       padding: 2px 9px;
-      border-radius: 15px;
    }
-  
+   
+   
     .form-footer{
       display: flex;
       flex-direction: column;
@@ -184,6 +195,40 @@
 .welcome-card-footer{
  text-align: center;
 }
+input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    
+  }
+  
+  .info-modal{
+   position: fixed;
+   background: white;
+   box-shadow: 0px 1px 2px graytext !important;
+   top:10px;
+   left: 50%;
+   transform:translateX(-50%);
+   padding: 5px 10px;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   opacity: 1;
+   transition:all 1s;
+  }
+  
+  .close-info-modal{
+   top: -10px;
+   opacity: 0;
+  }
+  
+  .error-icon{
+   color: red;
+  }
+  
+  #custom-alert{
+   font-family: "outfit",sans-serif;
+  }
 
 </style>
  
@@ -218,39 +263,38 @@
     </div>
     
     
-      <form action="" class="signin-form-wrapper" id="signup">
+      <form method="post" action="<%=request.getContextPath()+"/restaurant/signup"%>" class="signin-form-wrapper" id="restarentSignup">
       
     
        <h4 class="text-center">Sign Up</h4>
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" name="name" id="fname">
+           <i class="ri-hotel-line form-icon"></i> <input type="text" class="form-control" placeholder="Restarent name" name="name" id="fname">
         </div>
 
 
         <div class="form-group">
             
-            <input type="email" class="form-control" placeholder="email" name="email" id="email">
+         <i class="ri-mail-line form-icon"></i>    <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         <div class="form-group">
             
-            <input type="number" class="form-control" name="phone" placeholder="phone" id="phone">
+         <i class="ri-phone-line form-icon"></i>      <input type="number" class="form-control" name="phone" placeholder="Phone" id="phone" min="0">
         </div>
 
         <div class="form-group">
            
-            <input type="text" class="form-control" name="address" placeholder="Address">
+         <i class="ri-map-pin-line form-icon"></i>    <input type="text" class="form-control" name="address" placeholder="Restarent address">
         </div>
-
         <div class="form-group">
             
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+          <i class="ri-lock-line form-icon"></i>  <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         
         <div class="form-group">
             
-            <input type="password" class="form-control" name="confirmPassword" id="password" placeholder="Confirm password">
+           <i class="ri-lock-line form-icon"></i> <input type="password" class="form-control" name="confirmPassword" id="password" placeholder="Confirm password">
         </div>
 
         
@@ -268,9 +312,26 @@
     
     </form>
  </div>
+ 
+ <div id="custom-alert">This is a custom alert message!</div>
+ 
+ 
+ 
+ 
+ 
  <script >
+    
+    <%
+       if(request.getAttribute("failure")!=null)
+       {
+    	   %>
+    	   showAlert('<%=request.getAttribute("failure")%>');
+    	   <%
+       }
+    %>
+ 
  	$(document).ready(function () {
-            $("#signup").validate({
+            $("#restarentSignup").validate({
                 rules: {
                     name: {
                         required: true,
@@ -295,6 +356,7 @@
                         minlength: 10,
                         maxlength: 10
                     },
+                    
                     address: {
                         required: true
                     }
@@ -322,6 +384,7 @@
                     	maxlength: "Please enter a valid 10-digit mobile number",
                     	 minlength:"Please enter a valid 10-digit mobile number",
                     } ,
+                    
                     address: {
                     	required:"Please enter your address"
                     }
@@ -339,6 +402,23 @@
                 }
             });
         });
+ 	
+ 	
+ 	
+ 	function showAlert(message) {
+        const alertBox = document.getElementById('custom-alert');
+        alertBox.textContent = message;
+        alertBox.style.display = 'block';
+
+        // Hide the alert after 2 seconds
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 2000); // 2000ms = 2 seconds
+    }
+ 	
+ 	
+ 	
+ 	
     </script>
 </body>
 </html>

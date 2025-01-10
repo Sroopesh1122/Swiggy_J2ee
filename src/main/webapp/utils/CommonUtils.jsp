@@ -10,6 +10,19 @@
   text-decoration: none !important;
  }
  
+  #custom-alert
+   {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white; 
+            color:red !important;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+   }
+ 
  /* golden yellow : #feb80a*/
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -30,4 +43,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
 <link href="https://fonts.googleapis.com/css2?family=Outfit&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<script type="text/javascript">
+function showAlert(message) {
+    const alertBox = document.getElementById('custom-alert');
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+
+    // Hide the alert after 2 seconds
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 2000); // 2000ms = 2 seconds
+}
+</script>
