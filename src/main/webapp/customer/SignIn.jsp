@@ -225,7 +225,6 @@
     
     </div>
     
-    
     <form method="post" action="<%=request.getContextPath()+"/customer/signin"%>" class="signin-form-wrapper" id="signin">
     
        <h4 class="text-center">Sign In</h4>

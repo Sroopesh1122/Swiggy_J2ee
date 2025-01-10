@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public MenuItems addItem(MenuItems item) {
 		preparedStatement.setString(3, item.getDescription());
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
-preparedStatement.setString(6, item.getCategory());
-preparedStatement.setString(7, item.getImg());
+		preparedStatement.setString(6, item.getCategory());
+		preparedStatement.setString(7, item.getImg());
 		result=preparedStatement.executeUpdate();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -123,7 +124,7 @@ public MenuItems updateItem(MenuItems item) {
 	int result=0;
 	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ? WHERE item_id = ?";
 	try {
-		preparedStatement =connection.prepareStatement(updateQuery);
+		preparedStatement =connection.prepareStatement(updateQuery,Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setInt(1, item.getRestaurantId()); 
 		preparedStatement.setString(2, item.getName()); 
 		preparedStatement.setString(3, item.getDescription());
@@ -139,6 +140,17 @@ public MenuItems updateItem(MenuItems item) {
 		e.printStackTrace();
 	}
 	if(result >0) {
+		try {
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			if (resultSet.next()) { 
+				item.setItemId(resultSet.getInt(1));
+            }
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(item);
 		return item;
 	}
 	return null;
