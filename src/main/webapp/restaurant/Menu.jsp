@@ -21,10 +21,11 @@
    <%
     int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
     int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;
+    String q = (String) request.getParameter("q");
    
     MenuItemDAO menuItemDAO =  new MenuItemsImp();
-    List<MenuItems> menuItems = menuItemDAO.getAllItems(restaurants.getRestaurantsId(),limit,currentPage);
-    int totalCount = menuItemDAO.getMenuItemsCount(restaurants.getRestaurantsId());
+    List<MenuItems> menuItems = menuItemDAO.getAllItems(restaurants.getRestaurantsId(),q,limit,currentPage);
+    int totalCount = menuItemDAO.getMenuItemsCount(restaurants.getRestaurantsId(),q);
    %>
    
    
@@ -94,6 +95,10 @@
  color: black;
  padding: 5px 8px;
  border-radius: 15px;
+}
+
+.add-btn:hover{
+ color: black;
 }
 
 .menu-item-list-wrapper{
@@ -187,16 +192,16 @@
   
   <article class="search-section">
      
-     <form action="">
-       <input type="text" placeholder="Search">
-       <button><i class="ri-search-line"></i></button>
+     <form action="<%=request.getContextPath()+"/restaurant/Menu.jsp"%>">
+       <input type="text" placeholder="Search" name="q">
+       <button type="submit"><i class="ri-search-line"></i></button>
      </form>
      
   </article>
   
   <article class="section-2">
     
-    <button class="add-btn" onclick="handleAddFoodBtnClick('<%=request.getContextPath()+"/restaurant/AddFood.jsp"%>')">Add Food</button>
+    <a class="add-btn" href="<%=request.getContextPath()+"/restaurant/AddFood.jsp"%>">Add Food</a>
   
   </article>
   
@@ -230,9 +235,7 @@
        <div class="food-info">
           <h2>Chapathi nlnd cdnl sdcndkn cndls</h2>
           <div class="mt-1 food-card-footer">
-              
-              <span class="price-tag"><i class="ri-money-rupee-circle-fill"></i> 200</span>
-              
+              <span class="price-tag"><i class="ri-money-rupee-circle-fill"></i> 200</span>   
           </div>
        </div>
      </article> 
@@ -283,14 +286,6 @@
 </section>
 
 
-<script type="text/javascript">
-
-  function handleAddFoodBtnClick(url)
-  {
-	 window.location.href=  url	  
-  }
-
-</script>
 
 </body>
 </html>

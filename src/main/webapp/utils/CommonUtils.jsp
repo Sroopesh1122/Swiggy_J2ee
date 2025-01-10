@@ -12,17 +12,20 @@
  
   #custom-alert
    {
-            display: none;
+            display:none;
             position: fixed;
             top: 20px;
-            right: 20px;
+            left:50%;
+            transform:translateX(-50%);
             background-color: white; 
             color:red !important;
-            padding: 15px;
+            padding: 2px 5px;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
    }
- 
+ #alert-msg{
+  font-size: 0.8rem;
+ }
  /* golden yellow : #feb80a*/
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -49,7 +52,7 @@
 <script type="text/javascript">
 function showAlert(message) {
     const alertBox = document.getElementById('custom-alert');
-    alertBox.textContent = message;
+    $("#alert-msg").text(message)
     alertBox.style.display = 'block';
 
     // Hide the alert after 2 seconds

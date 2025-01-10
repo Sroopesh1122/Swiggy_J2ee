@@ -313,7 +313,12 @@ input[type="number"]::-webkit-inner-spin-button,
     </form>
  </div>
  
- <div id="custom-alert">This is a custom alert message!</div>
+ <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
  
  
  

@@ -283,8 +283,26 @@
      
     
     </form>
+    
+ <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
+ 
  </div>
  <script >
+ 
+ <%
+ if(request.getAttribute("failure")!=null)
+ {
+	   %>
+	   showAlert('<%=request.getAttribute("failure")%>');
+	   <%
+ }
+%>
+ 
  	$(document).ready(function () {
             $("#signup").validate({
                 rules: {
