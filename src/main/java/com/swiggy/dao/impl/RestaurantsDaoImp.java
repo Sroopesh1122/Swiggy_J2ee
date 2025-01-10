@@ -155,8 +155,9 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r.setPhoneNumber(resultSet.getString(3));
 				r.setRating(resultSet.getDouble(4));
 				r.setCreatedAt(resultSet.getTimestamp(5));
-				r.setEmail(resultSet.getString(6));
-				r.setPassword(resultSet.getString(7));
+				r.setPassword(resultSet.getString(6));
+				r.setEmail(resultSet.getString(7));
+				
 			}
 			
 			
