@@ -76,7 +76,7 @@ function showAlert(message) {
     }, 2000); // 2000ms = 2 seconds
 }
 
-function showSucessAlert(message) {
+function showSuccessAlert(message) {
     const alertBox = document.getElementById('custom-success-alert');
     $("#alert-success-msg").text(message)
     alertBox.style.display = 'block';

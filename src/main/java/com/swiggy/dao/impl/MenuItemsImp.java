@@ -265,78 +265,187 @@ public boolean deleteItem(int itemId) {
     
     
         @Override
-    	public List<MenuItems> getAllItems(String search_text, int limit, int page) {
-        	int skip = (page -1)* limit;
-        	
-        	PreparedStatement preparedStatement =null;
-        	List<MenuItems> items = new ArrayList();
-        	ResultSet resultSet =null;
-        	String selectQuery=search_text == null ? "select menu.* from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id  order by menu.rating desc ,menu.created_at desc limit ? offset ?"
-        			: "select menu.* from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id where menu.name like ? or menu.category like ? order by menu.rating desc ,menu.created_at desc limit ? offset ?";
-        	
-        	try {
-        		
-        		preparedStatement=connection.prepareStatement(selectQuery);
-        		if(search_text ==null)
-        		{
-        			preparedStatement.setInt(1, limit);
-        			preparedStatement.setInt(2, skip);
-        		}else {
-        			preparedStatement.setString(1, "%"+search_text+"%");
-        			preparedStatement.setString(2, "%"+search_text+"%");
-        			preparedStatement.setInt(3, limit);
-        			preparedStatement.setInt(4, skip);
-        		}
-        		resultSet=preparedStatement.executeQuery();
-        		while(resultSet.next()) {
-        			MenuItems item = new MenuItems();
-        			item.setItemId(resultSet.getInt("item_id"));
-        			 item.setRestaurantId(resultSet.getInt("restaurant_id"));
-        			 item.setName(resultSet.getString("name")); 
-        			 item.setDescription(resultSet.getString("description"));
-        			 item.setPrice(resultSet.getDouble("price")); 
-        			 item.setAvailable(resultSet.getInt("available"));
-        			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
-        			 item.setCategory(resultSet.getString("category"));
-        			 item.setImg(resultSet.getString("img"));
-        			 item.setRating(resultSet.getFloat("rating"));
-        			 items.add(item);
-        			
-        		}
-        	} catch (SQLException e) {
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
-        	}
-        	return items;
-    	}
+        public List<MenuItems> getAllItems(String search_text, int limit, int page) {
+            int skip = (page - 1) * limit;
+
+            PreparedStatement preparedStatement = null;
+            List<MenuItems> items = new ArrayList<>();
+            ResultSet resultSet = null;
+
+            String baseQuery = "select menu.* from menu_items as menu " +
+                               "inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id ";
+            String orderBy = " order by menu.rating desc, menu.created_at desc limit ? offset ?";
+
+            try {
+                if (search_text == null || search_text.isEmpty()) {
+                    String selectQuery = baseQuery + orderBy;
+                    preparedStatement = connection.prepareStatement(selectQuery);
+                    preparedStatement.setInt(1, limit);
+                    preparedStatement.setInt(2, skip);
+                } else {
+                    String[] searchTerms = search_text.split(",");
+                    StringBuilder whereClause = new StringBuilder("where ");
+
+                    for (int i = 0; i < searchTerms.length; i++) {
+                        String term = searchTerms[i].trim();
+                        if (i > 0) {
+                            whereClause.append(" or ");
+                        }
+                        whereClause.append("(menu.name like ? or menu.category like ?)");
+                    }
+
+                    String selectQuery = baseQuery + whereClause + orderBy;
+                    preparedStatement = connection.prepareStatement(selectQuery);
+
+                    int paramIndex = 1;
+                    for (String term : searchTerms) {
+                        preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                        preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                    }
+
+                    preparedStatement.setInt(paramIndex++, limit);
+                    preparedStatement.setInt(paramIndex, skip);
+                }
+
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    MenuItems item = new MenuItems();
+                    item.setItemId(resultSet.getInt("item_id"));
+                    item.setRestaurantId(resultSet.getInt("restaurant_id"));
+                    item.setName(resultSet.getString("name"));
+                    item.setDescription(resultSet.getString("description"));
+                    item.setPrice(resultSet.getDouble("price"));
+                    item.setAvailable(resultSet.getInt("available"));
+                    item.setCreatedAt(resultSet.getTimestamp("created_at"));
+                    item.setCategory(resultSet.getString("category"));
+                    item.setImg(resultSet.getString("img"));
+                    item.setRating(resultSet.getFloat("rating"));
+                    items.add(item);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } 
+            return items;
+        }
+
 
     
        @Override
-    	public int getMenuItemsCount(String search_text) {
-    	   PreparedStatement preparedStatement =null;
-       	int count=0;
-       	ResultSet resultSet =null;
-       	String selectQuery=search_text ==null ? "select count(*) from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id  order by menu.rating desc ,menu.created_at desc" : "select count(*) from menu_items as menu inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id where menu.name like ? or menu.category like ? order by menu.rating desc ,menu.created_at desc ";
-       	
-       	try {
-       		
-       		preparedStatement=connection.prepareStatement(selectQuery);
-       		if(search_text !=null)
-       		{
-       			preparedStatement.setString(1, "%"+search_text+"%");
-       			preparedStatement.setString(2, "%"+search_text+"%");
-       		}
-       		resultSet=preparedStatement.executeQuery();
-       		if(resultSet.next()) {
-       			count = resultSet.getInt(1);
-       			
-       		}
-       	} catch (SQLException e) {
-       		// TODO Auto-generated catch block
-       		e.printStackTrace();
-       	}
-       	return count;
+       public int getMenuItemsCount(String search_text) {
+    	    PreparedStatement preparedStatement = null;
+    	    int count = 0;
+    	    ResultSet resultSet = null;
+
+    	    String baseQuery = "select count(*) from menu_items as menu " +
+    	                       "inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id ";
+    	    String orderBy = " order by menu.rating desc, menu.created_at desc";
+
+    	    try {
+    	        if (search_text == null || search_text.isEmpty()) {
+    	            // If search_text is null or empty, execute the base query without a WHERE clause
+    	            String selectQuery = baseQuery + orderBy;
+    	            preparedStatement = connection.prepareStatement(selectQuery);
+    	        } else {
+    	            // Split search_text into individual terms by comma
+    	            String[] searchTerms = search_text.split(",");
+    	            StringBuilder whereClause = new StringBuilder("where ");
+
+    	            // Dynamically build the WHERE clause
+    	            for (int i = 0; i < searchTerms.length; i++) {
+    	                String term = searchTerms[i].trim();
+    	                if (i > 0) {
+    	                    whereClause.append(" or ");
+    	                }
+    	                whereClause.append("(menu.name like ? or menu.category like ?)");
+    	            }
+
+    	            // Combine the base query, WHERE clause, and ORDER BY clause
+    	            String selectQuery = baseQuery + whereClause + orderBy;
+    	            preparedStatement = connection.prepareStatement(selectQuery);
+
+    	            // Set the placeholders for each term
+    	            int paramIndex = 1;
+    	            for (String term : searchTerms) {
+    	                preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+    	                preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+    	            }
+    	        }
+
+    	        resultSet = preparedStatement.executeQuery();
+    	        if (resultSet.next()) {
+    	            count = resultSet.getInt(1);
+    	        }
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	    }
+    	    return count;
     	}
+       
+       
+       @Override
+    	public List<MenuItems> getAllItems(int menu_id, int limit, int page) {
+    	   int skip = (page - 1) * limit;
+
+           PreparedStatement preparedStatement = null;
+           List<MenuItems> items = new ArrayList<>();
+           ResultSet resultSet = null;
+           MenuItemDAO menuItemDAO =  new MenuItemsImp();
+           String search_text = menuItemDAO.getItemById(menu_id).getCategory();
+
+           String baseQuery = "select menu.* from menu_items as menu " +
+                              "inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id ";
+           String orderBy = " order by menu.rating desc, menu.created_at desc limit ? offset ?";
+
+           try {
+               
+                   String[] searchTerms = search_text.split(",");
+                   StringBuilder whereClause = new StringBuilder(" WHERE ( ");
+
+                   for (int i = 0; i < searchTerms.length; i++) {
+                       String term = searchTerms[i].trim();
+                       if (i > 0) {
+                           whereClause.append(" or ");
+                       }
+                       whereClause.append("(menu.name like ? or menu.category like ?)");
+                   }
+
+                   whereClause.append(") AND MENU.ITEM_ID != "+menu_id);
+                   String selectQuery = baseQuery + whereClause + orderBy;
+                   System.out.println(selectQuery);
+                   preparedStatement = connection.prepareStatement(selectQuery);
+
+                   int paramIndex = 1;
+                   for (String term : searchTerms) {
+                       preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                       preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                   }
+
+                   preparedStatement.setInt(paramIndex++, limit);
+                   preparedStatement.setInt(paramIndex, skip);
+               
+
+               resultSet = preparedStatement.executeQuery();
+               while (resultSet.next()) {
+                   MenuItems item = new MenuItems();
+                   item.setItemId(resultSet.getInt("item_id"));
+                   item.setRestaurantId(resultSet.getInt("restaurant_id"));
+                   item.setName(resultSet.getString("name"));
+                   item.setDescription(resultSet.getString("description"));
+                   item.setPrice(resultSet.getDouble("price"));
+                   item.setAvailable(resultSet.getInt("available"));
+                   item.setCreatedAt(resultSet.getTimestamp("created_at"));
+                   item.setCategory(resultSet.getString("category"));
+                   item.setImg(resultSet.getString("img"));
+                   item.setRating(resultSet.getFloat("rating"));
+                   items.add(item);
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           } 
+           return items;
+    	}
+    
+
 
 //	public static void main(String[] args) {
 //		MenuItems items =new MenuItems();

@@ -36,6 +36,7 @@
    height:100vh;
    background: #feb80a;
   }
+  
   .wrapper-2{
    width: 60%;
    height:100vh;
@@ -162,6 +163,15 @@
     left: 15%;
     display: none;
    }
+   .wrapper-1{
+    position: fixed;
+    width: 1200px;
+    height: 1200px;
+    z-index: -1;
+    top:-50%;
+    left: -50%;
+    border-radius: 50%;
+  }
    
    .signin-form-wrapper
    {

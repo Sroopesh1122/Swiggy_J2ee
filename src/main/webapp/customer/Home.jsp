@@ -213,86 +213,84 @@ body {
 
 
 	<section class="category-section">
-		<h3 class="mb-4">Food Categories</h3>
+		<h3 class="mb-4">Our Food Menu</h3>
 		<article class="category-list-wrapper">
-			<div class="category-card">
+			<div class="category-card" onclick="handleCategoryClick('chapathi,rice')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
+						src="https://img.freepik.com/premium-photo/plate-with-delicious-vegetable-salad-white-background-top-view_392895-210344.jpg">
 				</div>
 				<h6>Vegetarian</h6>
 
 			</div>
-			<div class="category-card">
+			
+			
+			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
 
 				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
+					<img id="appLogo" alt=""
+						src="https://static.vecteezy.com/system/resources/previews/036/627/269/non_2x/ai-generated-savory-chicken-dish-on-transparent-background-png.png">
 				</div>
-				<h6>Vegetarian</h6>
+				<h6>Non-Vegetarian</h6>
 
 			</div>
-			<div class="category-card">
+			
+			
+			
+			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
 
 				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
+					<img id="appLogo" alt=""
+						src="https://www.shutterstock.com/image-photo/noodles-meat-vegetables-isolated-on-600nw-1026270289.jpg">
 				</div>
-				<h6>Vegetarian</h6>
+				<h6>Chinese</h6>
 
 			</div>
-			<div class="category-card">
+			
+			
+			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
 
 				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
+					<img id="appLogo" alt=""
+						src="https://thumbs.dreamstime.com/b/italian-food-white-plate-36648641.jpg">
 				</div>
-				<h6>Vegetarian</h6>
+				<h6>Italian</h6>
 
 			</div>
-			<div class="category-card">
+			
+			
+			
+			
+			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
 
 				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
+					<img id="appLogo" alt=""
+						src="https://png.pngtree.com/png-clipart/20241028/original/pngtree-top-view-of-fried-egg-on-a-rice-plate-png-image_16536285.png">
 				</div>
-				<h6>Vegetarian</h6>
+				<h6>Egg</h6>
 
 			</div>
-			<div class="category-card">
-
-				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
-				</div>
-				<h6>Vegetarian</h6>
-
-			</div>
-			<div class="category-card">
-
-				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
-				</div>
-				<h6>Vegetarian</h6>
-
-			</div>
-			<div class="category-card">
-
-				<div class="img-wrapper">
-					<img alt=""
-						src="https://media.istockphoto.com/id/1340043045/photo/salad-with-quinoa-spinach-broccoli-tomatoes-cucumbers-and-carrots.jpg?s=612x612&w=0&k=20&c=IYXhejyXIfdFykJe8PQsuENXwpGaJ2P9YQvGNNHXCTU=">
-				</div>
-				<h6>Vegetarian</h6>
-
-			</div>
+			
 		</article>
 
 	</section>
 	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	
+	
+	  function handleCategoryClick(category)
+	  {
+	     let url = '<%= request.getContextPath()+"/customer/Menu.jsp?q="%>'+category;
+	     
+	     window.location.href=url
+	  }
+	
+	</script>
 	
 
 

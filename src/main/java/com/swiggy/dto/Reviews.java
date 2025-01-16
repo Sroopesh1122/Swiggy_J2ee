@@ -13,8 +13,9 @@ public class Reviews {
 	private Integer reviewId;
 	private  Integer userId;
 	private Integer  restaurantId;
-	private  Integer rating;
+	private  Double rating;
 	private String comment;
 	private Timestamp createdAt;
+	private int menuId;
 
 }

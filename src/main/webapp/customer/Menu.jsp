@@ -1,3 +1,6 @@
+<%@page import="com.swiggy.dto.Cart"%>
+<%@page import="com.swiggy.dao.impl.CartDaoImp"%>
+<%@page import="com.swiggy.dao.CartDAO"%>
 <%@page import="com.swiggy.dto.Restaurants"%>
 <%@page import="com.swiggy.dao.impl.RestaurantsDaoImp"%>
 <%@page import="com.swiggy.dao.RestaurantsDao"%>
@@ -11,7 +14,7 @@
 <%@include file="/customer/CustomerSession.jsp" %> 
    
    <%
-   request.setAttribute("menu", "Menu");
+     request.setAttribute("menu", "Menu");
    %>
    
    <%
@@ -118,7 +121,7 @@
  box-shadow: 0px 1px 1px graytext !important;
 }
 
-.cart-btn{
+.cart-btn , .saved-btn{
  position: absolute;
  top: 10px;
  right: 10px;
@@ -132,6 +135,13 @@
  justify-content: center;
  align-items: center;
 }
+.saved-btn{
+ width: 50px;
+ font-size: 0.7rem;
+ border-radius: 20px;
+ padding: 0px;
+}
+
 .food-info{
  padding: 5px;
 }
@@ -275,30 +285,52 @@
      
      <%
      RestaurantsDao restaurantsDao = new RestaurantsDaoImp();
+     CartDAO cartDAO =  new CartDaoImp();
      for(MenuItems menuItem : menuItems)
      {
+    	 int user_id = user!=null ? user.getUserId() :-1;
     	 Restaurants restaurant = restaurantsDao.getRestaurant(menuItem.getRestaurantId());
+    	 boolean  isSaved = user !=null ? cartDAO.lookCart(menuItem.getItemId(), user_id) : false ; 
+    	 
     	 %>
     	  
-      <article class="food-item-card" onclick="handleMenuItemClick('<%=request.getContextPath()+"/restaurant/UpdateFood.jsp?menu_id="+menuItem.getItemId()%>')">
+      <article class="food-item-card" onclick="handleMenuItemClick('<%=request.getContextPath()+"/customer/FoodItem.jsp?menu_id="+menuItem.getItemId()%>')">
        
        <%
         if(menuItem.getAvailable() ==0)
         {
         	%>
         	  <div class="not-avaiable-overlay">
-                Not Available
+                Not Available 
               </div> 
         	<% 
         }
+         
+       
+       
        %>
        
-       <span class="cart-btn"><i class="ri-bookmark-line"></i></span>
+        <%
+        if(isSaved)
+        {
+        	%>
+        	 <span class="saved-btn" onclick="handleFoodSavedClick()" >Saved</span>
+       
+        	<% 
+        }else{
+        	%>
+        	   <span class="cart-btn" onclick="handleFoodCartClick('<%=request.getContextPath()+"/customer/cart/add?foodId="+menuItem.getItemId()%>')"><i class="ri-bookmark-line"></i></span>
+     
+        	<% 
+        }
+        %>
+      
+       
         <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
-          <h2 class="food-title"><%=menuItem.getName() %> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating() %></span> </h2>
+          <h2 class="food-title"><%=menuItem.getName()%> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating() %></span> </h2>
           <p class="mb-1 food-desc"><%=menuItem.getDescription() %></p>
-          <p class="food-hotel-info" class="mb-1">Restaurant : <%=restaurant.getName() %></p>
+          <p class="food-hotel-info" class="mb-1">Restaurant : <%=restaurant.getName()%></p>
           <div class="mt-1 food-card-footer">
               <span class="price-tag"><i class="ri-money-rupee-circle-fill"></i> <%=menuItem.getPrice() %></span>   
           </div>
@@ -355,11 +387,57 @@
   
 </section>
 
+<%@include file="/utils/Alerts.jsp" %>
+
 <script type="text/javascript">
 
    function handleMenuItemClick(url)
    {
 	   window.location.href = url;
+   }
+   
+   function handleFoodSavedClick()
+   {
+	   event.stopPropagation();
+   }
+   
+   function handleFoodCartClick(url)
+   {
+	   event.stopPropagation();
+	   
+	 //  window.location.href = "http://localhost:8080"+url
+	   fetch("http://localhost:8080" + url, {
+		   method: "GET",
+		 })
+		   .then((response) => {
+		     if (response.ok) {
+		       return response.text(); // Convert response to plain text
+		     } else {
+		       throw new Error("Failed to fetch: " + response.status);
+		     }
+		   })
+		   .then((data) => {
+			  
+		     if(data === "login")
+		       {
+		    	 window.location.href =  "http://localhost:8080/Swiggy/customer/SignIn.jsp";
+		       }
+		     else if(data === "success")
+		       {
+		    	 showSuccessAlert("Item addded to cart successfully")
+		     	setTimeout(()=>{
+		     	  window.location.reload() 
+		     	},1000)
+		       }
+		     else{
+		    	 showAlert("Failed to add to cart")
+		     }
+		   })
+		   .catch((error) => {
+		     console.log("Error: " + error.message); 
+		   });
+ 
+	   
    }
 
 </script>
