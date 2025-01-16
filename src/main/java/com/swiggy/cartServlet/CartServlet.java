@@ -25,9 +25,7 @@ public class CartServlet extends HttpServlet {
 			response.getWriter().write("login");
 			return;
 		}
-		
-		
-		
+			
 		int productId = request.getParameter("foodId")!=null ? Integer.parseInt(request.getParameter("foodId")): -1;
 		System.out.println(productId);
 		if(productId != -1) {
@@ -43,8 +41,5 @@ public class CartServlet extends HttpServlet {
                 response.getWriter().write("failed");
             }
 		}
-	}
-
-	
-
+	}	
 }

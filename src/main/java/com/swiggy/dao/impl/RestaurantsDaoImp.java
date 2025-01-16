@@ -112,6 +112,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			preparedStatement.setTimestamp(5, r.getCreatedAt());
 		    preparedStatement.setString(6, r.getPassword());
 		    preparedStatement.setString(7, r.getEmail());
+		    preparedStatement.setInt(8, r.getRestaurantsId());
 			res=preparedStatement.executeUpdate();
 				
 		} catch (SQLException e) {

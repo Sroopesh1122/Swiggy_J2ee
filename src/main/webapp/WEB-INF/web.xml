@@ -3,7 +3,6 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <description></description>
-
     <display-name>RestaurantSingup</display-name>
     <servlet-name>RestaurantSingup</servlet-name>
     <servlet-class>com.swiggy.controller.RestaurantSingup</servlet-class>
@@ -37,7 +36,6 @@
     <display-name>UserLogin</display-name>
     <servlet-name>UserLogin</servlet-name>
     <servlet-class>com.swiggy.userServlet.UserLogin</servlet-class>
-
   </servlet>
   <servlet-mapping>
     <servlet-name>UserLogin</servlet-name>
@@ -62,5 +60,25 @@
   <servlet-mapping>
     <servlet-name>DeleteServlet</servlet-name>
     <url-pattern>/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Profile</display-name>
+    <servlet-name>Profile</servlet-name>
+    <servlet-class>com.swiggy.restaurantServlet.Profile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Profile</servlet-name>
+    <url-pattern>/Profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateProfile</display-name>
+    <servlet-name>UpdateProfile</servlet-name>
+    <servlet-class>com.swiggy.userServlet.UpdateProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateProfile</servlet-name>
+    <url-pattern>/UpdateProfile</url-pattern>
   </servlet-mapping>
 </web-app>
