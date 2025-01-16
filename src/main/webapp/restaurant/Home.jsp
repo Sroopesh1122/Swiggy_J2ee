@@ -82,13 +82,83 @@ body {
 	cursor: pointer;
 }
 
-.home-info-section{
- display: flex;
- justify-content: center;
- align-items: center;
- height: 10vh;
- background: #feb80a;
+
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 15px 0;
+  font-family: Arial, sans-serif;
 }
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin: 10px 0;
+}
+
+.footer-section h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  border-bottom: 2px solid #555;
+  padding-bottom: 5px;
+}
+
+.footer-section p,
+.footer-section ul {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+ 
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #7272ff;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #fff;
+}
+
+.footer-section .social-media a {
+  margin-right: 10px;
+  color: #ddd;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.footer-section .social-media a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1px;
+  border-top: 1px solid #555;
+  font-size: 14px;
+}
+
+
+
 
 .add-btn{
   background: white;
@@ -186,13 +256,46 @@ body {
 	</section>
 	
 	
-	<section  class="home-info-section">
+	<%--<section  class="home-info-section"> 
+	</section> --%>
 	 
 	  
-	   <button class="add-btn">Add Food </button>
+	   <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>About Us</h4>
+      <p>We are a team of passionate developers creating innovative solutions.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact Us</h4>
+      <p><i class="fa-solid fa-envelope"></i> : shivroopesh@gmail.com</p>
+      <p><i class="fa-solid fa-phone"></i> : +91 6362379895</p> 
+    </div>
+    <div class="footer-section social-media">
+      <h4>Follow Us</h4>
+      <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+      <a href="https://x.com/?lang=en-in&mx=2"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.linkedin.com/feed/"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>@copy: .</p>
+  </div>
+</footer>
+
 	
 	
-	</section>
+	
 	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

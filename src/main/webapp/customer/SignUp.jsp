@@ -42,7 +42,7 @@
   
   .welcome-card{
    width: 370px;
-   height: 600px;
+   height: 450px;
    border: 1px solid #efefef;
    box-shadow: 0px 2px 4px #efefef !important;
    border-radius: 20px;
