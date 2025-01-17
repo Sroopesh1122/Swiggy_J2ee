@@ -350,7 +350,7 @@
      
      <article class="cart-info-wrapper">
         
-        <div class="cart-list">
+        <form id="checkout-form" class="cart-list" method="post" action="<%=request.getContextPath()+"/customer/Checkout.jsp"%>">
            
         <%
           MenuItemDAO menuItemDAO =  new MenuItemsImp();  
@@ -388,7 +388,7 @@
           }
         
         %>
-        </div>
+        </form>
         <div class="cart-info">
          <h1 class="checkout-title">Checkout Details</h1>
 	     
@@ -435,7 +435,7 @@
      <p>Confirm Checkout .</p>
      
       <footer>
-          <button>Checkout</button>
+          <button onclick="handleCheckoutClick()">Checkout</button>
           <button onclick="closeModal()">Cancel</button>
       </footer>
       
@@ -579,6 +579,13 @@
 	function stopPropagationToParent(event)
 	{
 		event.stopPropagation()
+	}
+	
+	
+	function  handleCheckoutClick(){
+		 
+		$("#checkout-form").submit();
+		
 	}
 
 </script>

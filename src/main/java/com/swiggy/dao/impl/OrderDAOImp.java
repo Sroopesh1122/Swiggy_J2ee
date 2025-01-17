@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,23 +24,29 @@ private Connection connection;
 	public Orders insertOrder(Orders orders) {
 		PreparedStatement preparedStatement=null;
 		int result =0;
-		String insertQuery="INSERT INTO orders (user_id, restaurant_id, total_amount, status, created_at) VALUES (?, ?, ?, ?, now())";
+		String insertQuery="INSERT INTO orders (user_id, restaurant_id, total_amount, created_at,pay_mode) VALUES (?, ?, ?, now(),?)";
 		try {
-			preparedStatement=connection.prepareStatement(insertQuery);
+			preparedStatement=connection.prepareStatement(insertQuery,Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, orders.getUserId());
 			preparedStatement.setInt(2, orders.getRestaurantId());
 			preparedStatement.setDouble(3, orders.getTotalAmount());
-			preparedStatement.setString(4, orders.getStatus());
+			preparedStatement.setString(4, orders.getPay_mode());
 
 			result=preparedStatement.executeUpdate();
+		
+		if(result >0) {
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			if(resultSet.next())
+			{
+				orders.setOrderId(resultSet.getInt(1));
+				return orders;
+			}
+		}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(result >0) {
-			return null;
-		}
-		return orders;
+		return null;
 	}
 	@Override
 	public Orders getOrderById(int orderId) {

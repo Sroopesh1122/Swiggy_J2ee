@@ -63,6 +63,15 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>OrderFromCart</display-name>
+    <servlet-name>OrderFromCart</servlet-name>
+    <servlet-class>com.swiggy.orderServlet.OrderFromCart</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderFromCart</servlet-name>
+    <url-pattern>/OrderFromCart</url-pattern>
+ </servlet-mapping>
+   <servlet>
     <display-name>Profile</display-name>
     <servlet-name>Profile</servlet-name>
     <servlet-class>com.swiggy.restaurantServlet.Profile</servlet-class>

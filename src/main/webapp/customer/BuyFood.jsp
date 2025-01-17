@@ -17,14 +17,14 @@
      }
      request.setAttribute("menu", "");
      
+     int menuId = request.getParameter("foodId")!=null ? Integer.parseInt(request.getParameter("foodId")) : -1 ; 
      
-     CartDAO cartDAO =  new CartDaoImp();
-     List<Cart> cartItems = cartDAO.getAllCarts(user.getUserId()); 
-     if(cartItems.size() == 0)
+     if(menuId == -1)
      {
-    	 response.sendRedirect(request.getContextPath()+"/customer/Cart.jsp");
+    	 response.sendRedirect(request.getContextPath()+"/customer/Menu.jsp");
     	 return;
      }
+     
    %>    
 <!DOCTYPE html>
 <html>
@@ -184,38 +184,24 @@
          
          MenuItemDAO menuItemDAO = new MenuItemsImp();
          
-         int totalQuantity = 0;
-         double totalPrice=0;
+         MenuItems menuItem =  menuItemDAO.getItemById(menuId);
          
-         for(Cart cart : cartItems)
-         {
-        	 MenuItems item = menuItemDAO.getItemById(cart.getMenuId());
-        	 totalQuantity+=Integer.parseInt(request.getParameter(item.getItemId()+""));
-        	 totalPrice += Integer.parseInt(request.getParameter(item.getItemId()+"")) * item.getPrice();
-        	 %>
-        	     <div class="checkout-list-item">
-        	      <input type="hidden" name="<%=item.getItemId()%>" value="<%=Integer.parseInt(request.getParameter(item.getItemId()+""))%>">
-                   <span>
-                     <img alt="" src="<%=item.getImg()%>" class="cart-img">
-                     <h6 class="cart-item-name"><%=item.getName() %></h6>
-                   </span>
-                   <span><%=request.getParameter(item.getItemId()+"") %></span>
-                   <span><%=item.getPrice() %></span>
-                   <span><%=Integer.parseInt(request.getParameter(item.getItemId()+"")) * item.getPrice()  %></span>
-                  </div>  
-        	 <%
-         }
+         
          
          %>
          
-         <div class="checkout-list-item ">
+        	     <div class="checkout-list-item">
+        	      <input type="hidden" name="<%=menuItem.getItemId()%>" value="1">
                    <span>
+                     <img alt="" src="<%=menuItem.getImg()%>" class="cart-img">
+                     <h6 class="cart-item-name"><%=menuItem.getName() %></h6>
                    </span>
-                   <span></span>
-                   <span>Q <%=totalQuantity %></span>
-                   <span><i class="ri-money-rupee-circle-fill"></i> <%=totalPrice  %></span>
-                  </div> 
-          
+                   <span>1</span>
+                   <span><%=menuItem.getPrice() %></span>
+                   <span><%= menuItem.getPrice()  %></span>
+                  </div>  
+        
+                   
       </article>
       
       <article class="shipping-details mt-3 p-2">
