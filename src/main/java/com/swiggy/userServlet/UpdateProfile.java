@@ -49,9 +49,6 @@ public class UpdateProfile extends HttpServlet {
 			  request.setAttribute("failure", "Profile failed to update");
 			  RequestDispatcher rd=request.getRequestDispatcher("/customer/Profile.jsp");
 			  rd.forward(request, response);
-		  
 		}
-		
 	}
-
 }

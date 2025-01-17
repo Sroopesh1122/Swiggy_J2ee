@@ -70,8 +70,8 @@
   <servlet-mapping>
     <servlet-name>OrderFromCart</servlet-name>
     <url-pattern>/OrderFromCart</url-pattern>
- </servlet-mapping>
-   <servlet>
+  </servlet-mapping>
+  <servlet>
     <display-name>Profile</display-name>
     <servlet-name>Profile</servlet-name>
     <servlet-class>com.swiggy.restaurantServlet.Profile</servlet-class>
@@ -89,5 +89,15 @@
   <servlet-mapping>
     <servlet-name>UpdateProfile</servlet-name>
     <url-pattern>/UpdateProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ForgotPassword</display-name>
+    <servlet-name>ForgotPassword</servlet-name>
+    <servlet-class>com.swiggy.restaurantServlet.ForgotPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ForgotPassword</servlet-name>
+    <url-pattern>/ForgotPassword</url-pattern>
   </servlet-mapping>
 </web-app>

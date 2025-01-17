@@ -286,6 +286,12 @@ display: none;
   <span id="alert-msg"></span>
  
  </div>
+ <div id="custom-success-alert">
+  
+  <i class="ri-checkbox-circle-fill"></i>
+  <span id="alert-success-msg"></span>
+ 
+ </div>
  
  <script>
  
@@ -296,6 +302,12 @@ display: none;
 	   %>
 	   showAlert('<%=request.getAttribute("failure")%>');
 	   <%
+ }
+ if(request.getAttribute("success")!=null)
+ {
+	 %>
+	 showSuccessAlert('<%=request.getAttribute("success")%>');
+	 <%
  }
 %>
 

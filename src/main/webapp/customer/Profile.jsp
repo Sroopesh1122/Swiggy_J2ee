@@ -119,6 +119,21 @@ input[type="number"]::-webkit-inner-spin-button,
         </div>
     </form>
    </section>
+   
+    <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
+ 
+  <div id="custom-success-alert">
+  
+  <i class="ri-checkbox-circle-fill"></i>
+  <span id="alert-success-msg"></span>
+ 
+ </div>
+ 
    <script >
     
     <%
@@ -128,6 +143,12 @@ input[type="number"]::-webkit-inner-spin-button,
     	   showAlert('<%=request.getAttribute("failure")%>');
     	   <%
        }
+    if(request.getAttribute("success")!=null)
+    {
+   	 %>
+   	 showSuccessAlert('<%=request.getAttribute("success")%>');
+   	 <%
+    }
     %>
    $(document).ready(function () {
             $("#profile").validate({
@@ -204,16 +225,7 @@ input[type="number"]::-webkit-inner-spin-button,
  	
  	
  	
- 	function showAlert(message) {
-        const alertBox = document.getElementById('custom-alert');
-        alertBox.textContent = message;
-        alertBox.style.display = 'block';
-
-        // Hide the alert after 2 seconds
-        setTimeout(() => {
-            alertBox.style.display = 'none';
-        }, 2000); // 2000ms = 2 seconds
-    }
+ 	
  	
  	
  	
