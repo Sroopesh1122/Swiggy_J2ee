@@ -106,6 +106,7 @@ public class UsersDaoImp implements UsersDao{
 			preparedStatement.setString(3,u.getPassword());
 			preparedStatement.setString(4,u.getPhoneNumber());
 			preparedStatement.setString(5,u.getAddress());
+			preparedStatement.setInt(6, u.getUserId());
 			res=preparedStatement.executeUpdate();
 				
 		} catch (SQLException e) {
