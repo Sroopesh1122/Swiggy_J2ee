@@ -332,7 +332,7 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
             %>
             
              
-             <button class="buy-btn">Buy <i class="ri-currency-fill"></i></button>
+             <button class="buy-btn" type="button" onclick="handleBuyBtnClick('<%=request.getContextPath()+"/customer/BuyFood.jsp?foodId="+searchItem.getItemId()%>')">Buy <i class="ri-currency-fill"></i></button>
           </div>
           
       </article>
@@ -474,6 +474,12 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
 		   });
  
 	   
+   }
+   
+   
+   function handleBuyBtnClick(url)
+   {
+	   window.location.href=url;
    }
 
 </script>

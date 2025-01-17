@@ -148,6 +148,22 @@
    font-weight: 600;
   }
   
+     .flex-d{
+ display: flex;
+ align-items: center;
+ padding-right: 5px;
+}
+.password-icon{
+ cursor: pointer;
+}
+
+#open-eye{
+display: block;
+}
+#close-eye{
+display: none;
+}
+  
   
   
   @media (max-width:1270px) {
@@ -288,9 +304,10 @@ input[type="number"]::-webkit-inner-spin-button,
            
          <i class="ri-map-pin-line form-icon"></i>    <input type="text" class="form-control" name="address" placeholder="Restarent address">
         </div>
-        <div class="form-group">
+        <div class="form-group ">
             
           <i class="ri-lock-line form-icon"></i>  <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+          
         </div>
         
         <div class="form-group">
@@ -422,6 +439,19 @@ input[type="number"]::-webkit-inner-spin-button,
         }, 2000); // 2000ms = 2 seconds
     }
  	
+ 	function handleOpenEyeClick(){
+		 
+		 $("#password").attr("type","text");
+		 $("#close-eye").show();
+		 $("#open-eye").hide();
+	 }
+	 
+	function handleCloseEyeClick(){
+		 
+		 $("#password").attr("type","password");
+		 $("#close-eye").hide();
+		 $("#open-eye").show();
+	 }
  	
  	
  	

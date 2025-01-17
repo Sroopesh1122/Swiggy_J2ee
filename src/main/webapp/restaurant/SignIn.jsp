@@ -150,6 +150,22 @@
    font-family: "outfit",sans-serif;
   }
   
+    .flex-d{
+ display: flex;
+ align-items: center;
+ padding-right: 5px;
+}
+.password-icon{
+ cursor: pointer;
+}
+
+#open-eye{
+display: block;
+}
+#close-eye{
+display: none;
+}
+  
   @media (max-width:1270px) {
    
    .welcome-card{
@@ -238,13 +254,15 @@
 
 
         <div class="form-group" >
-          <i class="ri-mail-line form-icon"></i>           <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+          <i class="ri-mail-line form-icon"></i>   <input type="email" class="form-control" placeholder="Email" name="email" id="email">
         </div>
 
         
 
-        <div class="form-group">
+        <div class="form-group flex-d">
          <i class="ri-lock-line form-icon"></i>     <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+         <i class="ri-eye-line password-icon" id="open-eye" onclick="handleOpenEyeClick()"></i>
+          <i class="ri-eye-off-line password-icon" id="close-eye" onclick="handleCloseEyeClick()"></i>
         </div>
         
 
@@ -318,6 +336,20 @@
          }
      });
  });
+ 
+ function handleOpenEyeClick(){
+		 
+		 $("#password").attr("type","text");
+		 $("#close-eye").show();
+		 $("#open-eye").hide();
+	 }
+	 
+	function handleCloseEyeClick(){
+		 
+		 $("#password").attr("type","password");
+		 $("#close-eye").hide();
+		 $("#open-eye").show();
+	 }
  
 	
  
