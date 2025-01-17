@@ -232,7 +232,7 @@
       </div>
       
       <div>
-         Footer
+         "Savor Every Bite, Anytime, Anywhere"
       </div>
     
     </div>
