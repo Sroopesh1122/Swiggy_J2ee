@@ -170,7 +170,7 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
                %>
     	     
     	     </a></li>
-          <li><a href="#" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
+          <li><a href="<%= request.getContextPath()+"/customer/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
           <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
     	  

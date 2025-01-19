@@ -229,7 +229,7 @@
                  <div class="custom-checkbox" onclick="handleCheckBoxClick()">
                       <i class="ri-checkbox-fill check-box-i close-check " id="address-checkbox"></i>  
                  </div>
-                 <span class="ms-1"><%=user.getAddress() %></span>
+                 <span class="ms-1" id="defaultAddress"><%=user.getAddress() %></span>
                </article>
         	 <%
          }
@@ -257,19 +257,23 @@
  
  </form>
  
- 
+  <%@include file="/utils/Alerts.jsp" %>
+  
  <script type="text/javascript">
  
  function handleCheckBoxClick()
  {
 	 $("#address-checkbox").toggleClass("close-check");
-	 if ($("#address-checkbox").hasClass("close-check")) {
+if ($("#address-checkbox").hasClass("close-check")) {
 		 
 		 $("#delivery-address").show();
+		 $("#delivery-address").val('')
 		 
 	  } else {
 		    
 		  $("#delivery-address").hide();
+		  $("#delivery-address").val($("#defaultAddress").text())
+		  
 	 }
  }
  
@@ -280,6 +284,13 @@
 	 let paymentType  = $("#payment-option").val();
 	 if(paymentType === "cod")
 	  {
+		 if($("#delivery-address").val().trim() === "")
+		 {
+			 showAlert("Delivery Address Required!");
+			 return;
+			 
+		 }
+		 
 		 $("#checkout-form").submit();
 	  }
  }

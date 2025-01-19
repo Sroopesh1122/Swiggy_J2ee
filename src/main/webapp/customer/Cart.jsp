@@ -72,10 +72,17 @@
  display: flex;
  justify-content: center;
  align-items: center;
+ flex-direction: column;
+}
+
+.not-found img{
+ width: 300px;
+ height: 200px;
 }
 
 .not-found p {
  font-size: 1.5rem;
+
 }
 
 .not-avaiable-overlay{
@@ -274,6 +281,11 @@
  display: flex;
 }
 
+.shop-now-btn{
+ font-size: 0.8rem;
+ color: graytext !important;
+}
+
 @media (width <770px) {
  
   .cart-info{
@@ -331,8 +343,10 @@
     	%>
     	 
     	 <section class="not-found">
-    	    
+    	     
+    	     <img alt="" src="<%=request.getContextPath()+"/imgs/dog.webp"%>">
     	     <p>&#128532; Your  Cart is Empty </p> 
+    	     <a class="shop-now-btn" href="<%=request.getContextPath()+"/customer/Menu.jsp"%>">Shop now</a>
     	 
     	 </section>
     	

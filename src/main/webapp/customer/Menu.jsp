@@ -176,6 +176,14 @@
  display: flex;
  justify-content: center;
  align-items: center;
+ flex-direction: column;
+}
+
+.not-found img{
+ 
+ width: 300px;
+ height: 300px;
+ 
 }
 
 .not-found p {
@@ -265,7 +273,8 @@
     	 
     	 <section class="not-found">
     	    
-    	     <p>&#128532; Your  Menu is Empty </p> 
+    	     <img alt="" src="<%=request.getContextPath()+"/imgs/dog2.png"%>">
+    	     <p>&#128532; Food Not Found </p> 
     	 
     	 </section>
     	
@@ -328,7 +337,7 @@
        
         <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
-          <h2 class="food-title"><%=menuItem.getName()%> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating() %></span> </h2>
+          <h2 class="food-title"><%=menuItem.getName()%> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating()%></span> </h2>
           <p class="mb-1 food-desc"><%=menuItem.getDescription() %></p>
           <p class="food-hotel-info" class="mb-1">Restaurant : <%=restaurant.getName()%></p>
           <div class="mt-1 food-card-footer">

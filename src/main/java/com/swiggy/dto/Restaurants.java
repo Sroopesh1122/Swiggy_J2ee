@@ -21,6 +21,7 @@ public class Restaurants {
 	private Timestamp  createdAt;
 	private String password;
 	private String email;
+	private int reviewsCount;
 	
 
 }

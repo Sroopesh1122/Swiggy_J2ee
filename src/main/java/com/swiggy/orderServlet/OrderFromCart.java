@@ -82,7 +82,7 @@ public class OrderFromCart extends HttpServlet {
 	    		  orderItems.setOrderId(order.getOrderId());
 	    		  orderItems.setItemId(cartItem.getMenuId());
 	    		  orderItems.setQuantity(Integer.parseInt(request.getParameter(menuItem.getItemId()+"")));
-	    		  orderItems.setPrice(totalPrice);
+	    		  orderItems.setPrice(menuItem.getPrice());
 	    		  orderItems = orderItemDao.addItem(orderItems);
 	    	 }
 	    	 

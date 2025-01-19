@@ -70,8 +70,8 @@
   <servlet-mapping>
     <servlet-name>OrderFromCart</servlet-name>
     <url-pattern>/OrderFromCart</url-pattern>
- </servlet-mapping>
-   <servlet>
+  </servlet-mapping>
+  <servlet>
     <display-name>Profile</display-name>
     <servlet-name>Profile</servlet-name>
     <servlet-class>com.swiggy.restaurantServlet.Profile</servlet-class>
@@ -89,5 +89,35 @@
   <servlet-mapping>
     <servlet-name>UpdateProfile</servlet-name>
     <url-pattern>/UpdateProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OrderByFoodItem</display-name>
+    <servlet-name>OrderByFoodItem</servlet-name>
+    <servlet-class>com.swiggy.orderServlet.OrderByFoodItem</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderByFoodItem</servlet-name>
+    <url-pattern>/OrderByFoodItem</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddReview</display-name>
+    <servlet-name>AddReview</servlet-name>
+    <servlet-class>com.swiggy.reviewServlet.AddReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddReview</servlet-name>
+    <url-pattern>/AddReview</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OrderStatus</display-name>
+    <servlet-name>OrderStatus</servlet-name>
+    <servlet-class>com.swiggy.orderServlet.OrderStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderStatus</servlet-name>
+    <url-pattern>/OrderStatus</url-pattern>
   </servlet-mapping>
 </web-app>

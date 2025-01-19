@@ -1,3 +1,5 @@
+<%@page import="com.swiggy.dao.impl.UsersDaoImp"%>
+<%@page import="com.swiggy.dao.UsersDao"%>
 <%@page import="com.swiggy.dto.Reviews"%>
 <%@page import="com.swiggy.dao.impl.ReviewDaoImpl"%>
 <%@page import="com.swiggy.dao.ReviewDao"%>
@@ -349,39 +351,41 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
   <section class="review-section">
      <h2>Recent Reviews</h2>
       <article>
-           
-          
-           
-           <%
-            if(reviewCount == 0)
-            {
-            	%>
-            	  <div class="not-review">
-               <span>No Reviews &#128064;</span>
-           </div> 
-            	<%
-            }else{
-            	 %>
-            	    <div class="review-card">
-                       <h6> <span>ShivuRoopesh M </span>  <span class="review-date">Reviewed on : 12/01/2025 </span> </h6>
-                         <div  class="comment-card">
-                         <h6>Comment : </h6>
-                          <div class="comment">
-                               Good & Deliecious
-                           </div>
-                         </div>
-                       </div>
-            	<% 
-            }
-           %>
-           
-           
-           
-           
-           
-      
-      
-      </article>
+
+
+
+			<%
+			if(reviewCount == 0)
+			  			{
+			%>
+			<div class="not-review">
+				<span>No Reviews &#128064;</span>
+			</div>
+			<%
+			} else {
+            
+			UsersDao usersDao =  new UsersDaoImp();
+			for (Reviews itemReview : reviews) {
+				
+				Users reviewedUser =  usersDao.getUser(itemReview.getUserId());
+				
+			%>
+			<div class="review-card">
+				<h6>
+					<span><%=reviewedUser.getName() %></span> <span class="review-date">Reviewed on :<%=itemReview.getCreatedAt().toLocaleString() %> </span>
+				</h6>
+				<div class="comment-card">
+					<h6>Comment :</h6>
+					<div class="comment"><%=itemReview.getComment() %></div>
+				</div>
+			</div>
+			<%
+			}
+
+			}
+			%>
+
+		</article>
   
   </section>
   
@@ -389,9 +393,8 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
   <!--Similar Category Menu Items -->
   
  <%
-  if(similarMenuItems.size() > 0)
-  {
-	  %> 
+   if (similarMenuItems.size() > 0) {
+   %> 
 	     <section class="similar-section mt-3">
           <h3>Similar Food</h3>
     

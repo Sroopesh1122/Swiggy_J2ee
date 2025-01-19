@@ -5,13 +5,7 @@
  <%
   
  Restaurants restaurants =(Restaurants) session.getAttribute("restaurants");
- 
- if(restaurants == null)
- {
-	 System.out.println(restaurants);
- }else{
-	 System.out.println(restaurants); 
- }
+
  
  %>
     
