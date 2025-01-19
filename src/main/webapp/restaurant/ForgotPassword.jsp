@@ -30,7 +30,7 @@
 
 .add-food-form{
  width: 400px;
- padding: 20px;
+ padding: 30px;
  border-radius: 10px;
  box-shadow: 0px 1px 5px #efefef !important;
  border: 1px solid #efefef;
@@ -75,84 +75,43 @@ input[type="number"]::-webkit-inner-spin-button,
 	color: red;
 	margin-left: 0.5rem;
 }
-.form-nav-footer{
 
-   position:relative;
-   background:#feb80a; 
-   bottom: -20px;
-   padding: 2px 8px;
-   color: black;
-   border-radius: 5px 5px 0px 0px;
-   font-size: 0.85rem;
-   display:flex;
-   align-items: center;
-   justify-content: center;
-   
-  }
 
 </style>
 
 </head>
 <body>
-  <%@include file="/customer/Navbar.jsp"%>
-  <%@include file="/customer/CustomerSession.jsp" %>
-  <%if(user==null) {
-      response.sendRedirect(request.getContextPath()+"/customer/SignIn.jsp");
-      return;
-  }%>
-  
   
    <section class="wrapper-section">
    
-        <form method="post" action="<%=request.getContextPath()+"/customer/profile"%>" class="add-food-form" id="profile" >    
-           <h4 class="text-center">Your Profile</h4>
+        <form method="post" action="<%=request.getContextPath()+"/restaurant/forgotPassword"%>" class="add-food-form" id="forgotPassword" >    
+           <h4 class="text-center" style=" margin-bottom: 1.5rem">Forgot Password</h4>
 
-		<div class="form-group" >
-                     <input type="number" class="form-control" value="<%=user.getUserId()%>" disabled="disabled" placeholder="Id" name="id" id="id" >
-                     
-        </div>
-
-        <div class="form-group" >
-                     <input type="text" class="form-control" value="<%=user.getName()%>" placeholder="Name" name="name" id="name">
-                     
-        </div>
+		
         
          <div class="form-group" >
-                     <input type="email" class="form-control" value="<%=user.getEmail()%>" placeholder="Email" name="email" disabled="disabled">
+                     <input type="email" class="form-control"  placeholder="Email" name="email" >
         </div>
-         <div class="form-group" >
-                     <input type="number" class="form-control" value="<%=user.getPhoneNumber()%>" placeholder="Phone" name="phone" id="phone">
-        </div>
-         <div class="form-group" >
-         <input type="text" class="form-control" value="<%=user.getAddress()%>" placeholder="Address" name="address" id="category">
+       
+       <div class="form-group flex-d">
+             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+         </div>
+        
+         <div class="form-group">
+            <input type="text" class="form-control" name="confirmPassword" id="password" placeholder="Confirm password">
         </div>
             
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary mb-3">Update</button>
-        </div>
-       <div class="form-nav-footer">
-           <p class="mb-0">
-                Want to change password?  <a href="<%= request.getContextPath()+"/customer/ResetPin.jsp"%>"> Reset Password</a>
-            </p>
+            <button type="submit" class="btn btn-primary mb-3">Update Password</button>
         </div>
     </form>
-    	
    </section>
-   
     <div id="custom-alert">
   
   <i class="ri-close-circle-fill"></i>
   <span id="alert-msg"></span>
  
  </div>
- 
-  <div id="custom-success-alert">
-  
-  <i class="ri-checkbox-circle-fill"></i>
-  <span id="alert-success-msg"></span>
- 
- </div>
- 
    <script >
     
     <%
@@ -162,21 +121,10 @@ input[type="number"]::-webkit-inner-spin-button,
     	   showAlert('<%=request.getAttribute("failure")%>');
     	   <%
        }
-    if(request.getAttribute("success")!=null)
-    {
-   	 %>
-   	 showSuccessAlert('<%=request.getAttribute("success")%>');
-   	 <%
-    }
     %>
    $(document).ready(function () {
-            $("#profile").validate({
-                rules: {
-                    name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    
+            $("#forgotPassword").validate({
+                rules: {    
                     email: {
                         required: true,
                         email: true
@@ -189,22 +137,11 @@ input[type="number"]::-webkit-inner-spin-button,
                         required: true,
                         minlength: 6,
                         equalTo: "#password"
-                    },
-                    phone: {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 10
-                    },
-                    
-                    address: {
-                        required: true
                     }
+                   
                 },
                 messages: {
-                    name:{
-                    	required: "Please enter a valid name",
-                    	minlength:"Name must be at least 3 characters long"
-                    },
+                    
                     email: {
                     	required: "Please enter email",
                    	 	email: "Please enter a valid email address"
@@ -217,15 +154,6 @@ input[type="number"]::-webkit-inner-spin-button,
                         required: "Please confirm your password",
                         equalTo: "Passwords do not match",
                         minlength:"Password must be at least 6 characters long"
-                    },
-                    phone:{
-                    	required: "Please enetr your mobile number",
-                    	maxlength: "Please enter a valid 10-digit mobile number",
-                    	 minlength:"Please enter a valid 10-digit mobile number",
-                    } ,
-                    
-                    address: {
-                    	required:"Please enter your address"
                     }
                 },
                 errorElement: "div",
@@ -241,7 +169,6 @@ input[type="number"]::-webkit-inner-spin-button,
                 }
             });
         });
- 	
  	
  	
  	

@@ -120,4 +120,13 @@
     <servlet-name>OrderStatus</servlet-name>
     <url-pattern>/OrderStatus</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <display-name>ForgotPassword</display-name>
+    <servlet-name>ForgotPassword</servlet-name>
+    <servlet-class>com.swiggy.restaurantServlet.ForgotPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ForgotPassword</servlet-name>
+    <url-pattern>/ForgotPassword</url-pattern>
+ </servlet-mapping>
 </web-app>

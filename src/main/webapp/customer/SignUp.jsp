@@ -283,7 +283,6 @@ display: none;
         </div>
         
         <div class="form-group">
-            
            <i class="ri-lock-line form-icon"></i> <input type="text" class="form-control" name="confirmPassword" id="password" placeholder="Confirm password">
         </div>
 

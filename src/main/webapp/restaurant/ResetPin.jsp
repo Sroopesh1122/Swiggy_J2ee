@@ -76,62 +76,44 @@ input[type="number"]::-webkit-inner-spin-button,
 	margin-left: 0.5rem;
 }
 
-
 </style>
-
 </head>
-<body>
-  <%@include file="/restaurant/Navbar.jsp"%>
+<body> 
+
+   <%@include file="/restaurant/Navbar.jsp"%>
   <%@include file="/restaurant/RestaurantSession.jsp" %>
   <%if(restaurants==null) {
       response.sendRedirect(request.getContextPath()+"/restaurant/SignIn.jsp");
       return;
   }%>
-  
-  
    <section class="wrapper-section">
    
-        <form method="post" action="<%=request.getContextPath()+"/restaurant/profile"%>" class="add-food-form" id="profile" >    
-           <h4 class="text-center">Your Profile</h4>
+        <form method="post" action="<%=request.getContextPath()+"/restaurant/resetPassword"%>" class="add-food-form" id="resetPassword" >    
+           <h4 class="text-center" style=" margin-bottom: 1.5rem">Reset Password</h4>
 
-		<div class="form-group" >
-                     <input type="number" class="form-control" value="<%=restaurants.getRestaurantsId()%>" disabled="disabled" placeholder="Id" name="id" id="id" >
-                     
-        </div>
-
-        <div class="form-group" >
-                     <input type="text" class="form-control" value="<%=restaurants.getName()%>" placeholder="Name" name="name" id="name">
-                     
-        </div>
+		
         
          <div class="form-group" >
-                     <input type="email" class="form-control" value="<%=restaurants.getEmail() %>" placeholder="Email" name="email" disabled="disabled">
+                     <input type="email" class="form-control" value="<%=restaurants.getEmail()%>"  placeholder="Email" name="email"  disabled="disabled">
         </div>
-         <div class="form-group" >
-                     <input type="number" class="form-control" value="<%=restaurants.getPhoneNumber() %>" placeholder="Phone" name="phone" id="phone">
-        </div>
-         <div class="form-group" >
-         <input type="text" class="form-control" value="<%=restaurants.getAddress() %>" placeholder="Restarent address" name="address" id="category">
+       
+       <div class="form-group flex-d">
+             <input type="password" class="form-control" name="password" id="password" placeholder="Old password">
+         </div>
+        
+         <div class="form-group">
+            <input type="password" class="form-control" name="newPassword" id="password" placeholder="New password">
         </div>
             
         <div class="form-footer">
             <button type="submit" class="btn btn-primary mb-3">Update</button>
         </div>
-        
-        
     </form>
    </section>
     <div id="custom-alert">
   
   <i class="ri-close-circle-fill"></i>
   <span id="alert-msg"></span>
- 
- </div>
- 
-  <div id="custom-success-alert">
-  
-  <i class="ri-checkbox-circle-fill"></i>
-  <span id="alert-success-msg"></span>
  
  </div>
    <script >
@@ -143,21 +125,10 @@ input[type="number"]::-webkit-inner-spin-button,
     	   showAlert('<%=request.getAttribute("failure")%>');
     	   <%
        }
-    if(request.getAttribute("success")!=null)
-    {
-   	 %>
-   	 showSuccessAlert('<%=request.getAttribute("success")%>');
-   	 <%
-    }
     %>
    $(document).ready(function () {
-            $("#profile").validate({
-                rules: {
-                    name: {
-                        required: true,
-                        minlength: 3
-                    },
-                    
+            $("#resetPassword").validate({
+                rules: {    
                     email: {
                         required: true,
                         email: true
@@ -166,47 +137,25 @@ input[type="number"]::-webkit-inner-spin-button,
                         required: true,
                         minlength: 6
                     },
-                    confirmPassword: {
+                    newPassword: {
                         required: true,
                         minlength: 6,
-                        equalTo: "#password"
-                    },
-                    phone: {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 10
-                    },
-                    
-                    address: {
-                        required: true
                     }
+                   
                 },
                 messages: {
-                    name:{
-                    	required: "Please enter a valid name",
-                    	minlength:"Name must be at least 3 characters long"
-                    },
+                    
                     email: {
                     	required: "Please enter email",
                    	 	email: "Please enter a valid email address"
                     },
                     password:{
-                    	required:"Please enter your password",
+                    	required:"Please enter your old password",
                     	minlength:"Password must be at least 6 characters long"
                     } ,
-                    confirmPassword: {
-                        required: "Please confirm your password",
-                        equalTo: "Passwords do not match",
+                    newPassword: {
+                        required: "Please enter your new password",
                         minlength:"Password must be at least 6 characters long"
-                    },
-                    phone:{
-                    	required: "Please enetr your mobile number",
-                    	maxlength: "Please enter a valid 10-digit mobile number",
-                    	 minlength:"Please enter a valid 10-digit mobile number",
-                    } ,
-                    
-                    address: {
-                    	required:"Please enter your address"
                     }
                 },
                 errorElement: "div",
@@ -222,22 +171,6 @@ input[type="number"]::-webkit-inner-spin-button,
                 }
             });
         });
- 	
- 	
- 	
- 	function showAlert(message) {
-        const alertBox = document.getElementById('custom-alert');
-        alertBox.textContent = message;
-        alertBox.style.display = 'block';
-
-        // Hide the alert after 2 seconds
-        setTimeout(() => {
-            alertBox.style.display = 'none';
-        }, 2000); // 2000ms = 2 seconds
-    }
- 	
- 	
- 	
  	
     </script>
 </body>
