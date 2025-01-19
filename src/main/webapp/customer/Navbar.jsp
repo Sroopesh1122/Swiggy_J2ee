@@ -103,7 +103,7 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
   box-shadow: 0px 1px 2px black !important;
  }  
  
- @media (width < 700px) {
+ @media (width < 830px) {
  
   #menu-btn{
   display: block;
@@ -159,6 +159,9 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
       if(session.getAttribute("users")!=null)
       {
     	  %>
+    	  <li><a href="<%= request.getContextPath()+"/customer/Profile.jsp"%>"><i class="fa-regular fa-user"></i> Profile</a></li>
+    	  
+    	  
     	     <li><a href="<%= request.getContextPath()+"/customer/Cart.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Cart") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-cart-line"></i>Cart
     	      <% 
                  if(cartItemCount > 0)
@@ -193,6 +196,7 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
      
      <ul class="menu">
      <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
+     <li><a href="<%= request.getContextPath()+"/customer/Profile.jsp"%>"><i class="fa-regular fa-user"></i> Profile</a></li>
      <li><a href="#"><i class="ri-restaurant-line"></i> Menu</a></li>
      <li><a href="#" class="cart-nav-item"><i class="ri-shopping-cart-line"></i> Cart
      <% 
