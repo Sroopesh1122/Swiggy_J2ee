@@ -79,7 +79,8 @@ public MenuItems getItemById(int itemId) {
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
 			 item.setCategory(resultSet.getString("category"));
 			 item.setImg(resultSet.getString("img"));
-			 item.setRating(resultSet.getFloat("rating"));
+			 item.setRating(resultSet.getDouble("rating"));
+			 item.setReviewCount(resultSet.getInt("reviews_count"));
 			
 		}
 	} catch (SQLException e) {
@@ -110,7 +111,7 @@ public List<MenuItems> getAllItems() {
 			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
 			 item.setCategory(resultSet.getString("category"));
 			 item.setImg(resultSet.getString("img"));
-			 item.setRating(resultSet.getFloat("rating"));
+			 item.setRating(resultSet.getDouble("rating"));
 			 items.add(item);
 			
 		}
@@ -124,7 +125,7 @@ public List<MenuItems> getAllItems() {
 public MenuItems updateItem(MenuItems item) {
 	PreparedStatement preparedStatement =null;
 	int result=0;
-	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ?,category = ?  WHERE item_id = ?";
+	String updateQuery = "UPDATE menu_items SET restaurant_id = ?, name = ?, description = ?, price = ?, available = ?,category = ? ,rating =? , reviews_count = ?  WHERE item_id = ?";
 	try {
 		preparedStatement =connection.prepareStatement(updateQuery);
 		preparedStatement.setInt(1, item.getRestaurantId()); 
@@ -133,7 +134,9 @@ public MenuItems updateItem(MenuItems item) {
 		preparedStatement.setDouble(4, item.getPrice()); 
 		preparedStatement.setInt(5, item.getAvailable());
 		preparedStatement.setString(6, item.getCategory());
-		preparedStatement.setInt(7, item.getItemId()); 
+		preparedStatement.setDouble(7, item.getRating());
+		preparedStatement.setInt(8, item.getReviewCount());
+		preparedStatement.setInt(9, item.getItemId()); 
 		
 	
 		result=preparedStatement.executeUpdate();
@@ -211,17 +214,7 @@ public boolean deleteItem(int itemId) {
 		}
 		resultSet=preparedStatement.executeQuery();
 		while(resultSet.next()) {
-			MenuItems item = new MenuItems();
-			item.setItemId(resultSet.getInt("item_id"));
-			 item.setRestaurantId(resultSet.getInt("restaurant_id"));
-			 item.setName(resultSet.getString("name")); 
-			 item.setDescription(resultSet.getString("description"));
-			 item.setPrice(resultSet.getDouble("price")); 
-			 item.setAvailable(resultSet.getInt("available"));
-			 item.setCreatedAt(resultSet.getTimestamp("created_at"));
-			 item.setCategory(resultSet.getString("category"));
-			 item.setImg(resultSet.getString("img"));
-			 item.setRating(resultSet.getFloat("rating"));
+			MenuItems item = getItemById(resultSet.getInt(1));
 			 items.add(item);
 			
 		}
@@ -309,17 +302,7 @@ public boolean deleteItem(int itemId) {
 
                 resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    MenuItems item = new MenuItems();
-                    item.setItemId(resultSet.getInt("item_id"));
-                    item.setRestaurantId(resultSet.getInt("restaurant_id"));
-                    item.setName(resultSet.getString("name"));
-                    item.setDescription(resultSet.getString("description"));
-                    item.setPrice(resultSet.getDouble("price"));
-                    item.setAvailable(resultSet.getInt("available"));
-                    item.setCreatedAt(resultSet.getTimestamp("created_at"));
-                    item.setCategory(resultSet.getString("category"));
-                    item.setImg(resultSet.getString("img"));
-                    item.setRating(resultSet.getFloat("rating"));
+                    MenuItems item = getItemById(resultSet.getInt(1));
                     items.add(item);
                 }
             } catch (SQLException e) {
@@ -426,17 +409,7 @@ public boolean deleteItem(int itemId) {
 
                resultSet = preparedStatement.executeQuery();
                while (resultSet.next()) {
-                   MenuItems item = new MenuItems();
-                   item.setItemId(resultSet.getInt("item_id"));
-                   item.setRestaurantId(resultSet.getInt("restaurant_id"));
-                   item.setName(resultSet.getString("name"));
-                   item.setDescription(resultSet.getString("description"));
-                   item.setPrice(resultSet.getDouble("price"));
-                   item.setAvailable(resultSet.getInt("available"));
-                   item.setCreatedAt(resultSet.getTimestamp("created_at"));
-                   item.setCategory(resultSet.getString("category"));
-                   item.setImg(resultSet.getString("img"));
-                   item.setRating(resultSet.getFloat("rating"));
+                   MenuItems item = getItemById(resultSet.getInt(1));
                    items.add(item);
                }
            } catch (SQLException e) {

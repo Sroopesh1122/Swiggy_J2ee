@@ -19,6 +19,7 @@ public class MenuItems {
 	private Timestamp createdAt;
 	private String category;
 	private String  img;
-	private Float rating;
+	private Double rating;
+	private int reviewCount;
 
 }

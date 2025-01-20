@@ -98,7 +98,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 	public Restaurants updateRestaurant(Restaurants r) {
 		PreparedStatement preparedStatement=null;
 
-		String updateQuery="UPDATE RESTAURANTS SET NAME=?,ADDRESS=?,PHONE_NUMBER=?,RATING=?,CREATED_AT=?,PASSWORD=?,EMAIL=? WHERE RESTAURANT_Id=?";
+		String updateQuery="UPDATE RESTAURANTS SET NAME=?,ADDRESS=?,PHONE_NUMBER=?,RATING=?,CREATED_AT=?,PASSWORD=?,EMAIL=?,REVIEWS_COUNT = ? WHERE RESTAURANT_Id=?";
 		int res=0;
 		
 		try {
@@ -112,7 +112,8 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			preparedStatement.setTimestamp(5, r.getCreatedAt());
 		    preparedStatement.setString(6, r.getPassword());
 		    preparedStatement.setString(7, r.getEmail());
-		    preparedStatement.setInt(8, r.getRestaurantsId());
+		    preparedStatement.setInt(8, r.getReviewsCount());
+		    preparedStatement.setInt(9, r.getRestaurantsId());
 			res=preparedStatement.executeUpdate();
 				
 		} catch (SQLException e) {
@@ -159,6 +160,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r.setCreatedAt(resultSet.getTimestamp(6));
 				r.setPassword(resultSet.getString(7));
 				r.setEmail(resultSet.getString(8));
+				r.setReviewsCount(resultSet.getInt(9));
 				
 			}
 			
@@ -191,6 +193,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r.setCreatedAt(resultSet.getTimestamp(6));
 				r.setPassword(resultSet.getString(7));
 				r.setEmail(resultSet.getString(8));
+				r.setReviewsCount(resultSet.getInt(9));
 				al.add(r);
 			}
 			
@@ -224,6 +227,7 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 				r.setCreatedAt(resultSet.getTimestamp(6));
 				r.setPassword(resultSet.getString(7));
 				r.setEmail(resultSet.getString(8));
+				r.setReviewsCount(resultSet.getInt(9));
 			}
 			
 			

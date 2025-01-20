@@ -49,5 +49,32 @@ public class OrderItemImpl implements IOrderItemDao {
 		
 		return null;
 	}
+	
+	@Override
+	public OrderItems getById(int orderId) {
+		
+		String getQuery = " SELECT * FROM ORDER_ITEMS WHERE ORDER_ID = ? ";
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(getQuery);
+			preparedStatement.setInt(1, orderId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next())
+			{
+				OrderItems orderItem = new OrderItems();
+				orderItem.setOrderItemId(resultSet.getInt(1));
+				orderItem.setOrderId(resultSet.getInt(2));
+				orderItem.setItemId(resultSet.getInt(3));
+				orderItem.setQuantity(resultSet.getInt(4));
+				orderItem.setPrice(resultSet.getDouble(5));
+				return orderItem;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		return null;
+	}
 
 }

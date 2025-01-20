@@ -17,4 +17,6 @@ private Double totalAmount;
 private String status;
 private Timestamp createdAt;
 private String pay_mode;
+private String deliveryAddress;
+private int reveiwed;
 }

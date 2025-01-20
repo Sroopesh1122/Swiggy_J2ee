@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ordered</title>
+<title>Review Submitted</title>
 <%@include file="/utils/CommonUtils.jsp"%>
 <style type="text/css">
   
@@ -14,8 +14,6 @@
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   max-width: 1800px;
-	 margin: 0 auto;
   }
   
   #checkmarkVideo{
@@ -52,9 +50,9 @@
     autoplay
     muted
     playsinline
-    src='<%=request.getContextPath()+"/imgs/v1.mp4" %>'
+    src='<%=request.getContextPath()+"/utils/Done.mp4" %>'
   ></video>
-  <h4 class="hide">Order Placed Successfully!   </h4>
+  <h4 class="hide">Review Submitted Successfully!   </h4>
    
    <script>
    const videoElement = document.getElementById("checkmarkVideo");
@@ -67,7 +65,7 @@
 		 $("h4").show();
 		 
 		 setTimeout(()=>{
-			 window.location.href= '<%=request.getContextPath()+"/customer/Cart.jsp"%>'
+			 window.location.href= '<%=request.getContextPath()+"/customer/Orders.jsp"%>'
 		 },500)
 		   
 	   },200)

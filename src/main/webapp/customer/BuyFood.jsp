@@ -165,7 +165,7 @@
 <body>
  <%@include file="/customer/Navbar.jsp"%>
  
- <form class="checkout-wrapper" action="<%=request.getContextPath()+"/user/cart/order" %>" id="checkout-form" method="post">
+ <form class="checkout-wrapper" action="<%=request.getContextPath()+"/user/food/order" %>" id="checkout-form" method="post">
    
       <article class="checkout-list">
          
@@ -191,7 +191,8 @@
          %>
          
         	     <div class="checkout-list-item">
-        	      <input type="hidden" name="<%=menuItem.getItemId()%>" value="1">
+        	      <input type="hidden" name="foodId" value="<%=menuItem.getItemId()%>">
+        	      <input type="hidden" name="quantity" value="1">
                    <span>
                      <img alt="" src="<%=menuItem.getImg()%>" class="cart-img">
                      <h6 class="cart-item-name"><%=menuItem.getName() %></h6>
@@ -206,7 +207,7 @@
       
       <article class="shipping-details mt-3 p-2">
        <h6>Shipping Details</h6>
-       <textarea rows="" cols="" placeholder="Delivery Address" id="delivery-address"></textarea>
+       <textarea rows="" name="address" cols="" placeholder="Delivery Address" id="delivery-address"></textarea>
         <%
          if(user.getAddress()!=null)
          {
@@ -215,7 +216,7 @@
                  <div class="custom-checkbox" onclick="handleCheckBoxClick()">
                       <i class="ri-checkbox-fill check-box-i close-check " id="address-checkbox"></i>  
                  </div>
-                 <span class="ms-1"><%=user.getAddress() %></span>
+                 <span class="ms-1" id="defaultAddress"><%=user.getAddress() %></span>
                </article>
         	 <%
          }
@@ -243,6 +244,8 @@
  
  </form>
  
+ <%@include file="/utils/Alerts.jsp" %>
+ 
  
  <script type="text/javascript">
  
@@ -252,10 +255,13 @@
 	 if ($("#address-checkbox").hasClass("close-check")) {
 		 
 		 $("#delivery-address").show();
+		 $("#delivery-address").val('')
 		 
 	  } else {
 		    
 		  $("#delivery-address").hide();
+		  $("#delivery-address").val($("#defaultAddress").text())
+		  
 	 }
  }
  
@@ -266,6 +272,12 @@
 	 let paymentType  = $("#payment-option").val();
 	 if(paymentType === "cod")
 	  {
+		 if($("#delivery-address").val().trim() === "")
+		 {
+			 showAlert("Delivery Address Required!");
+			 return;
+			 
+		 }
 		 $("#checkout-form").submit();
 	  }
  }

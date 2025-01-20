@@ -1,17 +1,12 @@
-<%@page import="com.swiggy.dto.Users"%>
-<%@page import="com.swiggy.dao.impl.CartDaoImp"%>
-<%@page import="com.swiggy.dao.CartDAO"%>
+
 <%
  
 String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getAttribute("menu")  : "none";
 
-CartDAO cartDAO1 =  new CartDaoImp();
-
-Users customer = (Users) session.getAttribute("users");
-
-int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.getUserId()) :0;
-
 %>
+
+
+<!-- #ff933a -->
 
 <style type="text/css">
 
@@ -20,7 +15,7 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 15px;;
+  padding: 5px 15px;
  }
  
  li{
@@ -41,8 +36,8 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
  }
  
  .desktop-menu-active{
-  background: #feb80a;
-  color: white black;
+  background: #ff933a;
+  color: black;
  }
  
  .desktop-navbar .nav-brand{
@@ -147,44 +142,31 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
 <nav class="desktop-navbar">
  
   <div class="nav-brand">
-    <img alt="" src="<%=request.getContextPath()+"/imgs/cheif.png"%>"> <span class="nav-title">FooD</span>
+    <img alt="" src="https://i.pinimg.com/474x/28/1f/b2/281fb27c747c2cf1cc41819356978801.jpg"> <span class="nav-title">Delivery</span>
   </div>
   
   <ul class="menu">
      
      <li><a href="<%=request.getContextPath()+"/customer/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
-     <li><a href="<%=request.getContextPath()+"/customer/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Menu</a></li>
-     
      <%
-      if(session.getAttribute("users")!=null)
+      if(session.getAttribute("user")!=null)
       {
     	  %>
-    	  <li><a href="<%= request.getContextPath()+"/customer/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
-    	  
-    	  
-    	     <li><a href="<%= request.getContextPath()+"/customer/Cart.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Cart") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-cart-line"></i>Cart
-    	      <% 
-                 if(cartItemCount > 0)
-                  {
-                     %>
-                        <span class="cart-badge"><%=cartItemCount > 99 ? "99+" : cartItemCount %></span>
-                      <%	
-                   }
-               %>
-    	     
-    	     </a></li>
-          <li><a href="<%= request.getContextPath()+"/customer/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
-          <li><a href="<%= request.getContextPath()+"/customer/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Your Orders</a></li>
+          <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
     	  
       }else{
     	  %>
-    	    <li><a href="<%= request.getContextPath()+"/customer/SignIn.jsp"%>" class=""><i class="ri-login-box-line"></i>Sign In</a></li>
+    	    <li><a href="<%= request.getContextPath()+"/delivery/SignIn.jsp"%>" class=""><i class="ri-login-box-line"></i>Sign In</a></li>
     	  <% 
       }
      
      %>
-</ul>
+     
+  
+  </ul>
   <span id="menu-btn" onclick="handleMenuBarClick()"><i class="ri-menu-line"></i></span>
 </nav>
   
@@ -193,23 +175,23 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
      <span id="menu-close-btn" onclick="handleMenuCloseClick()"> <i class="ri-close-line"></i></span>
      
      <ul class="menu">
-     <li><a href="#" class="desktop-menu-active"><i class="ri-home-4-line"></i> Home</a></li>
-     <li><a href="<%= request.getContextPath()+"/customer/Profile.jsp"%>"><i class="ri-user-line"></i> Profile</a></li>
-     <li><a href="#"><i class="ri-restaurant-line"></i> Menu</a></li>
-     <li><a href="#" class="cart-nav-item"><i class="ri-shopping-cart-line"></i> Cart
-     <% 
-        if(cartItemCount > 0)
-        {
-        %>
-          <span class="cart-badge"><%=cartItemCount > 99 ? "99+" : cartItemCount %></span>
-        <%	
-        }
-      %>
+     <li><a href="<%=request.getContextPath()+"/customer/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+     <%
+      if(session.getAttribute("user")!=null)
+      {
+    	  %>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Your Orders</a></li>
+          <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
+    	  <%
+    	  
+      }else{
+    	  %>
+    	    <li><a href="<%= request.getContextPath()+"/delivery/SignIn.jsp"%>" class=""><i class="ri-login-box-line"></i>Sign In</a></li>
+    	  <% 
+      }
      
-     </a></li>
-     
-     <li><a href="#"><i class="ri-shopping-bag-line"></i> Orders</a></li>
-     <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
+     %>
   
     </ul> 
   

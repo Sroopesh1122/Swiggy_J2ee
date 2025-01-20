@@ -261,9 +261,7 @@
         	<% 
         }
        %>
-       
-       <span class="cart-btn"><i class="ri-bookmark-line"></i></span>
-        <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
+      <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
           <h2><%=menuItem.getName() %></h2>
           <div class="mt-1 food-card-footer">

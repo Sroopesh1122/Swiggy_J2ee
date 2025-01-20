@@ -10,9 +10,17 @@ public interface ReviewDao
    
    //Returns recent 5 reviews
    public List<Reviews> getAllReviewsByFoodId(int item_id);
-   public List<Reviews> getAllReviewsByRestaurantId(int restautant_id);
+
+	// Get Reviews Count
+	public int getReviewsCount(int item_id);
    
-   //Get Reviews Count
    
-   public int getReviewsCount(int item_id);
+   
+   
+   //To get reviews by restaurant
+   public List<Reviews> getAllReviewsByRestaurantId(int restautant_id,int page,int limit);
+   
+	// Get Reviews Count
+	public int getReviewsCountByRestautantId(int restautant_id);
+
 }
