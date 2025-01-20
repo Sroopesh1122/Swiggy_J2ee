@@ -14,6 +14,8 @@
    justify-content: center;
    align-items: center;
    flex-direction: column;
+   max-width: 1800px;
+	 margin: 0 auto;
   }
   
   #checkmarkVideo{

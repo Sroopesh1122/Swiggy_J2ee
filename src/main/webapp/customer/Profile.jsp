@@ -7,7 +7,9 @@
 <title>Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
-
+<%
+ request.setAttribute("menu", "Profile");
+%>
 <style type="text/css">
  body {
 	min-height: 100vh;
@@ -99,7 +101,10 @@ input[type="number"]::-webkit-inner-spin-button,
   <%if(user==null) {
       response.sendRedirect(request.getContextPath()+"/customer/SignIn.jsp");
       return;
-  }%>
+  }
+  
+  %>
+  
   
   
    <section class="wrapper-section">

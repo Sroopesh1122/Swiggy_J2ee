@@ -31,7 +31,7 @@
      int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit")) : 10 ;
      
      //Filter for pending , delivered amd all
-     String filter = request.getParameter("filter")!=null ? request.getParameter("filter") : "Pending,Dispatched";
+     String filter = request.getParameter("filter")!=null ? request.getParameter("filter") : "Pending,Preparing,Out for delivery";
      
      OrderDAO orderDAO= new OrderDAOImp();
      List<Orders> yourOrders = orderDAO.getOrderByUserId(user.getUserId(),currentPage, limit , filter);
@@ -41,7 +41,7 @@
      //All Filters
      
     Map<String,String> filters = new HashMap();
-    filters.put("Pending", "Pending,Dispatched"); 
+    filters.put("Pending", "Pending,Preparing,Out for delivery"); 
     filters.put("Delivered", "Delivered");
     filters.put("All", "All"); 
      
@@ -54,6 +54,7 @@
 <title>Your Orders</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
+<link rel="stylesheet" href="<%=request.getContextPath() + "/Pagination.css"%>"></link>
 <style type="text/css">
  
    body 
@@ -309,6 +310,48 @@
 		 
 		
 		</article>
+		
+		
+		 <%
+		int noOfPages = (int) Math.ceil((double) yourTotalOrders / limit);
+		int startPage = Math.max(1, currentPage - 2);
+		int endPage = Math.min(noOfPages, currentPage + 2);
+	%>
+  <div class="pagination center my-4">
+
+			<%
+			if (currentPage > 1) {
+			%>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"$filter="+filter%>">Prev</a>
+			
+			<%
+			}
+			%>
+			<%
+			for (int i = startPage; i <=endPage; i++) {
+				
+				if(i== currentPage)
+				{
+					%>
+					   <a class="pagination-btn center active "  ><%=i%></a>
+					<% 
+				}else{
+				  %>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(i)+"&limit="+limit+"$filter="+filter%>" ><%=i%></a>
+			    <%
+				}
+				
+
+			}
+			%>
+			<%
+			if (currentPage < noOfPages) {
+			%>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"$filter="+filter%>">Next</a>
+			<%
+			}
+			%>
+		</div>
 		
 
 	</section>

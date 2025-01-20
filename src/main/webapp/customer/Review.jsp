@@ -51,6 +51,8 @@
 	 justify-content: center;
 	 align-items: center;
 	 font-family: "outfit",sans-serif;
+	 max-width: 1800px;
+	 margin: 0 auto;
   }
   
   .wrapper{

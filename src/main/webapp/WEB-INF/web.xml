@@ -120,7 +120,7 @@
     <servlet-name>OrderStatus</servlet-name>
     <url-pattern>/OrderStatus</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <display-name>ForgotPassword</display-name>
     <servlet-name>ForgotPassword</servlet-name>
     <servlet-class>com.swiggy.restaurantServlet.ForgotPassword</servlet-class>
@@ -128,5 +128,15 @@
   <servlet-mapping>
     <servlet-name>ForgotPassword</servlet-name>
     <url-pattern>/ForgotPassword</url-pattern>
- </servlet-mapping>
+  </servlet-mapping>
+  <servlet>
+    <description>User Logout Servlet</description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.swiggy.userServlet.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
 </web-app>
