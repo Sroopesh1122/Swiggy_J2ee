@@ -322,7 +322,7 @@
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"$filter="+filter%>">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"&filter="+filter%>">Prev</a>
 			
 			<%
 			}
@@ -337,7 +337,7 @@
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(i)+"&limit="+limit+"$filter="+filter%>" ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(i)+"&limit="+limit+"&filter="+filter%>" ><%=i%></a>
 			    <%
 				}
 				
@@ -347,7 +347,7 @@
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"$filter="+filter%>">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"&filter="+filter%>">Next</a>
 			<%
 			}
 			%>

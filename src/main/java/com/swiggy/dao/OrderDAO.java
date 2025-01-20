@@ -27,4 +27,13 @@ public interface OrderDAO {
   //To get total orders count by userId
   public int getOrderByRestaurantId(int restaurant_id,String status);
   
+  
+  
+  
+  //For Delivery Partners
+  
+  //Look for Orders by location which are not picked by others and are prepared
+  public List<Orders> getOrderdByAddress(String address,int page,int limit);
+  public int getOrderdCountByAddress(String address);
+  
 }

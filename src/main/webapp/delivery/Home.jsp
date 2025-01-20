@@ -26,6 +26,8 @@
    justify-content: space-between;
    align-items: center;
    padding: 10px 30px; 
+   background: #ff933a;
+   min-height: 93vh;
   }
   
   .section-wrapper img{
@@ -43,20 +45,21 @@
   
   .hero-info h1{
    font-size: 3rem;
-   color:  #ff933a;
+   color:  white;
   }
   .hero-info h3{
    font-size: 1.5rem;
   }
   
   .search-wrapper{
-   padding: 2px 8px;
+   padding: 0px 0px 0px 8px;
    border: 1px solid #efefef;
    border-radius: 20px;
    display: flex;
    justify-content: flex-start;
    align-items: center;
    flex-wrap: nowrap;
+   background: white;
   }
   
   input{
@@ -72,6 +75,12 @@
    border-radius: 20px;
    background: #ff933a;
    white-space: nowrap;
+  }
+  
+  .detective-dog{
+   width: 80px !important;
+   height: 80px !important;
+   
   }
   
   
@@ -127,13 +136,13 @@
  
     <article class="hero-info">
       
-       <h1>Choose Your Location &</h1>
+       <h1>Choose Your Location & <img alt="" class="detective-dog" src="<%=request.getContextPath()+"/imgs/detective-dog.png"%>"> </h1>
         <h3>Start delivery.</h3>
       
-      <div class="search-wrapper">
-        <input placeholder="Search Location">
-        <button class="search-btn">Search <i class="ri-search-line"></i></button>
-      </div>  
+      <form class="search-wrapper" method="get" action="<%=request.getContextPath()+"/delivery/Orders.jsp"%>">
+        <input placeholder="Search Location" name="q">
+        <button type="submit" class="search-btn">Search <i class="ri-search-line"></i></button>
+      </form> 
         
     
     </article>

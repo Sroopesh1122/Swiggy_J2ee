@@ -183,8 +183,22 @@
 }
 
 .quantity{
- width: 40px;
+ width: 30px;
  text-align: center;
+ border: 1px solid #efefef;
+ border-radius: 8px;
+ box-shadow: 1px 1px 2px #efefef !important;
+}
+
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+.quantity {
+  -moz-appearance: textfield;
 }
 
 .shifter-btn{

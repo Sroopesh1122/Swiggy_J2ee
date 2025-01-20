@@ -271,7 +271,7 @@ body {
 		    	   
 		    	      <div class="order-item-footer">
 		    	         <%
-		    	          if(order.getStatus().equalsIgnoreCase("delivered") || order.getStatus().equalsIgnoreCase("out for delivery"))
+		    	          if(order.getStatus().equalsIgnoreCase("delivered") || order.getStatus().equalsIgnoreCase("out for delivery") || order.getStatus().equalsIgnoreCase("Prepared"))
 		    	          {
 		    	        	  %>
 		    	        	   <button class="status"><%=order.getStatus() %></button>
