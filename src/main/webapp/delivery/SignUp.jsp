@@ -247,7 +247,7 @@ white-space: nowrap;
 
 
 
-		<form method="post" action="<%=request.getContextPath()+"/customer/signup"%>" class="signin-form-wrapper" id="signup">
+		<form method="post" action="<%=request.getContextPath()+"/delivery/signup"%>" class="signin-form-wrapper" id="signup">
 		
 		<div class="mobile-hero-sec">
 			        <img class="mobile-delivery-boy" alt="" src="<%=request.getContextPath()+"/imgs/delivery-boy2.png"%>">
@@ -277,7 +277,7 @@ white-space: nowrap;
 
         <div class="form-group">
            
-          <i class="ri-map-pin-line form-icon"></i>  <input type="text" class="form-control" name="address" placeholder="Vehicle No">
+          <i class="ri-e-bike-line form-icon"></i>  <input type="text" class="form-control" name="vehicleNo" placeholder="Vehicle No  ">
         </div>
 
         <div class="form-group flex-d">
@@ -322,6 +322,11 @@ white-space: nowrap;
 %>
  
  	$(document).ready(function () {
+ 		
+ 		$.validator.addMethod("vehicleNumber", function (value, element) {
+ 	        return this.optional(element) || /^[A-Z]{2}-[0-9]{2}-[A-Z]{1,2}-[0-9]{1,4}$/.test(value);
+ 	      }, "Please enter a valid vehicle number (e.g., KA-23-ER-2001)");
+ 		
             $("#signup").validate({
                 rules: {
                     name: {
@@ -348,8 +353,10 @@ white-space: nowrap;
                         maxlength: 10,
                        
                     },
-                    address: {
-                        required: true
+                    vehicleNo: {
+                        required: true,
+                        vehicleNumber: true
+                        
                     }
                 },
                 messages: {
@@ -375,8 +382,9 @@ white-space: nowrap;
                     	maxlength: "Please enter a valid 10-digit mobile number",
                     	 minlength:"Please enter a valid 10-digit mobile number",
                     } ,
-                    address: {
-                    	required:"Please enter your address"
+                    vehicleNo: {
+                    	required:"Please enter your vehicle number",
+                    	vehicleNumber:"Format: KA-23-ER-2001"
                     }
                 },
                 errorElement: "div",

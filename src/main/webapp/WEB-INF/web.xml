@@ -139,4 +139,24 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeliveryLogin</display-name>
+    <servlet-name>DeliveryLogin</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.DeliveryLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeliveryLogin</servlet-name>
+    <url-pattern>/DeliveryLogin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeliveryRegister</display-name>
+    <servlet-name>DeliveryRegister</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.DeliveryRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeliveryRegister</servlet-name>
+    <url-pattern>/DeliveryRegister</url-pattern>
+  </servlet-mapping>
 </web-app>

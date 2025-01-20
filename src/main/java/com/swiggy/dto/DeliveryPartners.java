@@ -15,6 +15,7 @@ public class DeliveryPartners {
 	private String phoneNumber;
 	private  String vehicleDetails;
 	private Timestamp createdAt;
-	
+	private String email;
+	private String password;
 
 }

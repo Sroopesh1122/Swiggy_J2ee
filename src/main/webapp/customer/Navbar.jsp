@@ -184,9 +184,7 @@ int cartItemCount = customer!=null ?cartDAO1.getCartItemCountByUser(customer.get
       }
      
      %>
-     
-  
-  </ul>
+</ul>
   <span id="menu-btn" onclick="handleMenuBarClick()"><i class="ri-menu-line"></i></span>
 </nav>
   

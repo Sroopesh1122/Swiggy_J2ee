@@ -30,7 +30,7 @@
 
 .add-food-form{
  width: 400px;
- padding: 30px;
+ padding: 20px;
  border-radius: 10px;
  box-shadow: 0px 1px 5px #efefef !important;
  border: 1px solid #efefef;
@@ -75,7 +75,20 @@ input[type="number"]::-webkit-inner-spin-button,
 	color: red;
 	margin-left: 0.5rem;
 }
+.form-nav-footer{
 
+   position:relative;
+   background:#feb80a; 
+   bottom: -20px;
+   padding: 2px 8px;
+   color: black;
+   border-radius: 5px 5px 0px 0px;
+   font-size: 0.85rem;
+   display:flex;
+   align-items: center;
+   justify-content: center;
+   
+  }
 
 </style>
 
@@ -117,7 +130,11 @@ input[type="number"]::-webkit-inner-spin-button,
         <div class="form-footer">
             <button type="submit" class="btn btn-primary mb-3">Update</button>
         </div>
-        
+         <div class="form-nav-footer">
+           <p class="mb-0">
+                Want to change password?  <a href="<%= request.getContextPath()+"/restaurant/ResetPin.jsp"%>"> Reset Password</a>
+            </p>
+        </div>
         
     </form>
    </section>
