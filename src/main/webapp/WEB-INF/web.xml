@@ -159,4 +159,34 @@
     <servlet-name>DeliveryRegister</servlet-name>
     <url-pattern>/DeliveryRegister</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeliveryPartnerProfile</display-name>
+    <servlet-name>DeliveryPartnerProfile</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.Profile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeliveryPartnerProfile</servlet-name>
+    <url-pattern>/DeliveryPartnerProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeliveryPartnersProfile</display-name>
+    <servlet-name>DeliveryPartnersProfile</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.Profile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeliveryPartnersProfile</servlet-name>
+    <url-pattern>/DeliveryPartnersProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResetPin</display-name>
+    <servlet-name>ResetPin</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.ResetPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResetPin</servlet-name>
+    <url-pattern>/ResetPin</url-pattern>
+  </servlet-mapping>
 </web-app>
