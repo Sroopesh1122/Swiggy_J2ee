@@ -245,7 +245,7 @@ margin-bottom: 1px;
 
 
 
-		<form method=""
+		<form method="post"
 			action="<%=request.getContextPath() + "/delivery/signin"%>"
 			class="signin-form-wrapper" id="signin">
 			  
