@@ -213,9 +213,7 @@ margin-bottom: 1px;
   width: 300px;
   transform:translateY(100px);
  }
- 
-
-	
+ 	
 }
 
 
@@ -247,8 +245,8 @@ margin-bottom: 1px;
 
 
 
-		<form method="post"
-			action="<%=request.getContextPath() + "/customer/signin"%>"
+		<form method=""
+			action="<%=request.getContextPath() + "/delivery/signin"%>"
 			class="signin-form-wrapper" id="signin">
 			  
 			  <div class="mobile-hero-sec">
@@ -259,16 +257,11 @@ margin-bottom: 1px;
 			  
               
             <h1>Delivery Food</h1>
-
 			<h4 class="text-center">Sign In</h4>
 
-
-
 			<div class="form-group">
-
 				<i class="ri-mail-line form-icon"></i> <input type="email"
 					class="form-control" placeholder="Email" name="email" id="email">
-
 			</div>
 
 
@@ -291,8 +284,7 @@ margin-bottom: 1px;
 			<div class="form-nav-footer">
 				<p class="mb-0">
 					Don't have an account? <a
-						href="<%=request.getContextPath() + "/delivery/SignUp.jsp"%>">Sign
-						Up</a>
+						href="<%=request.getContextPath() + "/delivery/SignUp.jsp"%>">Sign Up</a>
 				</p>
 			</div>
 
