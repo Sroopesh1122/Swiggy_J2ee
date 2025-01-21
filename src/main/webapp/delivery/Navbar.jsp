@@ -147,13 +147,14 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
   
   <ul class="menu">
      
-     <li><a href="<%=request.getContextPath()+"/customer/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+     <li><a href="<%=request.getContextPath()+"/delivery/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
      <%
-      if(session.getAttribute("user")!=null)
+      if(session.getAttribute("deliveryPartners")!=null)
       {
     	  %>
     	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
-    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Your Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/PickedOrders.jsp"%>" class="<%= selectedMenu.equals("My Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>My Orders</a></li>
           <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
     	  
@@ -175,13 +176,14 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
      <span id="menu-close-btn" onclick="handleMenuCloseClick()"> <i class="ri-close-line"></i></span>
      
      <ul class="menu">
-     <li><a href="<%=request.getContextPath()+"/customer/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
+    <li><a href="<%=request.getContextPath()+"/delivery/Home.jsp"%>" class="<%= selectedMenu.equals("Home") ? "desktop-menu-active" : ""%>"><i class="ri-home-4-line"></i> Home</a></li>
      <%
-      if(session.getAttribute("user")!=null)
+      if(session.getAttribute("deliveryPartners")!=null)
       {
     	  %>
     	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
-    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Your Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/PickedOrders.jsp"%>" class="<%= selectedMenu.equals("My Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>My Orders</a></li>
           <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
     	  

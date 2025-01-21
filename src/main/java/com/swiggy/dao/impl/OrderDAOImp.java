@@ -72,6 +72,7 @@ public class OrderDAOImp implements OrderDAO {
 				order.setPay_mode(resultSet.getString(7));
 				order.setDeliveryAddress(resultSet.getString(8));
 				order.setReveiwed(resultSet.getInt(9));
+				order.setPickedBy(resultSet.getInt(10));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +112,7 @@ public class OrderDAOImp implements OrderDAO {
 
 	@Override
 	public boolean updateOrder(Orders order) {
-		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? WHERE order_id = ?";
+		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? ,pickedBy = ? WHERE order_id = ?";
 		PreparedStatement preparedStatement = null;
 		int resultSet = 0;
 		try {
@@ -119,7 +120,8 @@ public class OrderDAOImp implements OrderDAO {
 
 			preparedStatement.setString(1, order.getStatus());
 			preparedStatement.setInt(2, order.getReveiwed());
-			preparedStatement.setInt(3,order.getOrderId());
+			preparedStatement.setInt(3, order.getPickedBy());
+			preparedStatement.setInt(4,order.getOrderId());
 			resultSet = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -199,6 +201,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setPay_mode(resultSet.getString(7));
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
+				orders.setPickedBy(resultSet.getInt(10));
 				yourOrders.add(orders);
 			}
 
@@ -298,6 +301,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setPay_mode(resultSet.getString(7));
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
+				orders.setPickedBy(resultSet.getInt(10));
 				yourOrders.add(orders);
 			}
 

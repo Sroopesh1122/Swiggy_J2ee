@@ -263,7 +263,7 @@ h6{
 
 			<article class="order-item">
 
-				<button class="pick-btn">Pick Order</button>
+				<button class="pick-btn" onclick="handlePickBtnClick('<%=request.getContextPath()+"/food/order/pick?orderId="+order.getOrderId()%>')">Pick Order</button>
 
 				<img alt=""
 					src="<%=menuItem.getImg()%>">
@@ -338,9 +338,59 @@ h6{
 			}
 			%>
 		</div>
+		
+		<%@include file="/utils/Alerts.jsp" %>		
    
    
 
  </section>
+ 
+ 
+ <script type="text/javascript">
+ 
+ function handlePickBtnClick(url)
+ {
+	 event.stopPropagation();
+	 
+	//  window.location.href = "http://localhost:8080"+url
+	   fetch("http://localhost:8080" + url, {
+		   method: "GET",
+		 })
+		   .then((response) => {
+		     if (response.ok) {
+		       return response.text(); // Convert response to plain text
+		     } else {
+		       throw new Error("Failed to fetch: " + response.status);
+		     }
+		   })
+		   .then((data) => {
+			  
+		     if(data === "Success")
+		       {
+		    	 showSuccessAlert("Order Added your ")
+		     	setTimeout(()=>{
+		     	  window.location.reload() 
+		     	},500)
+		       }
+		     else if(data === "login")
+		       {
+		    	  
+		    	 showAlert("Please Login")
+		    	 
+		       }
+		     else{
+		    	 showAlert("Failed To Add Order")
+		     }
+		   })
+		   .catch((error) => {
+		     console.log("Error: " + error.message); 
+		   }); 
+ }
+ 
+
+ </script>
+ 
+ 
+ 
 </body>
 </html>

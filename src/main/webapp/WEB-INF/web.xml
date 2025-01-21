@@ -159,4 +159,14 @@
     <servlet-name>DeliveryRegister</servlet-name>
     <url-pattern>/DeliveryRegister</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>To pick the prepared order from restaurant</description>
+    <display-name>PickOrder</display-name>
+    <servlet-name>PickOrder</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.PickOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PickOrder</servlet-name>
+    <url-pattern>/PickOrder</url-pattern>
+  </servlet-mapping>
 </web-app>

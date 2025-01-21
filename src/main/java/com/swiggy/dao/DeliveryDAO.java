@@ -19,5 +19,9 @@ public interface DeliveryDAO {
 
    
   public  boolean deleteDelivery(int deliveryId);
+  
+  
+  
+  public   Deliveries getDeliveryByOrderId(int orderId);
 }
 

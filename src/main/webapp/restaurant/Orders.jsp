@@ -1,3 +1,9 @@
+<%@page import="com.swiggy.dto.Deliveries"%>
+<%@page import="com.swiggy.dto.DeliveryPartners"%>
+<%@page import="com.swiggy.dao.impl.DeliveryPartnersDaoImpl"%>
+<%@page import="com.swiggy.dao.DeliveryPartnersDAO"%>
+<%@page import="com.swiggy.dao.impl.DeliveryDAOImp"%>
+<%@page import="com.swiggy.dao.DeliveryDAO"%>
 <%@page import="com.swiggy.dto.Users"%>
 <%@page import="com.swiggy.dao.impl.UsersDaoImp"%>
 <%@page import="com.swiggy.dao.UsersDao"%>
@@ -197,6 +203,19 @@ body {
  padding: 2px 6px;
  border-radius: 10px;
 }
+.picker-details{
+ padding: 4px;
+ background: #efefef;
+ border-radius: 10px;
+}
+.picker-details h4{
+ font-size: 1.3rem;
+ margin-bottom: 2px;
+}
+.picker-details h6{
+ font-size: 0.8rem;
+ margin-bottom: 2px;
+}
 </style>
 
 </head>
@@ -301,6 +320,27 @@ body {
 		    	        <h6>Delivery Address : <%=order.getDeliveryAddress() %></h6>
 		    	        
 		    	      </div>
+		    	      
+		    	      <%
+		    	        if(order.getPickedBy()!=0)
+		    	        {
+		    	        	DeliveryDAO deliveryDAO =  new DeliveryDAOImp();
+		    	        	DeliveryPartnersDAO deliveryPartnersDAO =  new DeliveryPartnersDaoImpl();
+		    	        	DeliveryPartners deliveryPartners =  deliveryPartnersDAO.getDeliveryPartners(order.getPickedBy());
+		    	        	Deliveries delivery = deliveryDAO.getDeliveryByOrderId(order.getOrderId());
+		    	        	%>
+		    	        	
+		    	        	 <div class="picker-details">
+		    	        	   <h4>Delivery Agent</h4>
+		    	        	   <h6><i class="ri-user-fill"></i><%=deliveryPartners.getName() %></h6>
+		    	        	   <h6>Picked At : <%=delivery.getAssignedAt().toString() %></h6>
+		    	        	   <h6><i class="ri-motorbike-fill"></i> <%=deliveryPartners.getVehicleDetails() %></h6>
+		    	        	   <h6><i class="ri-phone-fill"></i> <%=deliveryPartners.getPhoneNumber() %></h6>
+		    	        	 </div>
+		    	        	
+		    	        	<%
+		    	        }
+		    	      %>
 		    	   
 		    	   </div>
 		    	  
@@ -362,8 +402,6 @@ body {
 	
 	function handleStuatusBtnClick(url)
 	{
-		
-		alert(url);
 		event.stopPropagation();
 		   
 		 //  window.location.href = "http://localhost:8080"+url

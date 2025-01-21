@@ -20,38 +20,56 @@ public Connection connection;
 	@Override
 	public Deliveries addDelivery(Deliveries delivery) {
 		PreparedStatement preparedStatement =null;
-		String insertquery = "INSERT INTO deliveries (order_id, partner_id, delivery_status, assigned_at, delivered_at) VALUES (?, ?, ?, ?, ?)";
+		String insertquery = "INSERT INTO deliveries (order_id, partner_id, delivery_status, assigned_at, delivered_at) VALUES (?, ?, ?, now(), ?)";
 		int result=0;
 		try {
-			connection.setAutoCommit(false);
 			preparedStatement =connection.prepareStatement(insertquery);
 			preparedStatement.setInt(1, delivery.getOrderId());
 			preparedStatement.setInt(2, delivery.getPartnerId());
 			preparedStatement.setString(3, delivery.getDeliveryStatus());
-			preparedStatement.setTimestamp(4, delivery.getAssignedAt());
-			preparedStatement.setTimestamp(5, delivery.getDeliveredAt());
-			preparedStatement.executeUpdate();
+			preparedStatement.setTimestamp(4, delivery.getDeliveredAt());
+			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(result >0) {
-			try {
-				connection.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			return delivery;
 		}
+		return null;
+	}
+	
+	@Override
+		public Deliveries getDeliveryByOrderId(int orderId) {
+		PreparedStatement preparedStatement =null;
+		ResultSet resultSet=null;
+		Deliveries delivery =null;
+		String selectQuery="SELECT * FROM deliveries WHERE order_id = ?";
 		try {
-			connection.rollback();
+		
+			preparedStatement =connection.prepareStatement(selectQuery);
+			preparedStatement.setInt(1, orderId);
+			resultSet =preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				delivery = new Deliveries();
+				delivery.setDeliveryId(resultSet.getInt("delivery_id")); 
+				delivery.setOrderId(resultSet.getInt("order_id"));
+				delivery.setPartnerId(resultSet.getInt("partner_id"));
+				delivery.setDeliveryStatus(resultSet.getString("delivery_status"));
+				delivery.setAssignedAt(resultSet.getTimestamp("assigned_at")); 
+				delivery.setDeliveredAt(resultSet.getTimestamp("delivered_at")); 
+				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
-	}
+	
+		return delivery;
+		}
+	
+	
 	@Override
 	public Deliveries getDeliveryById(int deliveryId) {
 		PreparedStatement preparedStatement =null;
@@ -151,40 +169,24 @@ public Connection connection;
 //	DeliveryDAO  dao = new DeliveryDAOImp();
 //	System.out.println(dao.addDelivery(delivery));
 //}
-@Override
-public Deliveries updateDelivery(Deliveries delivery) {
-	PreparedStatement preparedStatement =null;
-	String updateQuery="UPDATE deliveries SET order_id = ?, partner_id = ?, delivery_status = ?, assigned_at = ?, delivered_at = ? WHERE delivery_id = ?";
-int result=0;
-try {
-	connection.setAutoCommit(false);
-	preparedStatement=connection.prepareStatement(updateQuery);
-	preparedStatement.setInt(1, delivery.getOrderId());
-	preparedStatement.setInt(2, delivery.getPartnerId());
-	preparedStatement.setString(3, delivery.getDeliveryStatus());
-	preparedStatement.setTimestamp(4, delivery.getAssignedAt()); 
-	preparedStatement.setTimestamp(5, delivery.getDeliveredAt());
-	preparedStatement.setInt(6, delivery.getDeliveryId());
-	 result=preparedStatement.executeUpdate();
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-if(result >0) {
-	try {
-		connection.commit();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	@Override
+	public Deliveries updateDelivery(Deliveries delivery) {
+		PreparedStatement preparedStatement = null;
+		String updateQuery = "UPDATE deliveries SET  delivery_status = ? , delivered_at = ? WHERE delivery_id = ?";
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(updateQuery);
+			preparedStatement.setString(1, delivery.getDeliveryStatus());
+			preparedStatement.setTimestamp(2, delivery.getDeliveredAt());
+			preparedStatement.setInt(3, delivery.getDeliveryId());
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (result > 0) {
+			return delivery;
+		}
+		return null;
 	}
-	return delivery;
-}
-try {
-	connection.rollback();
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-	return null;
-}
 }
