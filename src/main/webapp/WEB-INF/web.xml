@@ -189,4 +189,44 @@
     <servlet-name>ResetPin</servlet-name>
     <url-pattern>/ResetPin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>To pick the prepared order from restaurant</description>
+    <display-name>PickOrder</display-name>
+    <servlet-name>PickOrder</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.PickOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PickOrder</servlet-name>
+    <url-pattern>/PickOrder</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>To mark order as delivered by comparing delivery_code</description>
+    <display-name>OrderDelivered</display-name>
+    <servlet-name>OrderDelivered</servlet-name>
+    <servlet-class>com.swiggy.deliveryServlet.OrderDelivered</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderDelivered</servlet-name>
+    <url-pattern>/OrderDelivered</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OTPRequest</display-name>
+    <servlet-name>OTPRequest</servlet-name>
+    <servlet-class>com.swiggy.auth.OTPRequest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OTPRequest</servlet-name>
+    <url-pattern>/OTPRequest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OTPVerification</display-name>
+    <servlet-name>OTPVerification</servlet-name>
+    <servlet-class>com.swiggy.auth.OTPVerification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OTPVerification</servlet-name>
+    <url-pattern>/OTPVerification</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -61,7 +61,8 @@ public class OrderByFoodItem extends HttpServlet {
 
 			order = orderDAO.insertOrder(order);
 
-			if (order != null) {
+			if (order != null)
+			{
 				OrderItems orderItems = new OrderItems();
 				orderItems.setOrderId(order.getOrderId());
 				orderItems.setItemId(foodId);

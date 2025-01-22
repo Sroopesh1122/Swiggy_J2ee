@@ -66,7 +66,6 @@ public class DeliveryPartnersDaoImpl implements DeliveryPartnersDAO {
 		int res=0;
 		
 		try {
-			con.setAutoCommit(false);
 			preparedStatement=con.prepareStatement(deleteQuery);
 			
 			preparedStatement.setInt(1, d.getPartnerId());
@@ -77,19 +76,11 @@ public class DeliveryPartnersDaoImpl implements DeliveryPartnersDAO {
 			e.printStackTrace();
 		}
 		if(res>0) {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return true;
 		}
 		else {
-			try {
-				con.rollback();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return false;
 		}
 
@@ -103,7 +94,6 @@ public class DeliveryPartnersDaoImpl implements DeliveryPartnersDAO {
 		int res=0;
 		
 		try {
-			con.setAutoCommit(false);
 			preparedStatement=con.prepareStatement(updateQuery);
 			
 			preparedStatement.setString(1,d.getName());
@@ -118,19 +108,11 @@ public class DeliveryPartnersDaoImpl implements DeliveryPartnersDAO {
 			e.printStackTrace();
 		}
 		if(res>0) {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return d;
 		}
 		else {
-			try {
-				con.rollback();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return null;
 		}
 	}

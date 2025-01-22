@@ -69,6 +69,10 @@ public class OrderDAOImp implements OrderDAO {
 				order.setTotalAmount(resultSet.getDouble(4));
 				order.setStatus(resultSet.getString(5));
 				order.setCreatedAt(resultSet.getTimestamp(6));
+				order.setPay_mode(resultSet.getString(7));
+				order.setDeliveryAddress(resultSet.getString(8));
+				order.setReveiwed(resultSet.getInt(9));
+				order.setPickedBy(resultSet.getInt(10));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -108,7 +112,7 @@ public class OrderDAOImp implements OrderDAO {
 
 	@Override
 	public boolean updateOrder(Orders order) {
-		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? WHERE order_id = ?";
+		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? ,pickedBy = ? WHERE order_id = ?";
 		PreparedStatement preparedStatement = null;
 		int resultSet = 0;
 		try {
@@ -116,7 +120,8 @@ public class OrderDAOImp implements OrderDAO {
 
 			preparedStatement.setString(1, order.getStatus());
 			preparedStatement.setInt(2, order.getReveiwed());
-			preparedStatement.setInt(3,order.getOrderId());
+			preparedStatement.setInt(3, order.getPickedBy());
+			preparedStatement.setInt(4,order.getOrderId());
 			resultSet = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -196,6 +201,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setPay_mode(resultSet.getString(7));
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
+				orders.setPickedBy(resultSet.getInt(10));
 				yourOrders.add(orders);
 			}
 
@@ -295,6 +301,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setPay_mode(resultSet.getString(7));
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
+				orders.setPickedBy(resultSet.getInt(10));
 				yourOrders.add(orders);
 			}
 
@@ -345,6 +352,138 @@ public class OrderDAOImp implements OrderDAO {
 		return 0;
 	}
 	
+	
+	@Override
+	public List<Orders> getOrderdByAddress(String address,int page,int limit) {
+
+		int skip = ( page -1 )* limit;
+		
+		
+		StringBuffer selectQuery =new StringBuffer();
+		
+		List<Orders> orders = new ArrayList<Orders>();
+		
+		selectQuery.append("SELECT * FROM ORDERS WHERE STATUS = 'PREPARED' ");
+		if(address != "")
+		{
+			selectQuery.append(" AND DELIVERY_ADDRESS LIKE '%"+address+"%' ");
+		}
+		selectQuery.append(" ORDER BY ORDER_ID  DESC");
+		selectQuery.append(" LIMIT  "+limit);
+		selectQuery.append(" OFFSET  "+skip);
+		
+		System.out.println(selectQuery.toString());
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+			
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Orders order = getOrderById(resultSet.getInt(1));
+				orders.add(order);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return orders;
+
+	}
+	
+	
+	@Override
+	public int getOrderdCountByAddress(String address) {
+		
+		StringBuffer selectQuery =new StringBuffer();
+		
+	    selectQuery.append("SELECT COUNT(*) FROM ORDERS WHERE STATUS = 'PREPARED' ");
+		if(address != "")
+		{
+			selectQuery.append(" AND DELIVERY_ADDRESS LIKE '%"+address+"%' ");
+		}
+		
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+			
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			if(resultSet.next())
+			{
+				return resultSet.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
+	@Override
+	public List<Orders> getOrderdByStatus(String status,int deliveryPartner, int page, int limit) {
+int skip = ( page -1 )* limit;
+		
+		
+		StringBuffer selectQuery =new StringBuffer();
+		
+		List<Orders> orders = new ArrayList<Orders>();
+		
+		selectQuery.append("SELECT * FROM ORDERS WHERE STATUS = '");
+		selectQuery.append(status + "'");
+		selectQuery.append(" AND ");
+		selectQuery.append(" PICKEDBY = " + deliveryPartner);
+		selectQuery.append(" ORDER BY ORDER_ID  DESC");
+		selectQuery.append(" LIMIT  " + limit);
+		selectQuery.append(" OFFSET  " + skip);
+		
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+			
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Orders order = getOrderById(resultSet.getInt(1));
+				orders.add(order);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return orders;
+	}
+	
+	@Override
+	public int getOrderdCountByStatus(String status, int deliveryPartner) {
+		StringBuffer selectQuery = new StringBuffer();
+
+		selectQuery.append("SELECT COUNT(*) FROM ORDERS WHERE STATUS = '");
+		selectQuery.append(status + "'");
+		selectQuery.append(" AND ");
+		selectQuery.append(" PICKEDBY = " + deliveryPartner);
+
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 	
 	
 

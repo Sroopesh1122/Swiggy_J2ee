@@ -246,6 +246,11 @@ input[type="number"]::-webkit-inner-spin-button,
   #custom-alert{
    font-family: "outfit",sans-serif;
   }
+  
+  .error{
+   position: absolute;
+   top:100%;
+  }
 
 </style>
  
@@ -292,7 +297,7 @@ input[type="number"]::-webkit-inner-spin-button,
 
         <div class="form-group">
             
-         <i class="ri-mail-line form-icon"></i>    <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+         <i class="ri-mail-line form-icon"></i>    <input type="email" class="form-control" placeholder="Email" name="email" id="email" readonly="readonly" value="<%=request.getParameter("email")!=null ? request.getParameter("email") : ""%>">
         </div>
 
         <div class="form-group">

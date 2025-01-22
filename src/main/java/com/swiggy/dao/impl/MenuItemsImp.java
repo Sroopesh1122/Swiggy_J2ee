@@ -27,7 +27,6 @@ public MenuItems addItem(MenuItems item) {
 	int result=0;
 	String  insertQuery="INSERT INTO menu_items (restaurant_id, name, description, price, available,created_at,category,img) VALUES (?, ?, ?, ?, ?,now(),?,?)";
 	try {
-		connection.setAutoCommit(false);
 		preparedStatement=connection.prepareStatement(insertQuery);
 		preparedStatement.setInt(1, item.getRestaurantId()); 
 		preparedStatement.setString(2, item.getName()); 
@@ -42,19 +41,8 @@ public MenuItems addItem(MenuItems item) {
 		e.printStackTrace();
 	}
 	if(result>0) {
-		try {
-			connection.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return item;
-	}
-	try {
-		connection.rollback();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	}
 	return null;
 }
@@ -157,7 +145,6 @@ public boolean deleteItem(int itemId) {
 	String deleteQuery = "DELETE FROM menu_items WHERE item_id = ?";
 	int result=0;
 	try {
-		connection.setAutoCommit(false);
 		preparedStatement =connection.prepareStatement(deleteQuery);
 		preparedStatement.setInt(1, itemId);
 		result=preparedStatement.executeUpdate();
@@ -166,18 +153,7 @@ public boolean deleteItem(int itemId) {
 		e.printStackTrace();
 	}
 	if(result>0) {
-		try {
-			connection.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			connection.rollback();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return true;
 	}
 	

@@ -38,12 +38,7 @@ public class CartDaoImp implements CartDAO{
 			
 			return cart;
 		}
-		try {
-			connection.rollback();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return null;
 	}
 	@Override

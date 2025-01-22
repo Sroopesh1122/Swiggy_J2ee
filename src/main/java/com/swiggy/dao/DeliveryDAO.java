@@ -10,6 +10,8 @@ public interface DeliveryDAO {
 
  
   public   Deliveries getDeliveryById(int deliveryId);
+  
+  public   Deliveries getDeliveryByEmail(int deliveryId);
 
    
   public   List<Deliveries> getAllDeliveries();
@@ -19,5 +21,11 @@ public interface DeliveryDAO {
 
    
   public  boolean deleteDelivery(int deliveryId);
+  
+  
+  
+  public   Deliveries getDeliveryByOrderId(int orderId);
+  
+  public List<Deliveries> getDeliveriesByPartnerId(int partnerId);
 }
 

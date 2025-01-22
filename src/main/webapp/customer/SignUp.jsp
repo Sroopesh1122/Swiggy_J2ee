@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sign In</title>
+<title>Create Account</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp" %>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lilita+One&display=swap" rel="stylesheet">
 
 <style type="text/css">
 
@@ -28,6 +29,17 @@
    align-items: center;
    position: relative;
    font-family:"outfit",serif;
+  }
+  
+  #signup h4{
+   font-size: 1.5rem;
+    text-align: center;
+    font-family: "Lilita One", serif;
+    color: #feb80a;
+    text-shadow: -1px -1px 0 #000,  
+                 1px -1px 0 #000,  
+                 -1px 1px 0 #000,  
+                 1px 1px 0 #000;
   }
   
   .wrapper-1{
@@ -260,7 +272,7 @@ display: none;
         <div class="form-group">
             
 
-         <i class="ri-mail-line form-icon"></i>   <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+         <i class="ri-mail-line form-icon"></i>   <input type="email" class="form-control" placeholder="Email" name="email" id="email" readonly="readonly" value="<%=request.getParameter("email")!=null ? request.getParameter("email") : ""%>">
 
         </div>
 

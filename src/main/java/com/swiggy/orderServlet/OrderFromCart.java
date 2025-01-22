@@ -73,6 +73,7 @@ public class OrderFromCart extends HttpServlet {
 	    	 double totalPrice =  Integer.parseInt(request.getParameter(menuItem.getItemId()+"")) * menuItem.getPrice();
 	    	 order.setPay_mode(pay_mode);
 	    	 order.setTotalAmount(totalPrice);
+	    	 order.setDeliveryAddress(request.getParameter("address"));
 	    	 
 	    	 order = orderDAO.insertOrder(order);
 	    	 

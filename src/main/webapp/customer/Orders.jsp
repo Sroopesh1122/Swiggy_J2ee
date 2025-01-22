@@ -1,3 +1,9 @@
+<%@page import="com.swiggy.dto.Deliveries"%>
+<%@page import="com.swiggy.dto.DeliveryPartners"%>
+<%@page import="com.swiggy.dao.impl.DeliveryPartnersDaoImpl"%>
+<%@page import="com.swiggy.dao.impl.DeliveryDAOImp"%>
+<%@page import="com.swiggy.dao.DeliveryPartnersDAO"%>
+<%@page import="com.swiggy.dao.DeliveryDAO"%>
 <%@page import="com.swiggy.dao.impl.MenuItemsImp"%>
 <%@page import="com.swiggy.dao.MenuItemDAO"%>
 <%@page import="com.swiggy.dto.MenuItems"%>
@@ -126,12 +132,15 @@
    .order-list-wrapper{
     margin-top: 10px;
    }
-   .order-item{
+   .order-item-wrapper{
     padding: 5px 10px;
-    box-shadow: 1px 2px 5px graytext !important;
+    box-shadow: 1px 1px 2px #efefef !important;
     border-radius: 20px;
     margin-bottom: 5px;
+    border:1px solid #efefef;
    }
+  
+   
    .order-item .content{
     display: flex;
     justify-content: space-between;
@@ -176,6 +185,55 @@
    {
    font-size: 0.85rem;
    }
+   
+   .picker-details {
+    padding: 0px;
+    margin-top: 2px;
+    overflow: hidden;
+    height: 0px;
+    transition: all 0.5s; /* Changed duration to 1 second */
+}
+
+   .picker-details-open {
+    height: 100px;
+   }
+
+   
+   .picker-details h4 ,.picker-details h6{
+    margin-bottom: 2px;
+   }
+   
+    .picker-details h4{
+     font-size: 0.9rem;
+     color: graytext;
+    }
+    
+    .picker-details h6{
+     font-size: 0.7rem;
+    }
+    
+    .picker-show-btn-wrapper{
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+    }
+    
+    .picker-show-btn-wrapper span{
+     font-size: 0.85rem;
+     cursor: pointer;
+    }
+    
+    .picker-icon{
+     display: inline-block;
+     transition:all 0.5s;
+    
+    }
+    
+    .picker-icon-rotate{
+     transform:rotate(180deg);
+    }
+    
+    
    
    
    @media (width <475px) {
@@ -264,48 +322,97 @@
 		    	MenuItems menuItem = menuItemDAO.getItemById(orderItem.getItemId());
 		    	
 		    	%>
+			<article class="order-item-wrapper">
+				<div class="order-item">
 
-			<div class="order-item">
+					<%
+					if (order.getStatus().equalsIgnoreCase("Delivered") && order.getReveiwed() == 0) {
+					%>
+					<footer>
 
-				<%
-				 if(order.getStatus().equalsIgnoreCase("Delivered") && order.getReveiwed()==0)
-				 {
-					 %>
-				<footer>
+						<button class="review-btn"
+							onclick="handleReviewBtnClick('<%=request.getContextPath() + "/customer/Review.jsp?orderId=" + order.getOrderId()%>')">
+							Leave Review <i class="ri-arrow-right-fill"></i>
+						</button>
 
-					<button class="review-btn" onclick="handleReviewBtnClick('<%=request.getContextPath()+"/customer/Review.jsp?orderId="+order.getOrderId()%>')">
-						Leave Review <i class="ri-arrow-right-fill"></i>
-					</button>
+					</footer>
 
-				</footer>
-
-				<%
-				 }
-				%>
-
-
-				<div class="content">
-					<img alt="" src="<%=menuItem.getImg()%>">
+					<%
+					}
+					%>
 
 
-					<div class="details">
-						<h6 class="mb-0 item-title"><%=menuItem.getName() %></h6>
-						<h6 class="mb-0 price">Total : <%=orderItem.getQuantity() %> * <%=orderItem.getPrice() %> = <%=order.getTotalAmount() %></h6>
-						<span>Status : <%=order.getStatus() %></span>
+					<div class="content">
+						<img alt="" src="<%=menuItem.getImg()%>">
+
+
+						<div class="details">
+							<h6 class="mb-0 item-title"><%=menuItem.getName()%></h6>
+							<h6 class="mb-0 price">
+								Total :
+								<%=orderItem.getQuantity()%>
+								*
+								<%=orderItem.getPrice()%>
+								=
+								<%=order.getTotalAmount()%></h6>
+							<span>Status : <%=order.getStatus()%></span>
+						</div>
 					</div>
+
+
+
+
+
+
+
 				</div>
 
 
 
 
+				<%
+				if (order.getPickedBy() != 0) {
+					DeliveryDAO deliveryDAO = new DeliveryDAOImp();
+					DeliveryPartnersDAO deliveryPartnersDAO = new DeliveryPartnersDaoImpl();
+					DeliveryPartners deliveryPartners = deliveryPartnersDAO.getDeliveryPartners(order.getPickedBy());
+					Deliveries delivery = deliveryDAO.getDeliveryByOrderId(order.getOrderId());
+				%>
+                
+                <div class="picker-show-btn-wrapper mt-2">
+                  <span onclick="handlePickerShowBtnClick('<%=order.getOrderId() %>')" >Picker Details <i id="<%=order.getOrderId()+"icon" %>" class="ri-arrow-down-s-fill picker-icon "></i></span>
+                </div>
+				<div class="picker-details " id="<%=order.getOrderId()%>">
+					<h4>Delivery Agent</h4>
+					<h6>
+						<i class="ri-user-fill"></i><%=deliveryPartners.getName()%></h6>
+					
+					<h6>
+						<i class="ri-motorbike-fill"></i>
+						<%=deliveryPartners.getVehicleDetails()%></h6>
+					<h6>
+						<i class="ri-phone-fill"></i>
+						<%=deliveryPartners.getPhoneNumber()%></h6>
+				    <h6>
+						Picked At :
+						<%=delivery.getAssignedAt().toString()%></h6>
+					<h6>
+						Delivery Code :
+						<%=delivery.getDeliveryCode()%></h6>	
+				</div>
 
-			</div>
+				<%
+				}
+				%>
+
+
+			</article>
+
+
 
 
 			<%
-		    }
-		   
-		   %>
+			}
+			%>
 		    
 		 
 		
@@ -322,7 +429,7 @@
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"$filter="+filter%>">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"&filter="+filter%>">Prev</a>
 			
 			<%
 			}
@@ -337,7 +444,7 @@
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(i)+"&limit="+limit+"$filter="+filter%>" ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(i)+"&limit="+limit+"&filter="+filter%>" ><%=i%></a>
 			    <%
 				}
 				
@@ -347,7 +454,7 @@
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"$filter="+filter%>">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/customer/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"&filter="+filter%>">Next</a>
 			<%
 			}
 			%>
@@ -361,6 +468,13 @@
 	   function handleReviewBtnClick(url)
 	   {
 		   window.location.href= url;
+	   }
+	   
+	   
+	   function handlePickerShowBtnClick(com)
+	   {
+		   $("#"+com).toggleClass("picker-details-open");
+		   $("#"+com+"icon").toggleClass("picker-icon-rotate")
 	   }
 	
 		

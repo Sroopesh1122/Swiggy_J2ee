@@ -68,17 +68,21 @@ public class AddReview extends HttpServlet {
 		   reviews.setRating(rating);
 		   reviews.setComment(comment);
 		   reviews.setMenuId(orderItem.getItemId());
-		   
+		    
 		   //setting revied to 1
 		   order.setReveiwed(1);
 		   
 		   //Updating food Rating;
+		   
+		   
+		   menuItem.setRating(((menuItem.getRating() * menuItem.getReviewCount()) + rating) / (menuItem.getReviewCount() + 1));
 		   menuItem.setReviewCount(menuItem.getReviewCount() + 1);
-		   menuItem.setRating((menuItem.getRating() + rating )/menuItem.getReviewCount());
-		  
+
 		   //Updatting Restaurant Rating;
-		   restaurants.setReviewsCount(restaurants.getReviewsCount()+1);
-		   restaurants.setRating((restaurants.getRating() + rating) / restaurants.getReviewsCount());
+		   
+		   restaurants.setRating(((restaurants.getRating() * restaurants.getReviewsCount()) + rating) / (restaurants.getReviewsCount() + 1));
+		   restaurants.setReviewsCount(restaurants.getReviewsCount() + 1);
+
 		   
 		   reviews =reviewDao.addReview(reviews);
 		   
@@ -90,7 +94,7 @@ public class AddReview extends HttpServlet {
 				   menuItem = menuItemDAO.updateItem(menuItem);
 				   restaurants = restaurantsDao.updateRestaurant(restaurants);
 				   
-				   request.getRequestDispatcher("/customer/RatingSubmitted.jsp").forward(request, response);
+				   request.getRequestDispatcher("/customer/RatingSubmited.jsp").forward(request, response);
 			    	
 			    }
 			   

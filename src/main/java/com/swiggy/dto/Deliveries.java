@@ -16,5 +16,6 @@ private Integer  partnerId;
 private String  deliveryStatus;
 private Timestamp assignedAt;
 private Timestamp deliveredAt;
+private String deliveryCode;
 
 }

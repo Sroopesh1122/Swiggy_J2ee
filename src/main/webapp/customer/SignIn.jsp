@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lilita+One&display=swap" rel="stylesheet">
 
 <style type="text/css">
 
@@ -37,6 +38,17 @@
    width: 40%;
    height:100vh;
    background: #feb80a;
+  }
+  
+  #signin h4{
+   font-size: 1.5rem;
+    text-align: center;
+    font-family: "Lilita One", serif;
+    color: #feb80a;
+    text-shadow: -1px -1px 0 #000,  
+                 1px -1px 0 #000,  
+                 -1px 1px 0 #000,  
+                 1px 1px 0 #000;
   }
   
   .wrapper-2{
@@ -284,7 +296,7 @@ display: none;
         
         <div class="form-nav-footer">
            <p class="mb-0">
-                Don't have an account? <a href="<%=request.getContextPath()+"/customer/SignUp.jsp"%>">Sign Up</a>
+                Don't have an account? <a href="<%=request.getContextPath()+"/customer/AuthEmail.jsp"%>">Sign Up</a>
             </p>
         </div>
      

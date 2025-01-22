@@ -115,8 +115,8 @@ body {
               <h3>– Start Your Food Journey with Us!</h3>
           </article>
           <article class="home-info-footer">
-               <a class="home-btn" href="<%=request.getContextPath()+"/customer/SignIn.jsp"%>"><i class="fa-solid fa-users"></i> Customer Login</a>
-               <a class="home-btn" href="<%=request.getContextPath()+"/restaurant/SignIn.jsp"%>"><i class="fa-solid fa-building"></i> Restaurant Login</a>
+               <a class="home-btn" href="<%=request.getContextPath()+"/customer/AuthEmail.jsp"%>"><i class="fa-solid fa-users"></i> Customer Login</a>
+               <a class="home-btn" href="<%=request.getContextPath()+"/restaurant/AuthEmail.jsp"%>"><i class="fa-solid fa-building"></i> Restaurant Login</a>
           </article>
        </section>
    </div>
