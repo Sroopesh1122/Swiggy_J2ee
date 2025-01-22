@@ -189,7 +189,7 @@ public boolean deleteItem(int itemId) {
 	public List<MenuItems> getAllItems(int restaurant_id ,String search_text,int limit,int page) {
 	
 	
-	int skip = (page -1)* limit;
+	int skip = (page -1) * limit;
 	
 	PreparedStatement preparedStatement =null;
 	List<MenuItems> items = new ArrayList();

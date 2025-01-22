@@ -29,14 +29,6 @@ public class UpdateFood extends HttpServlet {
 		String img=req.getParameter("img");
 		int itemId=Integer.parseInt(req.getParameter("itemId"));
 		
-		MenuItems mItems=new MenuItems();
-		mItems.setItemId(itemId);
-		mItems.setName(name);
-		mItems.setDescription(description);
-		mItems.setCategory(category);
-		mItems.setPrice(price);
-		mItems.setImg(img);
-		mItems.setAvailable(Integer.parseInt(req.getParameter("available")));
 		
 		HttpSession session=req.getSession();
 		Restaurants restaurants = (Restaurants) session.getAttribute("restaurants");
@@ -46,8 +38,19 @@ public class UpdateFood extends HttpServlet {
 			return;
 		}
 		
-		mItems.setRestaurantId(restaurants.getRestaurantsId());
 		MenuItemDAO menuItemDAO=new MenuItemsImp();
+		MenuItems mItems= menuItemDAO.getItemById(itemId);
+		mItems.setItemId(itemId);
+		mItems.setName(name);
+		mItems.setDescription(description);
+		mItems.setCategory(category);
+		mItems.setPrice(price);
+		mItems.setImg(img);
+		
+		mItems.setAvailable(Integer.parseInt(req.getParameter("available")));
+		
+		mItems.setRestaurantId(restaurants.getRestaurantsId());
+		
 		
 		MenuItems menuItems= menuItemDAO.updateItem(mItems);
 		
@@ -58,7 +61,7 @@ public class UpdateFood extends HttpServlet {
 			}
 			else{
 				req.setAttribute("failure", "Failed to update the food");
-				RequestDispatcher requestDispatcher=req.getRequestDispatcher("/restaurant/AddFood.jsp");
+				RequestDispatcher requestDispatcher=req.getRequestDispatcher("/restaurant/UpdateFood.jsp");
 				requestDispatcher.forward(req, resp);
 			}
 	}
