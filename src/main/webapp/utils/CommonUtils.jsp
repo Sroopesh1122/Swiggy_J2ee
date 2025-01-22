@@ -22,6 +22,7 @@
             padding: 2px 5px;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+            z-index: 100;
    }
  #alert-msg , #alert-sucess-alert{
   font-size: 0.8rem;
@@ -39,6 +40,7 @@
             padding: 2px 5px;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+            z-index: 100;
    }
  
  /* golden yellow : #feb80a*/

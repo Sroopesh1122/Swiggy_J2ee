@@ -220,7 +220,7 @@
       
       <article class="shipping-details mt-3 p-2">
        <h6>Shipping Details</h6>
-       <textarea rows="" cols="" placeholder="Delivery Address" id="delivery-address"></textarea>
+       <textarea rows="" cols="" name="address" placeholder="Delivery Address" id="delivery-address"></textarea>
         <%
          if(user.getAddress()!=null)
          {

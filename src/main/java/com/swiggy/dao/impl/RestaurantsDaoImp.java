@@ -66,7 +66,6 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 		int res=0;
 		
 		try {
-			con.setAutoCommit(false);
 			preparedStatement=con.prepareStatement(deleteQuery);
 			
 			preparedStatement.setInt(1, r.getRestaurantsId());
@@ -77,19 +76,11 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			e.printStackTrace();
 		}
 		if(res>0) {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return true;
 		}
 		else {
-			try {
-				con.rollback();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return false;
 		}
 	}
@@ -102,7 +93,6 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 		int res=0;
 		
 		try {
-			con.setAutoCommit(false);
 			preparedStatement=con.prepareStatement(updateQuery);
 			
 			preparedStatement.setString(1,r.getName());
@@ -120,19 +110,10 @@ public class RestaurantsDaoImp implements RestaurantsDao{
 			e.printStackTrace();
 		}
 		if(res>0) {
-			try {
-				con.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			
 			return r;
 		}
 		else {
-			try {
-				con.rollback();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 			return null;
 		}
 	}

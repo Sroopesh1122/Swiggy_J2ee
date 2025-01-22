@@ -424,6 +424,66 @@ public class OrderDAOImp implements OrderDAO {
 	}
 	
 	
+	@Override
+	public List<Orders> getOrderdByStatus(String status,int deliveryPartner, int page, int limit) {
+int skip = ( page -1 )* limit;
+		
+		
+		StringBuffer selectQuery =new StringBuffer();
+		
+		List<Orders> orders = new ArrayList<Orders>();
+		
+		selectQuery.append("SELECT * FROM ORDERS WHERE STATUS = '");
+		selectQuery.append(status + "'");
+		selectQuery.append(" AND ");
+		selectQuery.append(" PICKEDBY = " + deliveryPartner);
+		selectQuery.append(" ORDER BY ORDER_ID  DESC");
+		selectQuery.append(" LIMIT  " + limit);
+		selectQuery.append(" OFFSET  " + skip);
+		
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+			
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Orders order = getOrderById(resultSet.getInt(1));
+				orders.add(order);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return orders;
+	}
+	
+	@Override
+	public int getOrderdCountByStatus(String status, int deliveryPartner) {
+		StringBuffer selectQuery = new StringBuffer();
+
+		selectQuery.append("SELECT COUNT(*) FROM ORDERS WHERE STATUS = '");
+		selectQuery.append(status + "'");
+		selectQuery.append(" AND ");
+		selectQuery.append(" PICKEDBY = " + deliveryPartner);
+
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(selectQuery.toString());
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 	
 	
 

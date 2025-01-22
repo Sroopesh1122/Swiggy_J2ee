@@ -195,7 +195,7 @@
 }
 
    .picker-details-open {
-    height: 80px;
+    height: 100px;
    }
 
    
@@ -395,6 +395,9 @@
 				    <h6>
 						Picked At :
 						<%=delivery.getAssignedAt().toString()%></h6>
+					<h6>
+						Delivery Code :
+						<%=delivery.getDeliveryCode()%></h6>	
 				</div>
 
 				<%

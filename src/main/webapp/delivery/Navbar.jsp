@@ -153,7 +153,7 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
       {
     	  %>
     	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
-    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-search-line"></i>Orders</a></li>
     	  <li><a href="<%= request.getContextPath()+"/delivery/PickedOrders.jsp"%>" class="<%= selectedMenu.equals("My Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>My Orders</a></li>
           <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
@@ -182,7 +182,7 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
       {
     	  %>
     	  <li><a href="<%= request.getContextPath()+"/delivery/Profile.jsp"%>" class="cart-nav-item <%= selectedMenu.equals("Profile") ? "desktop-menu-active" : ""%>" ><i class="ri-user-line"></i> Profile</a></li>
-    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>Orders</a></li>
+    	  <li><a href="<%= request.getContextPath()+"/delivery/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-search-line"></i>Orders</a></li>
     	  <li><a href="<%= request.getContextPath()+"/delivery/PickedOrders.jsp"%>" class="<%= selectedMenu.equals("My Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i>My Orders</a></li>
           <li><a href="<%= request.getContextPath()+"/delivery/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%

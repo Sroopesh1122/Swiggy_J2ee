@@ -36,4 +36,12 @@ public interface OrderDAO {
   public List<Orders> getOrderdByAddress(String address,int page,int limit);
   public int getOrderdCountByAddress(String address);
   
+  //To get pending and delivered order 
+  
+  public List<Orders> getOrderdByStatus(String status,int deliveryPartner,int page,int limit);
+  public int getOrderdCountByStatus(String status,int deliveryPartner);
+  
+  
+  
+  
 }

@@ -33,7 +33,7 @@
 .add-food-form{
  width: 400px;
  padding: 20px;
- border-radius: 10px;
+ border-radius: 30px;
  box-shadow: 0px 1px 5px #efefef !important;
  border: 1px solid #efefef;
 }
@@ -123,7 +123,7 @@ input[type="number"]::-webkit-inner-spin-button,
         </div>
         
          <div class="form-group" >
-                     <input type="email" class="form-control" value="<%=user.getEmail()%>" placeholder="Email" name="email" disabled="disabled">
+                     <input type="email" class="form-control" value="<%=user.getEmail()%>" placeholder="Email" name="email" readonly="readonly">
         </div>
          <div class="form-group" >
                      <input type="number" class="form-control" value="<%=user.getPhoneNumber()%>" placeholder="Phone" name="phone" id="phone">

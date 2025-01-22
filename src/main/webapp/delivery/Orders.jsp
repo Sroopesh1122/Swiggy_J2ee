@@ -17,7 +17,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%
-  request.setAttribute("menu", "");
+  request.setAttribute("menu", "Orders");
   String q = request.getParameter("q")!=null ? request.getParameter("q") :"";
   int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
   int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;

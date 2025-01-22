@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 
+import com.app.utils.CaptchRenerator;
 import com.swiggy.dao.DeliveryDAO;
 import com.swiggy.dao.OrderDAO;
 import com.swiggy.dao.impl.DeliveryDAOImp;
@@ -61,6 +62,7 @@ public class PickOrder extends HttpServlet {
 				delivery.setPartnerId(deliveryPartners.getPartnerId());
 				delivery.setDeliveryStatus("Out For Delivery");
 				delivery.setAssignedAt(new Timestamp(System.currentTimeMillis()));
+				delivery.setDeliveryCode(CaptchRenerator.generateRandomString(6));
 				
 				delivery = deliveryDAO.addDelivery(delivery);
 				

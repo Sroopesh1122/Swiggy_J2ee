@@ -213,6 +213,12 @@ display: none;
  text-align: center;
 }
 
+.error{
+ position: absolute;
+ top:100%;
+ 
+}
+
 
 </style>
  

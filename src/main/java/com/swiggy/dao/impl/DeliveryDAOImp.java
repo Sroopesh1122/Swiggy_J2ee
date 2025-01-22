@@ -20,7 +20,7 @@ public Connection connection;
 	@Override
 	public Deliveries addDelivery(Deliveries delivery) {
 		PreparedStatement preparedStatement =null;
-		String insertquery = "INSERT INTO deliveries (order_id, partner_id, delivery_status, assigned_at, delivered_at) VALUES (?, ?, ?, now(), ?)";
+		String insertquery = "INSERT INTO deliveries (order_id, partner_id, delivery_status, assigned_at, delivered_at,delivery_code) VALUES (?, ?, ?, now(), ?,?)";
 		int result=0;
 		try {
 			preparedStatement =connection.prepareStatement(insertquery);
@@ -28,6 +28,7 @@ public Connection connection;
 			preparedStatement.setInt(2, delivery.getPartnerId());
 			preparedStatement.setString(3, delivery.getDeliveryStatus());
 			preparedStatement.setTimestamp(4, delivery.getDeliveredAt());
+			preparedStatement.setString(5, delivery.getDeliveryCode());
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -59,6 +60,7 @@ public Connection connection;
 				delivery.setDeliveryStatus(resultSet.getString("delivery_status"));
 				delivery.setAssignedAt(resultSet.getTimestamp("assigned_at")); 
 				delivery.setDeliveredAt(resultSet.getTimestamp("delivered_at")); 
+				delivery.setDeliveryCode(resultSet.getString("delivery_code"));
 				
 			}
 		} catch (SQLException e) {
@@ -67,6 +69,37 @@ public Connection connection;
 		}
 	
 		return delivery;
+		}
+	
+	@Override
+		public List<Deliveries> getDeliveriesByPartnerId(int partnerId) {
+		PreparedStatement preparedStatement =null;
+		ResultSet resultSet=null;
+		List<Deliveries> deliveries =new ArrayList<Deliveries>();
+		String selectQuery="SELECT * FROM deliveries WHERE partner_id = ?";
+		try {
+		
+			preparedStatement =connection.prepareStatement(selectQuery);
+			preparedStatement.setInt(1, partnerId);
+			resultSet =preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Deliveries delivery = new Deliveries();
+				delivery.setDeliveryId(resultSet.getInt("delivery_id")); 
+				delivery.setOrderId(resultSet.getInt("order_id"));
+				delivery.setPartnerId(resultSet.getInt("partner_id"));
+				delivery.setDeliveryStatus(resultSet.getString("delivery_status"));
+				delivery.setAssignedAt(resultSet.getTimestamp("assigned_at")); 
+				delivery.setDeliveredAt(resultSet.getTimestamp("delivered_at")); 
+				delivery.setDeliveryCode(resultSet.getString("delivery_code"));
+				deliveries.add(delivery);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return deliveries;
 		}
 	
 	
@@ -88,6 +121,7 @@ public Connection connection;
 				delivery.setDeliveryStatus(resultSet.getString("delivery_status"));
 				delivery.setAssignedAt(resultSet.getTimestamp("assigned_at")); 
 				delivery.setDeliveredAt(resultSet.getTimestamp("delivered_at")); 
+				delivery.setDeliveryCode(resultSet.getString("delivery_code"));
 				return delivery;
 				
 			}
@@ -98,6 +132,15 @@ public Connection connection;
 	
 		return delivery;
 	}
+	
+	@Override
+		public Deliveries getDeliveryByEmail(int deliveryId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	 
+	
+	
 	@Override
 	public List<Deliveries> getAllDeliveries() {
 		PreparedStatement preparedStatement =null;
@@ -116,6 +159,7 @@ public Connection connection;
 				delivery.setDeliveryStatus(resultSet.getString("delivery_status"));
 				delivery.setAssignedAt(resultSet.getTimestamp("assigned_at")); 
 				delivery.setDeliveredAt(resultSet.getTimestamp("delivered_at")); 
+				delivery.setDeliveryCode(resultSet.getString("delivery_code"));
 				deliveries.add(delivery);
 				
 			}
@@ -141,20 +185,10 @@ public Connection connection;
 			e.printStackTrace();
 		}
 		if(result >0) {
-			try {
-				connection.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			return true;
 		}
-		try {
-			connection.rollback();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return false;
 	}
 	
