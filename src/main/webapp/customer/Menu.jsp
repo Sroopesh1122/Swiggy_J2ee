@@ -90,7 +90,7 @@
 .menu-item-list-wrapper{
     width:100%; 
     display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 	gap:10px;
 	align-content: center;
 }
@@ -99,26 +99,28 @@
  background: white;
  position: relative;
  cursor: pointer;
+ border-radius: 20px;
 }
 
 .food-item-card:hover
 {
- box-shadow: 0px 2px 4px graytext !important;
+ box-shadow: 0px 2px 4px black !important;
 }
 
 .food-item-card .food-img{
  width: 100%;
  height: 250px;
- border-radius: 10px 10px 0px 0px;
+ border-radius: 20px 20px 0px 0px;
  z-index: -1;
 }
 
 .food-info{
  width: 100%;
  background: white;
- border-radius:0px 0px 5px 5px;
- border: 1px solid #efefef;
- box-shadow: 0px 1px 1px graytext !important;
+ border-radius:0px 0px 20px 20px;
+ box-shadow: 0px 1px 1px #efefef !important;
+ background: #000814;
+ color: white;
 }
 
 .cart-btn , .saved-btn{
@@ -146,10 +148,11 @@
  padding: 5px;
 }
 .food-title {
- font-size: 1.01rem;
+ font-size: 1.5rem;
  overflow: hidden;
  white-space: nowrap;
  text-overflow: ellipsis;
+ font-weight: 600;
 }
 .food-card-footer{
  display: flex;
@@ -167,6 +170,7 @@
   justify-content: center;
   align-items: center;
   gap:2px;
+  color: black;
 }
 
 
@@ -221,7 +225,7 @@
 
 .food-desc {
   font-size: 0.8rem;
-  color: graytext;
+  color: white;
   display: -webkit-box; 
   -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical; 
@@ -238,7 +242,7 @@
 
 .food-hotel-info{
  font-size: 0.7rem;
- color: #14213d;
+ color: white;
  overflow: hidden;
  white-space: nowrap;
  text-overflow: ellipsis;
@@ -337,7 +341,18 @@
        
         <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
-          <h2 class="food-title"><%=menuItem.getName()%> <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating()%></span> </h2>
+          <h2 class="food-title"><%=menuItem.getName()%> 
+           
+           <%
+            if(menuItem.getRating()>0)
+            {
+            	%>
+            	  <span class="food-rating"><i class="ri-star-fill"></i> <%=menuItem.getRating()%></span>
+            	<%
+            }
+           %> 
+          
+          </h2>
           <p class="mb-1 food-desc"><%=menuItem.getDescription() %></p>
           <p class="food-hotel-info" class="mb-1">Restaurant : <%=restaurant.getName()%></p>
           <div class="mt-1 food-card-footer">

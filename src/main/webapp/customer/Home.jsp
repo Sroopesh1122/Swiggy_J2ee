@@ -119,11 +119,16 @@ body {
 
 .category-card h6{
  white-space: nowrap;
+ font-weight: 500;
 }
 
 .category-card:hover {
 	border: 1px solid #efefef;
-	box-shadow: 0px 1px 3px graytext !important;
+	box-shadow: 0px 1px 3px #efefef !important;
+}
+
+.category-card:hover .img-wrapper img{
+ transform:scale(1.05);
 }
 
 .category-card .img-wrapper {
@@ -137,7 +142,41 @@ body {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	transition:all 0.5s;
 }
+
+.promo-section {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 60vh;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden; /* Ensures content doesn't overflow the section */
+}
+
+.promo-section video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the entire section while maintaining aspect ratio */
+  z-index: 1; /* Ensures it appears above the background */
+  
+}
+
+.promo-section .vedio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+  z-index: 2; /* Ensures it appears above the video */
+}
+
 
 @media ( width < 1024px) {
 	.large-cicle {
@@ -273,8 +312,17 @@ body {
 			</div>
 			
 		</article>
+		
+	</section>
+	
+	<section class="promo-section"> 
+	       <div class="vedio-overlay"></div>
+			<video id="checkmarkVideo" autoplay muted playsinline
+				src='<%=request.getContextPath() + "/promos/v1.mp4"%>'></video>
 
 	</section>
+
+	
 	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

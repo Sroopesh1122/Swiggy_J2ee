@@ -5,7 +5,7 @@
     <script>
         function openPaymentPopup() {
             // URL of the payment page in the bank application
-            const paymentUrl = "http://localhost:8080/OnlineBankMangement/Payment.jsp";
+            const paymentUrl = "http://localhost:8080/Swiggy/customer/Payment.jsp";
 
             // Open a popup window for payment
             const popup = window.open(
