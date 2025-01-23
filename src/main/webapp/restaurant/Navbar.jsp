@@ -129,7 +129,7 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
     	  <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
           <li><a href="<%= request.getContextPath()+"/restaurant/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
            <li><a href="<%= request.getContextPath()+"/restaurant/Reviews.jsp"%>" class="<%= selectedMenu.equals("Reviews") ? "desktop-menu-active" : ""%>"><i class="ri-survey-line"></i> Reviews</a></li>
-          <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
+          <li><a href="<%= request.getContextPath()+"/restaurant/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
       }
       else{
@@ -156,7 +156,7 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
     	  %>
     	  <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
           <li><a href="<%= request.getContextPath()+"/restaurant/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
-          <li><a href="#"><i class="ri-logout-box-line"></i> Logout</a></li>
+          <li><a href="<%= request.getContextPath()+"/restaurant/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
       }
       else{
