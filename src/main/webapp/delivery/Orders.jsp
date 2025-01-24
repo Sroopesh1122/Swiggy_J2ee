@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@page import="com.swiggy.dto.MenuItems"%>
 <%@page import="com.swiggy.dto.OrderItems"%>
 <%@page import="com.swiggy.dto.Restaurants"%>
@@ -353,7 +354,7 @@ h6{
 	 event.stopPropagation();
 	 
 	//  window.location.href = "http://localhost:8080"+url
-	   fetch("http://localhost:8080" + url, {
+	   fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
 		   method: "GET",
 		 })
 		   .then((response) => {

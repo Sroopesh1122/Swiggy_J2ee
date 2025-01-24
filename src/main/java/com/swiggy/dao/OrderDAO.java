@@ -15,6 +15,11 @@ public interface OrderDAO {
   
   
   
+  //Internally it will deletes orderItems also
+  public boolean deleteOrdersByRazorPayId(String id);
+  
+  
+  
   //For Users
   //To get list of orders by user_id with limit page
   public List<Orders> getOrderByUserId(int user_id,int page,int limit,String status);
@@ -37,7 +42,6 @@ public interface OrderDAO {
   public int getOrderdCountByAddress(String address);
   
   //To get pending and delivered order 
-  
   public List<Orders> getOrderdByStatus(String status,int deliveryPartner,int page,int limit);
   public int getOrderdCountByStatus(String status,int deliveryPartner);
   

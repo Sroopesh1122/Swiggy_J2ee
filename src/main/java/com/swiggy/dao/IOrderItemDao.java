@@ -6,4 +6,6 @@ public interface IOrderItemDao
 {
   public OrderItems addItem(OrderItems orderItem);
   public OrderItems getById(int orderId);
+  
+  public boolean deleteByOrderId(int orderId);
 }
