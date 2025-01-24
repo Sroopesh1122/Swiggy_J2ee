@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -282,7 +283,7 @@ function handleSubmitClick(url)
 	
 	$("#loading-indicator").removeClass("hide")
 	
-	fetch("http://localhost:8080" + url + "?email=" + email + "&code=" + otpCode, {
+	fetch("<%=AppProperties.get("SERVER_URL")%>" + url + "?email=" + email + "&code=" + otpCode, {
 		  method: "GET",
 		})
 		  .then((response) => {
@@ -325,7 +326,7 @@ function handleVerificationCLick(url)
 	
 	$("#loading-indicator").removeClass("hide")
 	
-	fetch("http://localhost:8080" + url+"?email="+email+"&role=restaurant", {
+	fetch("<%=AppProperties.get("SERVER_URL")%>" + url+"?email="+email+"&role=restaurant", {
 		   method: "GET",
 		 })
 		   .then((response) => {

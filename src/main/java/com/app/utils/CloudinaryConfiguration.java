@@ -5,9 +5,12 @@ import com.cloudinary.utils.ObjectUtils;
 
 public class CloudinaryConfiguration {
 	public static Cloudinary getCloudinaryInstance() {
+		
+		
+		
         return new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dwnvbobrq",
-                "api_key", "442829252656958",
-                "api_secret", "uRHE_kStG0GgSiSCJOr2qSUW5eA"));
+                "cloud_name", AppProperties.get("CLOUDINARY_CLOUD_NAME"),
+                "api_key", AppProperties.get("CLOUDINARY_API_KEY"),
+                "api_secret", AppProperties.get("CLOUDINARY_SECRET_KEY")));
     }
 }

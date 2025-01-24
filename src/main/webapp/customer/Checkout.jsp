@@ -283,18 +283,40 @@ if ($("#address-checkbox").hasClass("close-check")) {
  {
 	 
 	 let paymentType  = $("#payment-option").val();
+	 if($("#delivery-address").val().trim() === "")
+	 {
+		 showAlert("Delivery Address Required!");
+		 return;
+		 
+	 }
+	 let cartOrderUrl;
+	 
+	 //For Cash on Delivery
 	 if(paymentType === "cod")
 	  {
-		 if($("#delivery-address").val().trim() === "")
-		 {
-			 showAlert("Delivery Address Required!");
-			 return;
-			 
-		 }
+		   cartOrderUrl = '<%=request.getContextPath()+"/user/cart/order" %>'
+          
+		// $("#checkout-form").submit();
 		 
-		 $("#checkout-form").submit();
 	  }
+	//For Cash on Payment
+	 else{
+		  cartOrderUrl = '<%=request.getContextPath()+"/cart/order/payment" %>'
+	  }
+	 
+	 
+	 $("#checkout-form").attr("action",cartOrderUrl)
+	 
+     
+	 $("#checkout-form").submit();
+	 
+	 
+	 
+	 
  }
+
+
+ 
  
  
  

@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@page import="com.swiggy.dto.Deliveries"%>
 <%@page import="com.swiggy.dto.DeliveryPartners"%>
 <%@page import="com.swiggy.dao.impl.DeliveryPartnersDaoImpl"%>
@@ -405,7 +406,7 @@ body {
 		event.stopPropagation();
 		   
 		 //  window.location.href = "http://localhost:8080"+url
-		   fetch("http://localhost:8080" + url, {
+		   fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
 			   method: "GET",
 			 })
 			   .then((response) => {
@@ -419,7 +420,7 @@ body {
 				  
 			     if(data === "login")
 			       {
-			    	 window.location.href =  "http://localhost:8080/Swiggy/restaurant/SignIn.jsp";
+			    	 window.location.href =  "<%=AppProperties.get("SERVER_URL")%>/Swiggy/restaurant/SignIn.jsp";
 			       }
 			     else if(data === "success")
 			       {

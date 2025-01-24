@@ -268,18 +268,36 @@
  
  function handleOrderClick()
  {
+	  
 	 
 	 let paymentType  = $("#payment-option").val();
+	 if($("#delivery-address").val().trim() === "")
+	 {
+		 showAlert("Delivery Address Required!");
+		 return;
+		 
+	 }
+	 let cartOrderUrl;
+	 
+	 //For Cash on Delivery
 	 if(paymentType === "cod")
 	  {
-		 if($("#delivery-address").val().trim() === "")
-		 {
-			 showAlert("Delivery Address Required!");
-			 return;
-			 
-		 }
-		 $("#checkout-form").submit();
+		   cartOrderUrl = '<%=request.getContextPath()+"/user/food/order" %>'
+          
+		// $("#checkout-form").submit();
+		 
 	  }
+	//For Cash on Payment
+	 else{
+		  cartOrderUrl = '<%=request.getContextPath()+"/food/item/payment" %>'
+	  }
+	 
+	 
+	 $("#checkout-form").attr("action",cartOrderUrl)
+	 
+     
+	 $("#checkout-form").submit();
+	 
  }
  
  

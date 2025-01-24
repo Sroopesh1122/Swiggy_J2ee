@@ -18,8 +18,8 @@ public class EmailUtil {
 
     public static void sendEmail(String toEmail, String subject, String messageBody) throws MessagingException {
         // Email credentials
-        final String username = "foodieteam2025@gmail.com";
-        final String password = "pxkf sfjp mkth nrvh";
+        final String username = AppProperties.get("EMAIL");
+        final String password = AppProperties.get("EMAIL_PASSWORD");
 
         // SMTP properties
         Properties props = new Properties();

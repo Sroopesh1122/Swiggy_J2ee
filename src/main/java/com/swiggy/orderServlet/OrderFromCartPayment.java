@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
 import org.json.JSONObject;
 
+import com.app.utils.AppProperties;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -18,34 +18,34 @@ import com.swiggy.dao.CartDAO;
 import com.swiggy.dao.IOrderItemDao;
 import com.swiggy.dao.MenuItemDAO;
 import com.swiggy.dao.OrderDAO;
-import com.swiggy.dao.RestaurantsDao;
 import com.swiggy.dao.impl.CartDaoImp;
 import com.swiggy.dao.impl.MenuItemsImp;
 import com.swiggy.dao.impl.OrderDAOImp;
 import com.swiggy.dao.impl.OrderItemImpl;
-import com.swiggy.dao.impl.RestaurantsDaoImp;
 import com.swiggy.dto.Cart;
 import com.swiggy.dto.MenuItems;
 import com.swiggy.dto.OrderItems;
 import com.swiggy.dto.Orders;
-import com.swiggy.dto.Restaurants;
 import com.swiggy.dto.Users;
 
 
-
-@WebServlet(urlPatterns = "/user/cart/order")
-public class OrderFromCart extends HttpServlet {
+@WebServlet(urlPatterns = "/cart/order/payment")
+public class OrderFromCartPayment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public OrderFromCart() {
+	private RazorpayClient razorpayClient;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public OrderFromCartPayment() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		 Users user = (Users) request.getSession().getAttribute("users");
+		Users user = (Users) request.getSession().getAttribute("users");
 		 if(user ==null)
 		 {
 			 response.sendRedirect(request.getContextPath()+"/customer/Cart.jsp");
@@ -65,6 +65,45 @@ public class OrderFromCart extends HttpServlet {
 	     String pay_mode = request.getParameter("payment-option");
 	     
 	     
+	    
+	     String razorpayKeyId = AppProperties.get("RAZORPAY_API_KEY");
+    	 String razorpayKeySecret =AppProperties.get("RAZORPAY_SECRET_KEY");
+	    	 try {
+				 razorpayClient = new RazorpayClient(razorpayKeyId, razorpayKeySecret);
+			} catch (RazorpayException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	 
+	    	
+	    	 double totalPaymentAmount = cartItems.stream()
+	    			    .mapToDouble(cartItem -> {
+	    			        MenuItems menuItem = menuItemDAO.getItemById(cartItem.getMenuId());
+	    			        double totalPrice = Integer.parseInt(request.getParameter(menuItem.getItemId() + "")) * menuItem.getPrice();
+	    			        return totalPrice;
+	    			    })
+	    			    .sum();
+
+	    	
+	    	 
+	    	 
+	    	 JSONObject orderRequest = new JSONObject();
+             orderRequest.put("amount", (int) (totalPaymentAmount * 100)); // Amount in paise
+             orderRequest.put("currency", "INR");
+             
+             // Call Razorpay API to create order
+             Order razorpayOrder=null;
+             try {
+ 				 razorpayOrder= razorpayClient.orders.create(orderRequest);
+ 				request.setAttribute("razorpay_order_id", razorpayOrder.get("id").toString());
+ 				request.setAttribute("total_amount", totalPaymentAmount);
+ 				request.setAttribute("source","cart");
+
+ 			} catch (RazorpayException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+	     
 	     
 	     for(Cart cartItem :cartItems)
 	     {
@@ -79,12 +118,14 @@ public class OrderFromCart extends HttpServlet {
 	    	 order.setPay_mode(pay_mode);
 	    	 order.setTotalAmount(totalPrice);
 	    	 order.setDeliveryAddress(request.getParameter("address"));
+	    	 order.setRayzorpay_id(razorpayOrder.get("id").toString());
+	    	 
 	    	 
 	    	 order = orderDAO.insertOrder(order);
 	    	 
 	    	 if(order!=null)
 	    	 {
- 
+	 
 	    		  OrderItems orderItems = new OrderItems();
 	    		  orderItems.setOrderId(order.getOrderId());
 	    		  orderItems.setItemId(cartItem.getMenuId());
@@ -92,12 +133,10 @@ public class OrderFromCart extends HttpServlet {
 	    		  orderItems.setPrice(menuItem.getPrice());
 	    		  orderItems = orderItemDao.addItem(orderItems);
 	    	 }
-	    	 
-	         cartDAO.deleteById(cartItem.getCartId());
-	         	 
+	     	 
 	     }
 	     
-	     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/customer/OrderPlaced.jsp");
+	     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/customer/Payment.jsp");
 	     requestDispatcher.forward(request, response);
 	}
 
