@@ -9,17 +9,17 @@ public class AppProperties {
 
     // Static block to initialize properties
     static {
-        properties.put("DB_URL", "jdbc:mysql://localhost:3306/swiggy_db");
-        properties.put("DB_USERNAME", "root");
-        properties.put("DB_PASSWORD", "root");
-        properties.put("CLOUDINARY_CLOUD_NAME", "dwnvbobrq");
-        properties.put("CLOUDINARY_API_KEY", "442829252656958");
-        properties.put("CLOUDINARY_SECRET_KEY", "uRHE_kStG0GgSiSCJOr2qSUW5eA");
-        properties.put("EMAIL", "foodieteam2025@gmail.com");
-        properties.put("EMAIL_PASSWORD", "pxkf sfjp mkth nrvh");
-        properties.put("RAZORPAY_API_KEY", "rzp_test_LlqzAuvt2E191U");
-        properties.put("RAZORPAY_SECRET_KEY", "AVkua6VjB8TbbZiAc34vqQrQ");
-        properties.put("SERVER_URL", "http://localhost:8080");
+        properties.put("DB_URL", "");
+        properties.put("DB_USERNAME", "");
+        properties.put("DB_PASSWORD", "");
+        properties.put("CLOUDINARY_CLOUD_NAME", "");
+        properties.put("CLOUDINARY_API_KEY", "");
+        properties.put("CLOUDINARY_SECRET_KEY", "");
+        properties.put("EMAIL", "");
+        properties.put("EMAIL_PASSWORD", "");
+        properties.put("RAZORPAY_API_KEY", "");
+        properties.put("RAZORPAY_SECRET_KEY", "");
+        properties.put("SERVER_URL", "");
     }
 
     // Static method to retrieve a property by key
