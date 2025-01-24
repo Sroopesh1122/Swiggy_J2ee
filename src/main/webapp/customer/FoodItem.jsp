@@ -197,7 +197,8 @@
  border-radius:10px;
  width: 200px;
  cursor: pointer;
- 
+ flex-shrink: 0;
+ flex-grow: 0;
 }
 
 .similar-food-card:hover{

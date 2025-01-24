@@ -21,7 +21,7 @@
    <%
     int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
     int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;
-    String q = (String) request.getParameter("q");
+    String q =  request.getParameter("q")!=null ? request.getParameter("q") : "" ;
    
     MenuItemDAO menuItemDAO =  new MenuItemsImp();
     List<MenuItems> menuItems = menuItemDAO.getAllItems(q,limit,currentPage);
@@ -101,6 +101,7 @@
  position: relative;
  cursor: pointer;
  border-radius: 20px;
+ overflow: hidden;
 }
 
 .food-item-card:hover
@@ -204,9 +205,10 @@
  align-items: center;
  top:0;
  left: 0;
- background: #f9f7f7a6;
+ background: rgba(0,0,0,0.6);
  color: red;
  font-size: 1.2rem;
+ font-weight: 700;
 }
 
 .section-2{
@@ -228,7 +230,7 @@
   font-size: 0.8rem;
   color: white;
   display: -webkit-box; 
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical; 
   overflow: hidden;
   text-overflow: ellipsis; 
@@ -308,7 +310,7 @@
     	 
     	 %>
     	  
-      <article class="food-item-card" onclick="handleMenuItemClick('<%=request.getContextPath()+"/customer/FoodItem.jsp?menu_id="+menuItem.getItemId()%>')">
+      <article class="food-item-card" onclick="<%=menuItem.getAvailable()==1 ? "handleMenuItemClick('"+request.getContextPath()+"/customer/FoodItem.jsp?menu_id="+menuItem.getItemId()+"')" : ""%>">
        
        <%
         if(menuItem.getAvailable() ==0)
@@ -332,10 +334,14 @@
        
         	<% 
         }else{
-        	%>
-        	   <span class="cart-btn" onclick="handleFoodCartClick('<%=request.getContextPath()+"/customer/cart/add?foodId="+menuItem.getItemId()%>')"><i class="ri-bookmark-line"></i></span>
-     
-        	<% 
+        	if(menuItem.getAvailable()==1)
+        	{
+        		%>
+         	   <span class="cart-btn" onclick="handleFoodCartClick('<%=request.getContextPath()+"/customer/cart/add?foodId="+menuItem.getItemId()%>')"><i class="ri-bookmark-line"></i></span>
+      
+         	<%	
+        	}
+        	 
         }
         %>
       

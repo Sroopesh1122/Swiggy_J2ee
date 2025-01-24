@@ -363,7 +363,7 @@ body {
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="#">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Orders.jsp?page="+(currentPage-1)+"&limit"+limit+"&filter="+filter%>">Prev</a>
 			
 			<%
 			}
@@ -378,7 +378,7 @@ body {
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="#"  ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Orders.jsp?page="+(i)+"&limit"+limit+"&filter="+filter%>"  ><%=i%></a>
 			    <%
 				}
 				
@@ -388,7 +388,7 @@ body {
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="#">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Orders.jsp?page="+(currentPage+1)+"&limit"+limit+"&filter="+filter%>">Next</a>
 			<%
 			}
 			%>

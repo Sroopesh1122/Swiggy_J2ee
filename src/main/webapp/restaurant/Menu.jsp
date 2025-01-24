@@ -20,8 +20,8 @@
    
    <%
     int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
-    int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;
-    String q = (String) request.getParameter("q");
+    int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 12;
+    String q = request.getParameter("q")!=null ? request.getParameter("q") :"" ;
    
     MenuItemDAO menuItemDAO =  new MenuItemsImp();
     List<MenuItems> menuItems = menuItemDAO.getAllItems(restaurants.getRestaurantsId(),q,limit,currentPage);
@@ -113,6 +113,8 @@
  background: white;
  position: relative;
  cursor: pointer;
+ overflow: hidden;
+ border-radius: 15px;
 }
 
 .food-item-card .food-img{
@@ -190,9 +192,10 @@
  align-items: center;
  top:0;
  left: 0;
- background: #f9f7f7a6;
+ background: rgba(0,0,0,0.6);
  color: red;
  font-size: 1.2rem;
+ font-weight: 700;
 }
 
 
@@ -287,7 +290,7 @@
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="#">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Menu.jsp?page="+(currentPage-1)+"&limit="+limit+"&q="+q%>">Prev</a>
 			
 			<%
 			}
@@ -302,7 +305,7 @@
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="#"  ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Menu.jsp?page="+(i)+"&limit="+limit+"&q="+q%>"  ><%=i%></a>
 			    <%
 				}
 				
@@ -312,7 +315,7 @@
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="#">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Menu.jsp?page="+(currentPage+1)+"&limit="+limit+"&q="+q%>">Next</a>
 			<%
 			}
 			%>

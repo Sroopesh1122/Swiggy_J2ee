@@ -380,7 +380,7 @@ h6{
       
    
    </section>
-   <%-- <%
+   <%
 		int noOfPages = (int) Math.ceil((double) totalOrderCount/ limit);
 		int startPage = Math.max(1, currentPage - 2);
 		int endPage = Math.min(noOfPages, currentPage + 2);
@@ -390,7 +390,7 @@ h6{
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/Orders.jsp?page="+(currentPage-1)+"&limit="+limit+"&q="+q%>">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/PickedOrders.jsp?page="+(currentPage-1)+"&limit="+limit+"&status="+status%>">Prev</a>
 			
 			<%
 			}
@@ -405,7 +405,7 @@ h6{
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/Orders.jsp?page="+(i)+"&limit="+limit+"&q="+q%>" ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/PickedOrders.jsp?page="+(i)+"&limit="+limit+"&status="+status%>" ><%=i%></a>
 			    <%
 				}
 
@@ -414,11 +414,11 @@ h6{
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/Orders.jsp?page="+(currentPage+1)+"&limit="+limit+"&q="+q%>">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/delivery/PickedOrders.jsp?page="+(currentPage+1)+"&limit="+limit+"&status="+status%>">Next</a>
 			<%
 			}
 			%>
-		</div> --%>
+		</div>
 		
 		<%@include file="/utils/Alerts.jsp" %>		
    

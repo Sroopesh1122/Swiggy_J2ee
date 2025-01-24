@@ -206,7 +206,7 @@
 			<%
 			if (currentPage > 1) {
 			%>
-			<a class="pagination-btn center" href="#">Prev</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Reviews.jsp?page="+(currentPage-1)+"&limit"+limit%>">Prev</a>
 			
 			<%
 			}
@@ -221,7 +221,7 @@
 					<% 
 				}else{
 				  %>
-			           <a class="pagination-btn center" href="#"  ><%=i%></a>
+			           <a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Reviews.jsp?page="+(i)+"&limit"+limit%>"  ><%=i%></a>
 			    <%
 				}
 				
@@ -231,7 +231,7 @@
 			<%
 			if (currentPage < noOfPages) {
 			%>
-			<a class="pagination-btn center" href="#">Next</a>
+			<a class="pagination-btn center" href="<%=request.getContextPath()+"/restaurant/Reviews.jsp?page="+(currentPage+1)+"&limit"+limit%>">Next</a>
 			<%
 			}
 			%>
