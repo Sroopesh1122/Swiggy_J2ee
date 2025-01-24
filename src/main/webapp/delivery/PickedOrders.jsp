@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.swiggy.dto.Deliveries"%>
 <%@page import="com.swiggy.dao.impl.DeliveryDAOImp"%>
@@ -469,7 +470,7 @@ h6{
 		 }
 	
 		
-		fetch("http://localhost:8080" + url+"&code="+$("#delivery-code").val(), {
+		fetch("<%=AppProperties.get("SERVER_URL")%>" + url+"&code="+$("#delivery-code").val(), {
 			   method: "GET",
 			 })
 			   .then((response) => {

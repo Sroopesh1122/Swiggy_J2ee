@@ -229,4 +229,34 @@
     <servlet-name>OTPVerification</servlet-name>
     <url-pattern>/OTPVerification</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PaymentVerification</display-name>
+    <servlet-name>PaymentVerification</servlet-name>
+    <servlet-class>com.swiggy.paymentServlet.PaymentVerification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaymentVerification</servlet-name>
+    <url-pattern>/PaymentVerification</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OrderFromCartPayment</display-name>
+    <servlet-name>OrderFromCartPayment</servlet-name>
+    <servlet-class>com.swiggy.orderServlet.OrderFromCartPayment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderFromCartPayment</servlet-name>
+    <url-pattern>/OrderFromCartPayment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>OrderByFoodItemPayment</display-name>
+    <servlet-name>OrderByFoodItemPayment</servlet-name>
+    <servlet-class>com.swiggy.orderServlet.OrderByFoodItemPayment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrderByFoodItemPayment</servlet-name>
+    <url-pattern>/OrderByFoodItemPayment</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -76,5 +76,25 @@ public class OrderItemImpl implements IOrderItemDao {
 		
 		return null;
 	}
+	
+	@Override
+	public boolean deleteByOrderId(int orderId) {
+
+		String deleteQuery = "DELETE FROM order_items WHERE order_id = ?";
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(deleteQuery);
+			preparedStatement.setInt(1,orderId);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (result > 0) {
+			return true;
+		}
+		return false;
+	}
 
 }

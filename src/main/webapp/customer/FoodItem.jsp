@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@page import="com.swiggy.dao.impl.UsersDaoImp"%>
 <%@page import="com.swiggy.dao.UsersDao"%>
 <%@page import="com.swiggy.dto.Reviews"%>
@@ -445,7 +446,7 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
 	   event.stopPropagation();
 	   
 	 //  window.location.href = "http://localhost:8080"+url
-	   fetch("http://localhost:8080" + url, {
+	   fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
 		   method: "GET",
 		 })
 		   .then((response) => {
@@ -459,7 +460,7 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
 			  
 		     if(data === "login")
 		       {
-		    	 window.location.href =  "http://localhost:8080/Swiggy/customer/SignIn.jsp";
+		    	 window.location.href =  "<%=AppProperties.get("SERVER_URL")%>/Swiggy/customer/SignIn.jsp";
 		       }
 		     else if(data === "success")
 		       {

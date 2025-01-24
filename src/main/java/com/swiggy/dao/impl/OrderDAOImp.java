@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.swiggy.dao.IOrderItemDao;
 import com.swiggy.dao.OrderDAO;
 import com.swiggy.db.DBConnection;
 import com.swiggy.dto.Orders;
@@ -25,7 +26,7 @@ public class OrderDAOImp implements OrderDAO {
 	public Orders insertOrder(Orders orders) {
 		PreparedStatement preparedStatement = null;
 		int result = 0;
-		String insertQuery = "INSERT INTO orders (user_id, restaurant_id, total_amount, created_at,pay_mode,DELIVERY_ADDRESS) VALUES (?, ?, ?, now(),?,?)";
+		String insertQuery = "INSERT INTO orders (user_id, restaurant_id, total_amount, created_at,pay_mode,DELIVERY_ADDRESS ,rayzorpay_id) VALUES (?, ?, ?, now(),?,?,?)";
 		try {
 			preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, orders.getUserId());
@@ -33,6 +34,7 @@ public class OrderDAOImp implements OrderDAO {
 			preparedStatement.setDouble(3, orders.getTotalAmount());
 			preparedStatement.setString(4, orders.getPay_mode());
 			preparedStatement.setString(5, orders.getDeliveryAddress());
+			preparedStatement.setString(6, orders.getRayzorpay_id());
 
 			result = preparedStatement.executeUpdate();
 
@@ -73,6 +75,7 @@ public class OrderDAOImp implements OrderDAO {
 				order.setDeliveryAddress(resultSet.getString(8));
 				order.setReveiwed(resultSet.getInt(9));
 				order.setPickedBy(resultSet.getInt(10));
+				order.setRayzorpay_id(resultSet.getString(11));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -112,7 +115,7 @@ public class OrderDAOImp implements OrderDAO {
 
 	@Override
 	public boolean updateOrder(Orders order) {
-		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? ,pickedBy = ? WHERE order_id = ?";
+		String updateSql = "UPDATE orders SET status = ? ,reviewed = ? ,pickedBy = ? ,rayzorpay_id=? WHERE order_id = ?";
 		PreparedStatement preparedStatement = null;
 		int resultSet = 0;
 		try {
@@ -121,7 +124,9 @@ public class OrderDAOImp implements OrderDAO {
 			preparedStatement.setString(1, order.getStatus());
 			preparedStatement.setInt(2, order.getReveiwed());
 			preparedStatement.setInt(3, order.getPickedBy());
-			preparedStatement.setInt(4,order.getOrderId());
+			preparedStatement.setString(4, order.getRayzorpay_id());
+			preparedStatement.setInt(5,order.getOrderId());
+		
 			resultSet = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -142,6 +147,47 @@ public class OrderDAOImp implements OrderDAO {
 		try {
 			preparedStatement = connection.prepareStatement(deleteQuery);
 			preparedStatement.setInt(1, orderId);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (result > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	@Override
+	public boolean deleteOrdersByRazorPayId(String id) {
+		
+		try {
+			String selectQuery = "SELECT * FROM orders where rayzorpay_id = ?";
+
+			PreparedStatement preparedStatement;
+			preparedStatement = connection.prepareStatement(selectQuery);
+			preparedStatement.setString(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			IOrderItemDao orderItemDao = new OrderItemImpl();
+			while (resultSet.next()) {
+				int orderId = resultSet.getInt(1);
+				orderItemDao.deleteByOrderId(orderId);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		String deleteQuery = "DELETE FROM orders WHERE rayzorpay_id = ?";
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		try {
+			preparedStatement = connection.prepareStatement(deleteQuery);
+			preparedStatement.setString(1, id);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -202,6 +248,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
 				orders.setPickedBy(resultSet.getInt(10));
+				orders.setRayzorpay_id(resultSet.getString(11));
 				yourOrders.add(orders);
 			}
 
@@ -302,6 +349,7 @@ public class OrderDAOImp implements OrderDAO {
 				orders.setDeliveryAddress(resultSet.getString(8));
 				orders.setReveiwed(resultSet.getInt(9));
 				orders.setPickedBy(resultSet.getInt(10));
+				orders.setRayzorpay_id(resultSet.getString(11));
 				yourOrders.add(orders);
 			}
 

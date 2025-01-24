@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.app.utils.AppProperties;
+
 public class DBConnection {
 
-static String url = "jdbc:mysql://localhost:3306/swiggy_db";
-	
-	static String username = "root";
-	static String password = "root";
+   static String url =AppProperties.get("DB_URL");
+	static String username = AppProperties.get("DB_USERNAME");
+	static String password = AppProperties.get("DB_PASSWORD");
 	static Connection conn = null;
 
 	public static Connection getConnection() {

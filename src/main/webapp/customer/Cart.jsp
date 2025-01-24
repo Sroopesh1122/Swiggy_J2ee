@@ -1,3 +1,4 @@
+<%@page import="com.app.utils.AppProperties"%>
 <%@page import="com.swiggy.dto.Cart"%>
 <%@page import="com.swiggy.dao.impl.CartDaoImp"%>
 <%@page import="com.swiggy.dao.CartDAO"%>
@@ -494,8 +495,7 @@
    {
 	   event.stopPropagation();
 	   
-	 //  window.location.href = "http://localhost:8080"+url
-	   fetch("http://localhost:8080" + url, {
+	   fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
 		   method: "GET",
 		 })
 		   .then((response) => {

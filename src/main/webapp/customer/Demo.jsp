@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<%@page import="com.app.utils.AppProperties"%>
 <html>
 <head>
     <title>E-commerce Payment</title>
     <script>
         function openPaymentPopup() {
             // URL of the payment page in the bank application
-            const paymentUrl = "http://localhost:8080/Swiggy/customer/Payment.jsp";
+            const paymentUrl = "<%=AppProperties.get("SERVER_URL")%>"+"/Swiggy/customer/Payment.jsp";
 
             // Open a popup window for payment
             const popup = window.open(

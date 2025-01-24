@@ -20,4 +20,5 @@ private String pay_mode;
 private String deliveryAddress;
 private int reveiwed;
 private int pickedBy;
+private String rayzorpay_id;
 }

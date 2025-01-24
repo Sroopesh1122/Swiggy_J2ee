@@ -106,6 +106,25 @@ public class CartDaoImp implements CartDAO{
 		return false;
 	}
 	
+	@Override
+	public boolean deleteByUserId(int userId) {
+		PreparedStatement preparedStatement =null;
+		int result=0;
+		String deletequery = "DELETE FROM CART WHERE USER_ID = ?";
+		try {
+			preparedStatement  =connection.prepareStatement(deletequery);
+			preparedStatement.setInt(1, userId);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result>0) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	//To check for existance of menu_item	
 	

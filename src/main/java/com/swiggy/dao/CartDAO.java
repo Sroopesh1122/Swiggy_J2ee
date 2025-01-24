@@ -13,6 +13,9 @@ public interface CartDAO {
    public boolean deleteById(int cartId);
    
    
+   public boolean deleteByUserId(int userId);
+   
+   
    //to check wheather that item in present in sepecific user cart or not
    public boolean lookCart (int menu_id,int user_id);
    
