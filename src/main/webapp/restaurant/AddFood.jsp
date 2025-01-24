@@ -113,8 +113,36 @@ input[type="number"]::-webkit-inner-spin-button,
         </div>
     </form>
    </section>
+   </section>
+    <div id="custom-alert">
+  
+  <i class="ri-close-circle-fill"></i>
+  <span id="alert-msg"></span>
+ 
+ </div>
+ 
+  <div id="custom-success-alert">
+  
+  <i class="ri-checkbox-circle-fill"></i>
+  <span id="alert-success-msg"></span>
+ 
+ </div>
    <script>
 $(document).ready(function () {
+	<%
+    if(request.getAttribute("failure")!=null)
+    {
+ 	   %>
+ 	   showAlert('<%=request.getAttribute("failure")%>');
+ 	   <%
+    }
+ if(request.getAttribute("success")!=null)
+ {
+	 %>
+	 showSuccessAlert('<%=request.getAttribute("success")%>');
+	 <%
+ }
+ %>
     $("#addfood").validate({
         rules: {
             name: {
