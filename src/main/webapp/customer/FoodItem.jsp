@@ -182,6 +182,9 @@
  border-radius: 10px;
 }
 
+
+
+
 .similar-section article{
  width: 100%;
  overflow: auto;
@@ -190,6 +193,22 @@
  justify-content: flex-start;
  align-items: center;
  gap:5px;
+}
+
+.similar-section article::-webkit-scrollbar {
+  width: 5px; /* For vertical scrollbar */
+  height: 5px; /* For horizontal scrollbar */
+}
+
+/* For the scrollbar thumb (the draggable part) */
+.similar-section article::-webkit-scrollbar-thumb {
+  background-color: #888; /* Change this to your desired color */
+  border-radius: 3px; /* Optional: Rounded corners */
+}
+
+/* For the scrollbar track (the background) */
+.similar-section article::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Optional: Background color of the track */
 }
 
 .similar-food-card{
@@ -218,6 +237,13 @@
  align-items: center;
  gap:5px;
  font-size:1rem;
+
+}
+.similar-food-card .info h4 span:first-child{
+  white-space: nowrap;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .similar-img-wrapper{
@@ -414,7 +440,18 @@ background: linear-gradient(180deg, rgba(255,255,255,0.36740633753501406) 0%, rg
                           </div>
                        </div>
                        <div class="info">
-                        <h4> <span><%=similarFood.getName() %></span> <span><i class="ri-star-fill"></i> <%=similarFood.getRating() %></span> </h4>
+                        <h4> <span><%=similarFood.getName() %></span> 
+                          <%
+                           if(similarFood.getRating()>0)
+                           {
+                        	   %>
+                        	    
+                        	    <span><i class="ri-star-fill"></i> <%=similarFood.getRating() %></span>
+                        	    
+                        	   <%
+                           }
+                          %>
+                         </h4>
                        </div>
                    </div>
             	   <% 

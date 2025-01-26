@@ -20,7 +20,7 @@
    
    <%
     int currentPage = request.getParameter("page")!=null ? Integer.parseInt(request.getParameter("page"))   : 1;
-    int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 10;
+    int limit = request.getParameter("limit")!=null ? Integer.parseInt(request.getParameter("limit"))   : 12;
     String q =  request.getParameter("q")!=null ? request.getParameter("q") : "" ;
    
     MenuItemDAO menuItemDAO =  new MenuItemsImp();
@@ -57,6 +57,7 @@
  display: flex;
  justify-content: center;
  align-items: center;
+ 
 }
 
 .search-section form{
@@ -67,6 +68,7 @@
  display: flex;
  justify-content: flex-start;
  align-items: center;
+ box-shadow: 3px 3px 2px #efefef !important;
 }
 
 .search-section form input{
@@ -91,9 +93,10 @@
 .menu-item-list-wrapper{
     width:100%; 
     display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap:10px;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 300px));
+	gap:20px;
 	align-content: center;
+	justify-content: center;
 }
 
 .food-item-card{
@@ -154,7 +157,7 @@
  overflow: hidden;
  white-space: nowrap;
  text-overflow: ellipsis;
- font-weight: 600;
+ font-weight: 800;
 }
 .food-card-footer{
  display: flex;
@@ -346,7 +349,7 @@
         %>
       
        
-        <img alt="" class="food-img" src="<%=menuItem.getImg()%>"/>
+        <img alt="" loading='lazy' class="food-img" src="<%=menuItem.getImg()%>"/>
        <div class="food-info">
           <h2 class="food-title"><%=menuItem.getName()%> 
            

@@ -70,6 +70,59 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
    border-radius: 15px;
  }
  
+ 
+ .logout-btn {
+	cursor: pointer;
+}
+
+.logout-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 1000;
+}
+
+.logout-modal-wrapper {
+	background: white;
+	padding: 20px;
+	border-radius: 20px;
+	min-width: 290px;
+}
+
+.logout-modal-wrapper footer {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+
+.logout-modal-wrapper footer button {
+	border: none;
+	padding: 5px;
+	font-size: 0.8rem;
+	border-radius: 10px;
+}
+
+.logout-modal-wrapper footer button:first-child{
+ 
+ background:  #feb80a;
+ 
+}
+
+.remove-overflow {
+	overflow: hidden;
+}
+
+.hide {
+	display: none;
+}
+ 
  @media (width < 700px) {
  
   #menu-btn{
@@ -129,7 +182,7 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
     	  <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
           <li><a href="<%= request.getContextPath()+"/restaurant/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
            <li><a href="<%= request.getContextPath()+"/restaurant/Reviews.jsp"%>" class="<%= selectedMenu.equals("Reviews") ? "desktop-menu-active" : ""%>"><i class="ri-survey-line"></i> Reviews</a></li>
-          <li><a href="<%= request.getContextPath()+"/restaurant/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
+          <li><a id="logout-btn" class="logout-btn" data-url ="<%= request.getContextPath()+"/restaurant/logout"%>"  onclick="handleLogoutClick()"><i class="ri-logout-box-line"></i> Logout</a></li>
     	  <%
       }
       else{
@@ -159,7 +212,8 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
     	  <li><a href="<%= request.getContextPath()+"/restaurant/Menu.jsp"%>" class="<%= selectedMenu.equals("Menu") ? "desktop-menu-active" : ""%>"><i class="ri-restaurant-line"></i> Your Menu</a></li>
           <li><a href="<%= request.getContextPath()+"/restaurant/Orders.jsp"%>" class="<%= selectedMenu.equals("Orders") ? "desktop-menu-active" : ""%>"><i class="ri-shopping-bag-line"></i> Orders</a></li>
            <li><a href="<%= request.getContextPath()+"/restaurant/Reviews.jsp"%>" class="<%= selectedMenu.equals("Reviews") ? "desktop-menu-active" : ""%>"><i class="ri-survey-line"></i> Reviews</a></li>
-          <li><a href="<%= request.getContextPath()+"/restaurant/logout"%>"><i class="ri-logout-box-line"></i> Logout</a></li>
+    	  <li><a  class="logout-btn" data-url ="<%= request.getContextPath()+"/restaurant/logout"%>"  onclick="handleLogoutClick()"><i class="ri-logout-box-line"></i> Logout</a></li>
+    	  
     	  <%
       }
       else{
@@ -175,6 +229,22 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
  
   </div>
   
+  <section class="logout-modal hide" id="logout-modal" onclick="handleLogoutCancelClick()">
+      
+      <article class="logout-modal-wrapper" onclick="stopPropagation(event)">
+          
+          <p>Are you sure want to logout?</p>
+          
+          <footer>
+             <button onclick="handleConfirmLogoutClick()">Logout</button>
+             <button onclick="handleLogoutCancelClick()">Cancel</button>
+          </footer>
+          
+      
+      </article>
+  
+  </section>
+  
   <script type="text/javascript">
       
       function handleMenuBarClick()
@@ -185,6 +255,32 @@ String selectedMenu = request.getAttribute("menu")!=null ? (String) request.getA
       function handleMenuCloseClick()
       {
     	  $(".menu-sider").addClass("menu-sider-close") 
+      }
+      
+      function handleLogoutClick(url)
+      {
+    	  //alert(url)
+    	  $("#logout-modal").removeClass("hide");
+    	  $("body").addClass("remove-overflow");
+      }
+      
+      function handleLogoutCancelClick()
+      {  
+    	  $("#logout-modal").addClass("hide");
+    	  $("body").removeClass("remove-overflow");
+      }
+      
+      
+      function stopPropagation(event)
+      {
+    	  event.stopPropagation();
+    	  
+      }
+      
+      
+      function handleConfirmLogoutClick()
+      {
+    	  window.location.href = $("#logout-btn").data("url");
       }
       
   

@@ -68,16 +68,15 @@ public class OTPRequest extends HttpServlet {
 			String toEmail = email; // Replace with recipient email
 			String subject = "Email Verification";
 			String body = "Hello,\n\n"
-				    + "Thank you for signing up with SR. Your One-Time Password (OTP) is: " + generatedOtp + ".\n"
+				    + "Thank you for signing up with FoodCompany. Your One-Time Password (OTP) is: " + generatedOtp + ".\n"
 				    + "This OTP is valid for 5 minutes. Please use it to complete your signup process.\n\n"
 				    + "If you did not request this, please ignore this email or contact our support team.\n\n"
 				    + "Best regards,\n"
-				    + "The SR Team\n"
+				    + "The Team SR\n"
 				    + "Email: foodieteam2025@gmail.com\n"
 				    + "Phone: +91 6362379895";
-
-
-			try {
+			try
+			{
 				EmailUtil.sendEmail(toEmail, subject, body);
 				RequestEmail requestEmail = new RequestEmail();
 				requestEmail.setEmail(email);

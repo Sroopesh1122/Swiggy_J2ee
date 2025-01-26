@@ -153,6 +153,7 @@
      width: 180px;
      height: 120px;
      border-radius: 10px;
+     cursor: pointer;
      
    }
    
@@ -231,6 +232,10 @@
     
     .picker-icon-rotate{
      transform:rotate(180deg);
+    }
+    
+    .text-green{
+     color: green;
     }
     
     
@@ -343,7 +348,7 @@
 
 
 					<div class="content">
-						<img alt="" src="<%=menuItem.getImg()%>">
+						<img alt="" src="<%=menuItem.getImg()%>" onclick="handleOrderClick('<%=request.getContextPath()+"/customer/FoodItem.jsp?menu_id="+menuItem.getItemId()%>')">
 
 
 						<div class="details">
@@ -355,7 +360,17 @@
 								<%=orderItem.getPrice()%>
 								=
 								<%=order.getTotalAmount()%></h6>
-							<span>Status : <%=order.getStatus()%></span>
+							<span>Status :
+							 <%
+							  if(order.getStatus().equals("Delivered"))
+							  {
+								  %>
+								    <i class="ri-checkbox-circle-fill text-green"></i>
+								  <%
+							  }
+							 %>
+							
+							 <%=order.getStatus()%></span>
 						</div>
 					</div>
 
@@ -475,6 +490,11 @@
 	   {
 		   $("#"+com).toggleClass("picker-details-open");
 		   $("#"+com+"icon").toggleClass("picker-icon-rotate")
+	   }
+	   
+	   function handleOrderClick(url)
+	   {
+		   window.location.href= url;
 	   }
 	
 		

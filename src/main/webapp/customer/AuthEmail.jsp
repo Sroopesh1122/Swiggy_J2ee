@@ -318,6 +318,7 @@ function handleVerificationCLick(url)
 		   })
 		   .then((data) => {
 			   
+			   alert(data)
 			  
 		     if(data === "Success")
 		       {

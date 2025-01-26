@@ -40,7 +40,7 @@
 
 .add-food-form h4{
  font-size: 2.5rem;
- color:  #feb80a;
+ color:  #ff933a;
 }
 
 .form-footer{
@@ -51,14 +51,14 @@
 }
 
 .form-footer button{
- background: #feb80a;
+ background: #ff933a;
  border: 1px solid #feb80a !important;
 }
 
 .form-footer button:hover {
 	color: black;
 	background: white;
-	border: 1px solid #feb80a !important;
+	border: 1px solid #ff933a !important;
 }
 
 @media (width < 400px) {
@@ -80,7 +80,7 @@ input[type="number"]::-webkit-inner-spin-button,
 .form-nav-footer{
 
    position:relative;
-   background:#feb80a; 
+   background:#ff933a; 
    bottom: -20px;
    padding: 2px 8px;
    color: black;

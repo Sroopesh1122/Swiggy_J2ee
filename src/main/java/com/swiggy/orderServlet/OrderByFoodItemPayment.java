@@ -89,6 +89,13 @@ public class OrderByFoodItemPayment extends HttpServlet {
             Order razorpayOrder=null;
             try {
 				 razorpayOrder= razorpayClient.orders.create(orderRequest);
+				 
+				 if(razorpayOrder==null)
+				 {
+					 response.sendRedirect(request.getContextPath()+"/customer/PaymentFailed.jsp");
+					 return;
+				 }
+				 
 				request.setAttribute("razorpay_order_id", razorpayOrder.get("id").toString());
 				request.setAttribute("total_amount", totalPaymentAmount);
 				request.setAttribute("source","buy");

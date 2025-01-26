@@ -113,12 +113,13 @@
 .custom-checkbox{
  width: 20px;
  height: 20px;
- border: 1px solid #efefef;
+ border: 1px solid #feb80a;
  margin-left: 2px;
  cursor: pointer;
  border-radius: 5px;
  overflow: hidden;
  position: relative;
+ box-shadow: 1px 1px 1px #ededed !important;
 }
 .check-box-i{
  position: absolute;
@@ -227,7 +228,7 @@
         <select class="payment-option-select" name="payment-option" id="payment-option">
           
            <option value="cod">COD</option>
-           <option value="bank">Online Bank</option>
+           <option value="bank">UPI</option>
         
         </select>
         
