@@ -17,6 +17,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"
 	rel="stylesheet">
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style type="text/css">
 body {
@@ -145,36 +148,18 @@ body {
 	transition:all 0.5s;
 }
 
-.promo-section {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  height: 60vh;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden; /* Ensures content doesn't overflow the section */
+
+
+.section-1{
+ width: 100%;
+ height: 100vh;
+ background: red;
 }
 
-.promo-section video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the video covers the entire section while maintaining aspect ratio */
-  z-index: 1; /* Ensures it appears above the background */
-  
-}
-
-.promo-section .vedio-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
-  z-index: 2; /* Ensures it appears above the video */
+.section-2{
+ width: 100%;
+ height: 100vh;
+ background: orange;
 }
 
 
@@ -311,15 +296,29 @@ body {
 
 			</div>
 			
+		
+			
 		</article>
 		
 	</section>
 	
-	<section class="promo-section"> 
+	<%-- <section class="promo-section"> 
 	       <div class="vedio-overlay"></div>
 			<video id="checkmarkVideo" autoplay muted playsinline
 				src='<%=request.getContextPath() + "/promos/v1.mp4"%>'></video>
 
+	</section> --%>
+	
+	
+	<section class="section-1">
+	
+	
+	</section>
+	
+	
+	<section class="section-2">
+	
+	
 	</section>
 
 	
@@ -329,7 +328,8 @@ body {
 	
 	
 	<script type="text/javascript">
-	
+	  
+	gsap.registerPlugin(ScrollTrigger);
 	
 	  function handleCategoryClick(category)
 	  {
@@ -337,6 +337,69 @@ body {
 	     
 	     window.location.href=url
 	  }
+	  
+	  const t1 = gsap.timeline();
+
+	// Check if the animation has already been played in this session
+	if (!sessionStorage.getItem("animationPlayed")) {
+	  // Run animation
+	  t1.from(".large-cicle", {
+	    duration: 1,
+	    x: -2000,
+	    scrub: true,
+	  })
+	    .from(".img-plate", {
+	      duration: 0.5,
+	      opacity: 0,
+	      scrub: true,
+	    })
+	    .from(".info-wrapper", {
+	      duration: 0.7,
+	      opacity: 0,
+	      scrub: true,
+	    })
+	    .from(".desktop-navbar", {
+	      duration: 1,
+	      opacity: 0,
+	      y: -20,
+	      scrub: true,
+	    });
+
+	  // Set the flag in sessionStorage so the animation doesn't run again
+	  sessionStorage.setItem("animationPlayed", "true");
+	}
+	
+	
+	gsap.from(".category-section",{
+	      scrollTrigger: {
+	          trigger: '.category-section',
+	          start: 'top 80%', // When the top of the element hits the bottom of the viewport
+	          end: 'top 40%', // When the top of the element reaches the top of the viewport
+	          scrub: true, // Smoothly scrubs the animation with scroll
+	      },
+	        opacity: 0, 
+	        duration: 1,
+	       
+	      })
+	      
+	 gsap.from(".category-card",{
+	      scrollTrigger: {
+	          trigger: '.category-section',
+	          start: 'top 80%', // When the top of the element hits the bottom of the viewport
+	          end: 'top 40%', // When the top of the element reaches the top of the viewport
+	          scrub: true, // Smoothly scrubs the animation with scroll 
+	      },
+	        opacity: 0, 
+	        y:50,
+	        duration: 0.5,
+	        stagger:0.3
+	       
+	      })
+	      	      
+	    
+
+	  
+	  
 	
 	</script>
 	

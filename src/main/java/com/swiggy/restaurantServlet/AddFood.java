@@ -12,6 +12,8 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import com.app.utils.CloudinaryUploader;
 import com.swiggy.dao.MenuItemDAO;
@@ -60,7 +62,13 @@ public class AddFood extends HttpServlet {
 		MenuItems mItems=new MenuItems();
 		mItems.setName(name);
 		mItems.setDescription(description);
-		mItems.setCategory(category);
+		
+		//# added for all category;
+		String categoryWithHash = Arrays.asList(category.split(",")).stream()
+			    .map(s -> "#" + s.trim()) // Trim any spaces before adding the #
+			    .collect(Collectors.joining(", "));
+		
+		mItems.setCategory(categoryWithHash);
 		mItems.setPrice(price);
 		mItems.setImg(imgUrl);
 		mItems.setAvailable(1);

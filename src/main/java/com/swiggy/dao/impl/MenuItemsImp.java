@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.openssl.pem_password_cb;
 
@@ -235,7 +237,7 @@ public boolean deleteItem(int itemId) {
     
         @Override
         public List<MenuItems> getAllItems(String search_text, int limit, int page) {
-            int skip = (page - 1) * limit;
+        	int skip = (page - 1) * limit;
 
             PreparedStatement preparedStatement = null;
             List<MenuItems> items = new ArrayList<>();
@@ -269,7 +271,7 @@ public boolean deleteItem(int itemId) {
                     int paramIndex = 1;
                     for (String term : searchTerms) {
                         preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
-                        preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                        preparedStatement.setString(paramIndex++, "%#" + term.trim() + "%");
                     }
 
                     preparedStatement.setInt(paramIndex++, limit);
@@ -326,7 +328,7 @@ public boolean deleteItem(int itemId) {
     	            int paramIndex = 1;
     	            for (String term : searchTerms) {
     	                preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
-    	                preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+    	                preparedStatement.setString(paramIndex++, "%#" + term.trim() + "%");
     	            }
     	        }
 
@@ -376,7 +378,7 @@ public boolean deleteItem(int itemId) {
                    int paramIndex = 1;
                    for (String term : searchTerms) {
                        preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
-                       preparedStatement.setString(paramIndex++, "%" + term.trim() + "%");
+                       preparedStatement.setString(paramIndex++, "%#" + term.trim() + "%");
                    }
 
                    preparedStatement.setInt(paramIndex++, limit);

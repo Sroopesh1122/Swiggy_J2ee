@@ -7,7 +7,8 @@
 <title>Food</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style type="text/css">
 body {
 	min-height: 80vh;
@@ -17,6 +18,7 @@ body {
 	align-items: center;
 	font-family: "outfit",sans-serif;
 	max-width: 1800px;
+	overflow: hidden;
 }
 .home-bg-wrapper{
   padding: 20px;
@@ -108,8 +110,8 @@ body {
 <body>
    
    <div class="home-bg-wrapper">
-       <img alt="" src="<%=request.getContextPath()+"/imgs/home-bg.jpeg"%>">
-       <section class="home-info-wrapper">
+       <img alt="" id="plate" src="<%=request.getContextPath()+"/imgs/home-bg.jpeg"%>">
+       <section class="home-info-wrapper" id="info">
           <article class="home-info">
               <h1>Deliciousness <span class="mob-tag"> Awaits</span> &#128523; </h1>
               <h3>– Start Your Food Journey with Us!</h3>
@@ -120,6 +122,33 @@ body {
           </article>
        </section>
    </div>
+   
+ <script type="text/javascript">
+ gsap.registerPlugin(ScrollTrigger);
+ const t1 = gsap.timeline();
+
+//Adding both animations to the timeline
+t1.from("#plate", {
+  duration: 0.5,
+  opacity: 0,
+  rotate:180,
+  delay:1
+})
+.from("#info", {
+  duration: 0.5,
+  x: -200,
+  opacity:0
+}).from(".home-info-footer a",{
+	duration:0.2,
+	opacity:0,
+	y:+20,
+	stagger: 0.1
+});
+
+ 
+ 
+ 
+ </script>  
   
 
 </body>
