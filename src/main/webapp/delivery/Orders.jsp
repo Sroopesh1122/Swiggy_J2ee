@@ -205,6 +205,27 @@ h6{
  color: black !important;
 }
 
+.hide{
+ display: none;
+}
+
+.loader{
+ position: fixed;
+ top:0;
+ left:0;
+ width: 100%;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background: rgba(0,0,0,0.7);
+}
+
+.loader img{
+ width: 250px;
+ height: 150px;
+}
+
 
 </style>
 </head>
@@ -347,10 +368,16 @@ h6{
  </section>
  
  
+ <section class="loader hide">
+    <img alt="" src="<%=request.getContextPath()+"/imgs/loader.gif"%>">
+ </section>
+ 
+ 
  <script type="text/javascript">
  
  function handlePickBtnClick(url)
  {
+	 $(".loader").addClass("hide")
 	 event.stopPropagation();
 	 
 	//  window.location.href = "http://localhost:8080"+url
@@ -385,7 +412,9 @@ h6{
 		   })
 		   .catch((error) => {
 		     console.log("Error: " + error.message); 
-		   }); 
+		   }).finally(()=>{
+			   $(".loader").removeClass("hide")
+		   })
  }
  
 

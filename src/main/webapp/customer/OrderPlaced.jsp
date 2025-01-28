@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Ordered</title>
+<link rel="icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/imgs/icon.ico">
 <%@include file="/utils/CommonUtils.jsp"%>
 <style type="text/css">
   

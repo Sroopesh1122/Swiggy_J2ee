@@ -3,6 +3,7 @@ package com.swiggy.dao;
 import java.util.List;
 
 import com.swiggy.dto.MenuItems;
+import com.swiggy.dto.OrderItems;
 
 public interface MenuItemDAO {
 	public MenuItems addItem(MenuItems item);
@@ -22,7 +23,8 @@ public interface MenuItemDAO {
     
     public List<MenuItems> getAllItems(int menu_id,int limit ,int page);
     
-    
+  //To get Top 5 trending food orders
+    public List<MenuItems> getTrendingFoodItems();
     
 }
 

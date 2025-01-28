@@ -46,6 +46,9 @@ public interface OrderDAO {
   public int getOrderdCountByStatus(String status,int deliveryPartner);
   
   
+ 
+  
+  
   
   
 }

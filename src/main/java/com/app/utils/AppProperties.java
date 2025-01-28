@@ -9,10 +9,10 @@ public class AppProperties {
 
     // Static block to initialize properties
     static {
-    	properties.put("DB_URL", "j");
+    	properties.put("DB_URL", "");
         properties.put("DB_USERNAME", "");
         properties.put("DB_PASSWORD", "");
-        properties.put("CLOUDINARY_CLOUD_NAME", "d");
+        properties.put("CLOUDINARY_CLOUD_NAME", "");
         properties.put("CLOUDINARY_API_KEY", "");
         properties.put("CLOUDINARY_SECRET_KEY", "");
         properties.put("EMAIL", "");

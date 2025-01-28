@@ -16,6 +16,7 @@ import org.apache.tomcat.util.openssl.pem_password_cb;
 import com.swiggy.dao.MenuItemDAO;
 import com.swiggy.db.DBConnection;
 import com.swiggy.dto.MenuItems;
+import com.swiggy.dto.OrderItems;
 
 public class MenuItemsImp implements MenuItemDAO
 {
@@ -351,7 +352,7 @@ public boolean deleteItem(int itemId) {
            List<MenuItems> items = new ArrayList<>();
            ResultSet resultSet = null;
            MenuItemDAO menuItemDAO =  new MenuItemsImp();
-           String search_text = menuItemDAO.getItemById(menu_id).getCategory();
+           String search_text = menuItemDAO.getItemById(menu_id).getCategory().replaceAll("#","");
 
            String baseQuery = "select menu.* from menu_items as menu " +
                               "inner join restaurants hotel on menu.restaurant_id = hotel.restaurant_id ";
@@ -394,6 +395,28 @@ public boolean deleteItem(int itemId) {
                e.printStackTrace();
            } 
            return items;
+    	}
+       
+  
+       
+       @Override
+    	public List<MenuItems> getTrendingFoodItems() {
+    	   List<MenuItems> trendingFoods = new ArrayList<MenuItems>();
+      		String trendQuery = "select item_id ,sum(quantity) as quantity from order_items group by item_id order by quantity desc limit 5";
+      		
+      		try {
+      			PreparedStatement preparedStatement = connection.prepareStatement(trendQuery);
+      			ResultSet resultSet = preparedStatement.executeQuery();
+      			while(resultSet.next())
+      			{
+      				trendingFoods.add(getItemById(resultSet.getInt(1)));
+      			}
+      		} catch (SQLException e) {
+      			// TODO Auto-generated catch block
+      			e.printStackTrace();
+      		}
+      		
+      		return trendingFoods;
     	}
     
 

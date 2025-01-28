@@ -1,3 +1,6 @@
+<%@page import="com.swiggy.dao.impl.MenuItemsImp"%>
+<%@page import="com.swiggy.dto.MenuItems"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
@@ -9,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
+<link rel="icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/imgs/icon.ico">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
 
@@ -152,15 +157,156 @@ body {
 
 .section-1{
  width: 100%;
- height: 100vh;
- background: red;
+ padding: 20px;
+}
+
+.section-1 h1{
+ text-align: center;
+ font-weight: 700;
+ color:#feb80a; 
+}
+
+.section-1 h1 i{
+ color: black;
+}
+
+.feature-wrapper{
+ width: 100%;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding:2vh 20px;
+ overflow: auto;
+ display: flex;
+ flex-wrap: nowrap;
+ gap:10px;
+}
+
+
+/* Customize the scrollbar */
+.feature-wrapper::-webkit-scrollbar {
+  width: 0px; /* Width of the vertical scrollbar */
+  height: 0px; /* Height of the horizontal scrollbar */
+}
+
+/* Track (background of the scrollbar) */
+.feature-wrapper::-webkit-scrollbar-track {
+  background: #f4f4f4; /* Light gray background */
+}
+
+/* Thumb (the draggable part of the scrollbar) */
+.feature-wrapper::-webkit-scrollbar-thumb {
+  background: #888; /* Gray thumb color */
+  border-radius: 6px; /* Rounded edges */
+}
+
+/* Thumb hover effect */
+.feature-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray when hovering */
+}
+
+
+.featured-card{
+ width: 300px;
+ height: 200px;
+ flex-grow: 0;
+ flex-shrink: 0;
+ border-radius: 20px;
+ border:1px solid #efefef;
+ padding: 15px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content:flex-start;
+ gap:10px;
+ cursor: pointer;
+ box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+ transition:all 1s;
+}
+
+.featured-card:hover{
+ transform:scale(1.05)
+}
+
+.featured-card h2{
+ font-size: 1.1rem;
+ text-align: center;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ white-space: nowrap;
+ color: orange;
+}
+
+.featured-card h2 img{
+ width: 40px;
+ height: 40px;
+}
+
+.featured-card p{
+ font-size: 0.8rem;
+}
+.featured-card img{
+ width: 80px;
+ height: 80px;
+ border-radius: 10px;
 }
 
 .section-2{
  width: 100%;
- height: 100vh;
- background: orange;
+ margin-top: 10vh;
+ padding-bottom: 5vh;
 }
+
+.section-2 h1{
+ text-align: center;
+ font-size: 2rem;
+ font-weight: 600;
+}
+
+.section-2 h1 img{
+ width: 50px;
+ height: 50px;
+}
+
+.top-rated-card{
+ width: 200px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ position: relative;
+ cursor: pointer;
+}
+
+.top-rated-card span{
+ position: absolute;
+ top:1px;
+ right:2px;
+ background: white;
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border:1px solid #feb80a;
+ z-index: 5;
+ font-size: 0.9rem;
+}
+
+.top-rated-card img{
+ width: 180px;
+ height: 180px;
+ border-radius: 10px;
+ 
+}
+
+.top-rated-card h2{
+ font-size: 1.2rem;
+ white-space: nowrap;
+}
+
+
 
 
 @media ( width < 1024px) {
@@ -206,6 +352,11 @@ body {
 	.text-yellow {
 		color: black;
 	}
+	
+	.section-1 h1{
+	 font-size: 1rem;
+	}
+	
 }
 
 </style>
@@ -239,7 +390,7 @@ body {
 	<section class="category-section">
 		<h3 class="mb-4">Our Food Menu</h3>
 		<article class="category-list-wrapper">
-			<div class="category-card" onclick="handleCategoryClick('chapathi,rice')">
+			<div class="category-card" onclick="handleCategoryClick('veg')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
@@ -250,7 +401,7 @@ body {
 			</div>
 			
 			
-			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
+			<div class="category-card" onclick="handleCategoryClick('nonveg')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
@@ -262,7 +413,7 @@ body {
 			
 			
 			
-			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
+			<div class="category-card" onclick="handleCategoryClick('chinese')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
@@ -273,7 +424,7 @@ body {
 			</div>
 			
 			
-			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
+			<div class="category-card" onclick="handleCategoryClick('italian')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
@@ -286,7 +437,7 @@ body {
 			
 			
 			
-			<div class="category-card" onclick="handleCategoryClick('non-veg,rice')">
+			<div class="category-card" onclick="handleCategoryClick('egg')">
 
 				<div class="img-wrapper">
 					<img id="appLogo" alt=""
@@ -302,27 +453,91 @@ body {
 		
 	</section>
 	
-	<%-- <section class="promo-section"> 
-	       <div class="vedio-overlay"></div>
-			<video id="checkmarkVideo" autoplay muted playsinline
-				src='<%=request.getContextPath() + "/promos/v1.mp4"%>'></video>
-
-	</section> --%>
-	
 	
 	<section class="section-1">
+	  <h1>----- <i class="ri-sparkling-2-fill"></i> Feature For You <i class="ri-sparkling-2-fill"></i> -----</h1>
 	
+	   <article class="feature-wrapper mt-3">
+	       
+	       <div class="featured-card">
+	             <h2>Top-Rated Restaurants<img alt="" src="https://i.pinimg.com/736x/9c/0e/de/9c0edef80de1893774c8a74883a916f9.jpg"> </h2>
+	             <p>Only the best for you! Explore meals prepared by highly-rated restaurants with top-notch quality and hygiene.</p>
+	       </div>
+	       
+	       <div class="featured-card">
+	       
+	         <h2>Lightning-Fast Delivery<img alt="" src="https://thumbs.dreamstime.com/b/silhouette-food-delivery-rider-scooter-location-icon-utensils-silhouette-food-delivery-rider-scooter-328752333.jpg"> </h2>
+	         <p>Fresh food delivered to your doorstep in no time. Never let hunger wait!.</p>
+	       
+	       </div>
+	       <div class="featured-card">
+	         <h2>Trending Dishes<img alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRRuxYgg6CagdCExdULWQqcB4C03viEBfH3A&s"> </h2>
+	         <p>Don’t miss out on what’s trending! Try the most popular dishes loved by our customers.</p>
+	       </div>
+	       <div class="featured-card">
+	         <h2>Curated Just for You<img alt="" src="https://static.vecteezy.com/system/resources/previews/000/568/432/original/menu-icon-vector.jpg"> </h2>
+	         <p>Personalized recommendations based on your tastes. Discover something new today!.</p>
+	       </div>
+	       <div class="featured-card">
+	         <h2>Farm-to-Table Freshness <img alt="" src="https://media.istockphoto.com/id/1256188089/vector/fruits-and-vegetables-black-glyph-icon.jpg?s=612x612&w=0&k=20&c=aSXDG4T2kMk-4uvTypEvJv6aKvw2t1n2GNe4Guu4Ne4="> </h2>
+	         <p>Our partner restaurants use only the freshest ingredients to ensure every bite delights.</p>
+	       </div>
+	   
+	   </article>
 	
 	</section>
 	
 	
+	
+	<!-- Trending Foos Section -->
+	
+	<%
+	 
+	  List<MenuItems> topTrendingFoods = new MenuItemsImp().getTrendingFoodItems();
+	  
+	  if(topTrendingFoods.size()>0)
+	  {
+		  %>
+
 	<section class="section-2">
-	
-	
+		<h1>
+			Top Trending <img alt="" src="https://icon-library.com/images/trending-icon/trending-icon-2.jpg">
+		</h1>
+         <article class="feature-wrapper mt-3">
+      <%
+         int trendingBadge=1; 
+         for(MenuItems item :topTrendingFoods)
+         { 
+        	 %>
+		
+
+			<div class="top-rated-card" onclick="handleTrendingCardClick(<%=item.getItemId()%>)">
+			    <span><%="#"+trendingBadge %></span>
+				<img alt="" src="<%=item.getImg()%>">
+				<h2>
+					<%=item.getName() %>
+				</h2>
+
+			</div>
+
+		
+
+		<%
+		trendingBadge++;
+		}
+		%>
+      
+         </article>
 	</section>
 
+
+
+	<%
+	}
+	%>
 	
-	
+	<%@include file="/customer/Footer.jsp" %>
+
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 	
@@ -337,6 +552,14 @@ body {
 	     
 	     window.location.href=url
 	  }
+	  
+	  function handleTrendingCardClick(menuId)
+	  {
+		  let url = '<%= request.getContextPath()+"/customer/FoodItem.jsp?menu_id="%>'+menuId;
+		   window.location.href=url 
+	  }
+	  
+	  
 	  
 	  const t1 = gsap.timeline();
 
@@ -395,6 +618,8 @@ body {
 	        stagger:0.3
 	       
 	      })
+	      
+	     
 	      	      
 	    
 
