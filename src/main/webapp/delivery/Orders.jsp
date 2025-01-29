@@ -246,17 +246,12 @@ h6{
    if(totalOrderCount == 0)
    {
 	   %>
-	     
 	     <article class="error-section-1">
-	      
 	       <img class="detective-dog" alt="" src="<%=request.getContextPath()+"/imgs/detective-dog.png"%>">
 	        	  
 	        	   <p>No Orders Found <i class="ri-map-pin-line"></i> .</p>   
-	        	  
-	                       
-	     </article>
-	     
-	   
+  	                       
+	     </article>   
 	   <%
 	   return;
    }
@@ -368,7 +363,7 @@ h6{
  </section>
  
  
- <section class="loader hide">
+ <section id="loader" class="loader hide">
     <img alt="" src="<%=request.getContextPath()+"/imgs/loader.gif"%>">
  </section>
  
@@ -377,44 +372,39 @@ h6{
  
  function handlePickBtnClick(url)
  {
-	 $(".loader").addClass("hide")
+	 $("#loader").removeClass("hide"); // Show the loader immediately
 	 event.stopPropagation();
-	 
-	//  window.location.href = "http://localhost:8080"+url
-	   fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
-		   method: "GET",
-		 })
-		   .then((response) => {
-		     if (response.ok) {
-		       return response.text(); // Convert response to plain text
-		     } else {
-		       throw new Error("Failed to fetch: " + response.status);
-		     }
-		   })
-		   .then((data) => {
-			  
-		     if(data === "Success")
-		       {
-		    	 showSuccessAlert("Order Added your ")
-		     	setTimeout(()=>{
-		     	  window.location.reload() 
-		     	},500)
-		       }
-		     else if(data === "login")
-		       {
-		    	  
-		    	 showAlert("Please Login")
-		    	 
-		       }
-		     else{
-		    	 showAlert("Failed To Add Order")
-		     }
-		   })
-		   .catch((error) => {
-		     console.log("Error: " + error.message); 
-		   }).finally(()=>{
-			   $(".loader").removeClass("hide")
-		   })
+
+	 fetch("<%=AppProperties.get("SERVER_URL")%>" + url, {
+	   method: "GET",
+	 })
+	   .then((response) => {
+	     if (response.ok) {
+	       return response.text(); // Convert response to plain text
+	     } else {
+	       throw new Error("Failed to fetch: " + response.status);
+	     }
+	   })
+	   .then((data) => {
+	     if (data === "Success") {
+	       showSuccessAlert("Order Added");
+	       setTimeout(() => {
+	         window.location.reload();
+	       }, 500);
+	     } else if (data === "login") {
+	       showAlert("Please Login");
+	     } else {
+	       showAlert("Failed To Add Order");
+	     }
+	   })
+	   .catch((error) => {
+	     console.log("Error: " + error.message);
+	     showAlert("An error occurred: " + error.message);
+	   })
+	   .finally(() => {
+	     $("#loader").addClass("hide"); // Hide the loader after operation
+	   });
+
  }
  
 

@@ -1,3 +1,5 @@
+<%@page import="com.swiggy.dao.impl.OrderDAOImp"%>
+<%@page import="com.swiggy.dao.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,7 +9,14 @@
  <title>Payment Failed</title>
  <link rel="icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/imgs/icon.ico">
-    
+<%
+  if(request.getParameter("razorpayOrderId")!=null)
+  {
+	  OrderDAO orderDAO =  new OrderDAOImp();
+	  orderDAO.deleteOrdersByRazorPayId(request.getParameter("razorpayOrderId"));
+  }
+
+%>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <%@include file="/utils/CommonUtils.jsp"%>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

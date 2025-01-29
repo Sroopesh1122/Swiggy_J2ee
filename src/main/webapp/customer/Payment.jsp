@@ -107,8 +107,7 @@
         "modal": {
             "escape": true, // Allow closing via the Escape key
             "ondismiss": function() {
-                $("#cancelled-section").removeClass("hide");
-                $("#processing-section").addClass("hide");
+                window.location.href="<%=request.getContextPath()+"/customer/PaymentFailed.jsp?razorpayOrderId="+request.getAttribute("razorpay_order_id")%>"
             }
         }
     };
@@ -117,9 +116,7 @@
 
     // Handle payment failure
     rzp1.on('payment.failed', function (response) {
-        console.error(response.error);
-        $("#cancelled-section").removeClass("hide");
-        $("#processing-section").addClass("hide");
+    	window.location.href="<%=request.getContextPath()+"/customer/PaymentFailed.jsp?razorpayOrderId="+request.getAttribute("razorpay_order_id")%>"
     });
 
     // Open the Razorpay payment modal
